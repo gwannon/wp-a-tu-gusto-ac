@@ -1,0 +1,14 @@
+#wpatg {
+  max-width: 100%;
+}
+
+
+#wpatg ul:first-of-type {
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+}
+
+#wpatg ul:first-of-type li {
+  display: block;
+}
