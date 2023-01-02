@@ -16,7 +16,12 @@
  */
 
 
- ini_set("display_errors", 1);
+ini_set("display_errors", 1);
+
+function wpatg_load_scripts(){
+  wp_enqueue_script('jquery');
+}
+add_action('wp_enqueue_scripts', 'wpatg_load_scripts');
 
 /* ----------- Includes ------------ */
 include_once(plugin_dir_path(__FILE__).'inc/admin.php');
@@ -29,6 +34,8 @@ include_once(plugin_dir_path(__FILE__).'/classes/functions.php');
 /* ---------- Globals ---------------- */
 define('WPAT_AC_API_URL', get_option("_wpatg_api_url")); 
 define('WPATG_AC_API_KEY', get_option("_wpatg_api_key"));
+define('WPATG_AC_ENGAGEMENT_AUTOMATION', 105);
+define('WPATG_NEWLETTERS_FILTER', get_option("_wpatg_newsletter_filter"));
 
 /* -------------------- Cookies ------------------ */
 function wpatg_manage_cookie(){

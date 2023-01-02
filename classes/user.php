@@ -28,8 +28,8 @@ class UserAC {
       $this->apellidos = $response->lastName;
       $this->email = $response->email;
       $this->telefono = $response->phone;
-      //$this->fields = $this->getApiFields(); //Campos personalizados
-      //$this->tags = $this->getApiTags(); //Etiquetas
+      $this->fields = $this->getApiFields(); //Campos personalizados
+      $this->tags = $this->getApiTags(); //Etiquetas
     } else if ($createifnotexists && filter_var($id, FILTER_VALIDATE_EMAIL)) { //Si no existe y tenemos el email lo creamos
       $data['contact'] = [
         'email' => $id, 
@@ -102,13 +102,13 @@ class UserAC {
 
   //APIs calls --------------------------------
   function getApiTags() {
-    global $tags;
+    $tags = array_merge(getFields('langs'), getFields("interests"), getFields("companies"), getFields("newsletters"), getFields("notifications"));
     $usertags = curlCallGet("/contacts/".$this->id."/contactTags")->contactTags;
-    foreach ($tags as $tag_id) {
-      $currenttags[$tag_id] = false;
+    foreach ($tags as $tag) {
+      $currenttags[$tag['id']] = false;
       foreach ($usertags as $usertag) {
-        if ($tag_id == $usertag->tag) {
-          $currenttags[$tag_id] = $usertag->id;
+        if ($tag['id'] == $usertag->tag) {
+          $currenttags[$tag['id']] = $usertag->id;
           break;
         }
       }

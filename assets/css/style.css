@@ -1,14 +1,125 @@
 #wpatg {
-  max-width: 100%;
+  max-width: 800px;
 }
 
-
-#wpatg ul:first-of-type {
+#wpatg ul.menu {
   display: flex;
   margin: 0px;
   padding: 0px;
 }
 
-#wpatg ul:first-of-type li {
+#wpatg ul.menu li {
   display: block;
 }
+
+#wpatg form {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+#wpatg form > div {
+  padding: 5px 5px 20px 5px;
+  margin: 0px 0px 20px;
+  width: 100%;
+}
+
+#wpatg form > div:nth-child(even) {
+  border-bottom: 1px solid red;
+}
+
+#wpatg form > div:nth-child(odd) {
+  padding: 5px;
+  margin: 5px;
+}
+@media (min-width: 650px) {
+  #wpatg form > div:nth-child(odd) {
+    width: calc(25% - 10px);
+    border-bottom: 1px solid red;
+    padding: 5px 5px 20px 5px;
+    margin: 0px 0px 20px;
+  }
+
+  #wpatg form > div:nth-child(even) {
+    width: calc(75% - 10px);
+  }
+}
+
+#wpatg form select {
+  max-width: 100%;
+}
+
+#wpatg form > div:nth-child(odd) h2 {
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+  font-size: 22px;
+  line-height: 120%;
+  font-weight: 200;
+  text-transform: uppercase;
+} 
+
+#wpatg form > div:nth-child(odd) p {
+  margin: 0px;
+  padding: 0px 0px 5px 0px;
+  font-size: 14px;
+  line-height: 120%;
+  font-weight: 200;
+} 
+
+#wpatg form > div:last-child {
+  width: 100%;
+  border: none;
+  text-align: center;
+}
+
+
+/*#wpatg #newsletters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+  align-items: stretch;
+  gap: 20px;
+}
+
+#wpatg #newsletters > a {
+  display: block;
+  width: calc(100% - 20px);
+  background: #000 none no-repeat;
+  border: 1px solid #000;
+  font-weight: 600;
+  padding: 10px 20px 460px;
+  font-size: 16px;
+  color: #fff;
+  transition: background 0.3s;
+  margin: 0px 0px 5px 0px;
+  text-decoration: none;
+  position: relative;
+  box-sizing: border-box;
+}
+@media (min-width: 650px) {
+  #wpatg #newsletters > a { width: calc(50% - 20px); }
+}
+@media (min-width: 1200px) {
+  #wpatg #newsletters > a { width: calc(25% - 20px); }
+}
+#wpatg #newsletters > a:hover {
+  background-color: #333;
+  border-color: #333;
+  color: #fff !important
+}
+#wpatg #newsletters > a > span {
+  display: block;
+  background: #fff none no-repeat;
+  background-size: 100% auto;
+  height: 450px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 450px;
+  width: 100%;
+}*/
