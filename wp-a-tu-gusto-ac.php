@@ -36,6 +36,8 @@ define('WPAT_AC_API_URL', get_option("_wpatg_api_url"));
 define('WPATG_AC_API_KEY', get_option("_wpatg_api_key"));
 define('WPATG_AC_ENGAGEMENT_AUTOMATION', 105);
 define('WPATG_NEWLETTERS_FILTER', get_option("_wpatg_newsletter_filter"));
+define('WPATG_MAIN_NEWLETTER_ID', get_option("_wpatg_main_newsletter_id"));
+define('WPATG_LAST_UPDATE_FIELD_ID', 39);
 
 /* -------------------- Cookies ------------------ */
 function wpatg_manage_cookie(){

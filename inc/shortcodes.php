@@ -97,7 +97,13 @@ function wpatg_zone_edit_profile() {
     foreach($_REQUEST['my-data']['field'] as $field_id => $value) {
       $contact->setField($field_id, $value);
     }
+    $contact->setField(WPATG_LAST_UPDATE_FIELD_ID, date("Y/m/d")); //Actualziamos la fecha de la útlima automatización
     $contact->updateProfileAC();
+
+    //Si no está apuntado a la lista lo apuntamos
+    if(!$contact->hasList(WPATG_MAIN_NEWLETTER_ID)) $contact->setList(WPATG_MAIN_NEWLETTER_ID, 1);
+
+    //Idiomas
     foreach ($fomLangs as $lang) {
       if(isset($_REQUEST['my-data']['langs'][$lang['id']]) && $_REQUEST['my-data']['langs'][$lang['id']] == 'add' ) {
         if(!$contact->hasTag($lang['id'])) $contact->setTag($lang['id']);
@@ -176,9 +182,10 @@ function wpatg_zone_edit_profile() {
         <label><input type="checkbox" id="select-all-lang" /> <?php _e('Seleccionar/Deseleccionar ambos', 'wp-a-tu-gusto'); ?></label>
       </div>
     </div>
+
     <div>
-      <h2><?php _e("Intereses", "wp-a-tu-gusto"); ?></h2>
-      <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <h2><?php _e("Mis intereses", "wp-a-tu-gusto"); ?></h2>
+      <p><?php _e("Recibir solo aquello que es importante para ti. Ni más ni menos.", "wp-a-tu-gusto"); ?></p>
     </div>
     <div>
       <div>
@@ -186,45 +193,49 @@ function wpatg_zone_edit_profile() {
         <?php foreach ($formInterests as $tag ) { ?>
           <label><input type="checkbox" class="checkbox-tag-intereses" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
         <?php } ?>
-        <label style="width: calc(50% - 14px);"><input type="checkbox" id="select-all-intereses" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
+        <label><input type="checkbox" id="select-all-intereses" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
       </div>
       <div>
         <label><b><?php _e('¿Con cuál de nuestros <span>perfiles de empresa</span> te identificas?', 'wp-a-tu-gusto'); ?></b></label>
         <?php foreach ($formCompanies as $tag ) {  ?>
           <label><input type="checkbox" class="checkbox-tag-companies" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
         <?php } ?>
-        <label style="width: calc(50% - 14px);"><input type="checkbox" id="select-all-companies" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
+        <label><input type="checkbox" id="select-all-companies" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
       </div>
     </div>
 
 
 
     <div>
-      <h2><?php _e("Boletines", "wp-a-tu-gusto"); ?></h2>
-      <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <h2><?php _e("Newsletters", "wp-a-tu-gusto"); ?></h2>
+      <p><?php _e("Ideas clave y titulares que te avanzan los detalles en los que puedes profundizar.", "wp-a-tu-gusto"); ?></p>
+      <p><?php printf(__("<a href='%s' target='_blank'>Mira nuestros boletines anteriores</a>, querrás suscribirte.", "wp-a-tu-gusto"), get_the_permalink()."?wpatg_tab=archivo-boletines"); ?></p>
     </div>
     <div id="newsletters">
       <?php foreach ($formNewsletters as $field ) { ?>
         <div>
+          <img src="<?php echo $field['image']; ?>" alt="" />
           <label><input class="checkbox-boletines" type="checkbox" id="checkbox-<?php echo $field['field']; ?>" name="my-data[tags][<?php echo $field['id']; ?>]" value="add" <?=($contact->hasTag($field['id']) ? "checked" : "") ?> />
           <b><?php echo $field['text']; ?></b></label>
           <p><?php echo $field['description']; ?></p>
         </div>
       <?php } ?>
-      <p>Mira nuestros boletines anteriores, querrás suscribirte. <a href="https://www.spri.eus/es/boletin/archivo/" target="_blank">Click aquí</a></p>
+      
     </div>
 
     <div>
-      <h2><?php _e("Notificaciones", "wp-a-tu-gusto"); ?></h2>
-      <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <h2><?php _e("Otras notificaciones", "wp-a-tu-gusto"); ?></h2>
+      <p><?php _e("Recibir de manera independiente las alertas informativas con información especializada.", "wp-a-tu-gusto"); ?></p>
     </div>
-    <div>
+    <div id="notifications">
       <div>
         <label><b><?php _e('¿Quieres recibir notificaciones especiales de alguno de estos tipos?', 'wp-a-tu-gusto'); ?></b></label>
-        <?php foreach ($formNotifications as $tag ) { ?>
-          <label><input type="checkbox" class="checkbox-tag-notifications" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
-        <?php } ?>
-        <label style="width: calc(50% - 14px);"><input type="checkbox" id="select-all-notifications" /> <?php _e('Me interesan las comunicaciones de todos estos tipos.', 'wp-a-tu-gusto'); ?></label>
+        <div>
+          <?php foreach ($formNotifications as $tag ) { ?>
+            <label><input type="checkbox" class="checkbox-tag-notifications" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
+          <?php } ?>
+          <label><input type="checkbox" id="select-all-notifications" /> <?php _e('Me interesan las comunicaciones de todos estos tipos.', 'wp-a-tu-gusto'); ?></label>
+        </div>
       </div>
     </div>
     <div>
@@ -314,7 +325,7 @@ function wptag_zone_my_data_draw_field($field, $contact) { ?>
 
 function wpatg_zone_archive() { ?>
   <h2><?php _e("Archivo de boletines", "wp-a-tu-gusto"); ?></h2>
-  <div id="newsletters">
+  <div id="archive">
     <?php
       $items = array();
       $json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=0&limit=100");
@@ -325,223 +336,10 @@ function wpatg_zone_archive() { ?>
           if(preg_match("/".$code."/", $campaign->name)) {
             //unset ($codes[$key]);
             $message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage));
-            echo "<a href='".(parse_url(get_the_permalink(), PHP_URL_QUERY) ? '&' : '?') . "preview_newsletter=". md5($campaign->name). "'>".$message->campaignMessage->subject."<span style='background-image: url(".$message->campaignMessage->screenshot.");'></span></a>";
+            echo "<a href='".(parse_url(get_the_permalink(), PHP_URL_QUERY) ? '&' : '?') . "preview_newsletter=". md5($campaign->name). "'>".$message->campaignMessage->subject."<span style='background-image: url(".$message->campaignMessage->screenshot.");'></span></a><br/>";
             break;
           }
         }
       } ?>
   </div>
 <?php }
-
-/* function wpatg_zone_my_data() {
-  $contact = getLoggedUser();
-  $formData = getFields(); 
-  $formFields = getFields("fields");
-  $fomLangs = getFields("langs"); ?>
-  <h2><?php _e("Mis datos", "wp-a-tu-gusto"); ?></h2>
-  <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  <?php if(isset($_REQUEST['wpatg_save_my_data'])){
-    $contact->setNombre($_REQUEST['my-data']['data']['nombre']);
-    $contact->setApellidos($_REQUEST['my-data']['data']['apellidos']);
-    $contact->setTelefono($_REQUEST['my-data']['data']['telefono']);
-    foreach($_REQUEST['my-data']['field'] as $field_id => $value) {
-      $contact->setField($field_id, $value);
-    }
-    $contact->updateProfileAC();
-    foreach ($fomLangs as $lang) {
-      if(isset($_REQUEST['my-data']['langs'][$lang['id']]) && $_REQUEST['my-data']['langs'][$lang['id']] == 'add' ) {
-        if(!$contact->hasTag($lang['id'])) $contact->setTag($lang['id']);
-      } else {
-        if($contact->hasTag($lang['id'])) $contact->deleteTag($lang['id']);
-      }
-    }
-    echo "<p style='color: green; border: 1px solid green; text-align: center;'>".__('DATOS ACTUALIZADOS', 'wp-a-tu-gusto')."</p>";
-  } ?>
-  <form id="wpatg_form_my_data" method="post" action="<?php echo get_the_permalink()."?wpatg_tab=mis-datos"; ?>">
-    <label><b><?php _e('Email', 'wp-a-tu-gusto'); ?></b><br/><?php echo $contact->email; ?></label>
-    <?php foreach ($formFields as $id => $field ) { if($field['position'] == 'pre') { ?>
-      <?php wptag_zone_my_data_draw_field($field, $contact); ?>
-    <?php } } ?>
-    <?php foreach ($formData as $label => $input ) { ?>
-      <label><b><?php echo $input['name']; ?><?php echo ($input['required'] ? "*" : ""); ?></b><br/>
-        <input type="<?php echo ($input['type'] != '' ? $input['type'] : "text"); ?>" name="my-data[data][<?php echo $label; ?>]" value="<?php echo $contact->{$label}; ?>" placeholder="<?php echo $input['name']; ?>" oninvalid="onError();"<?php echo ($input['required'] ? " required" : ""); ?> <?php echo ($input['pattern'] ? " pattern='".$input['pattern']."'" : ""); ?> />
-      </label>
-    <?php } ?>
-    <?php foreach ($formFields as $id => $field ) { if($field['position'] == 'post') { ?>
-      <?php wptag_zone_my_data_draw_field($field, $contact); ?>
-    <?php } } ?>
-    <div>
-      <label><b><?php _e('¿En qué <span>idioma</span> quieres recibirnos?', 'wp-a-tu-gusto'); ?></b></label>
-      <?php foreach ($fomLangs as $lang) { ?>
-        <label><input type="checkbox" class="checkbox-lang" id="checkbox-lang-<?php echo $lang['id']; ?>" name="my-data[langs][<?php echo $lang['id']; ?>]" value="add" <?php echo ($contact->hasTag($lang['id']) == true ? "checked" : "") ?> /> <?php echo $lang['text']; ?></label>
-      <?php } ?>
-      <label><input type="checkbox" id="select-all-lang" /> <?php _e('Seleccionar/Deseleccionar ambos', 'wp-a-tu-gusto'); ?></label>
-    </div>
-    <button type="submit" name="wpatg_save_my_data"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
-  </form>
-  <script>
-    jQuery(document).ready(function() {
-      if(jQuery('.checkbox-lang:checked').length == jQuery('.checkbox-lang').length) {
-        jQuery("#select-all-lang").prop('checked', true);
-      }
-      jQuery("#select-all-lang").change(function() {
-        jQuery(".checkbox-lang").prop('checked', jQuery(this).is(':checked'));
-      });
-    });
-  </script>
-<?php } */
-
-/*function wpatg_zone_my_interests() {
-  $contact = getLoggedUser();
-  $formInterests = getFields("interests");
-  $formCompanies = getFields("companies"); ?>
-  <h2><?php _e("Intereses", "wp-a-tu-gusto"); ?></h2>
-  <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  <?php if(isset($_REQUEST['wpatg_save_my_interests'])){
-    foreach ($formInterests as $tag) {
-      if(isset($_REQUEST['my-data']['tags'][$tag['id']]) && $_REQUEST['my-data']['tags'][$tag['id']] == 'add' ) {
-        if(!$contact->hasTag($tag['id'])) {
-          $contact->setTag($tag['id']);
-          $contact->executeAutomation ($tag['automup']);
-        }
-      } else {
-        if($contact->hasTag($tag['id'])) {
-          $contact->deleteTag($tag['id']);
-          $contact->executeAutomation ($tag['automdown']);
-        }
-      }
-    }
-
-    foreach ($formCompanies as $tag) {
-      if(isset($_REQUEST['my-data']['tags'][$tag['id']]) && $_REQUEST['my-data']['tags'][$tag['id']] == 'add' ) {
-        if(!$contact->hasTag($tag['id'])) $contact->setTag($tag['id']);
-      } else {
-        if($contact->hasTag($tag['id'])) $contact->deleteTag($tag['id']);
-      }
-    }
-    echo "<p style='color: green; border: 1px solid green; text-align: center;'>".__('DATOS ACTUALIZADOS', 'wp-a-tu-gusto')."</p>";
-  } ?>
-  <form method="post" action="<?php echo get_the_permalink()."?wpatg_tab=intereses"; ?>">
-    <div>
-      <label><b><?php _e('¿Alguna prioridad respecto a la <span>temática</span>?', 'wp-a-tu-gusto'); ?></b></label>
-      <?php foreach ($formInterests as $tag ) { ?>
-        <label><input type="checkbox" class="checkbox-tag-intereses" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
-      <?php } ?>
-      <label style="width: calc(50% - 14px);"><input type="checkbox" id="select-all-intereses" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
-    </div>
-    <div>
-      <label><b><?php _e('¿Con cuál de nuestros <span>perfiles de empresa</span> te identificas?', 'wp-a-tu-gusto'); ?></b></label>
-      <?php foreach ($formCompanies as $tag ) {  ?>
-        <label><input type="checkbox" class="checkbox-tag-companies" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
-      <?php } ?>
-      <label style="width: calc(50% - 14px);"><input type="checkbox" id="select-all-companies" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
-    </div>
-    <button type="submit" name="wpatg_save_my_interests"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
-  </form>
-  <script>
-    jQuery(document).ready(function() {
-      if(jQuery('.checkbox-tag-intereses:checked').length == jQuery('.checkbox-tag-intereses').length) {
-        jQuery("#select-all-intereses").prop('checked', true);
-      }
-      jQuery(".checkbox-tag-intereses").change(function() {
-        if(jQuery('.checkbox-tag-intereses:checked').length == jQuery('.checkbox-tag-intereses').length) {
-          jQuery("#select-all-intereses").prop('checked', true);
-        } else {
-          jQuery("#select-all-intereses").prop('checked', false);
-        }
-      });
-      jQuery("#select-all-intereses").change(function() {
-        jQuery(".checkbox-tag-intereses").prop('checked', jQuery(this).is(':checked'));
-      });
-
-      if(jQuery('.checkbox-tag-companies:checked').length == jQuery('.checkbox-tag-companies').length) {
-        jQuery("#select-all-companies").prop('checked', true);
-      }
-      jQuery(".checkbox-tag-companies").change(function() {
-        if(jQuery('.checkbox-tag-companies:checked').length == jQuery('.checkbox-tag-companies').length) {
-          jQuery("#select-all-companies").prop('checked', true);
-        } else {
-          jQuery("#select-all-companies").prop('checked', false);
-        }
-      });
-      jQuery("#select-all-companies").change(function() {
-        jQuery(".checkbox-tag-companies").prop('checked', jQuery(this).is(':checked'));
-      });
-    });
-  </script>
-<?php }*/
-
-/*function wpatg_zone_newsletters() {
-  $contact = getLoggedUser();
-  $formNewsletters = getFields("newsletters"); ?>
-  <h2><?php _e("Boletines", "wp-a-tu-gusto"); ?></h2>
-  <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  <?php if(isset($_REQUEST['wpatg_save_newsletters'])){
-    foreach ($formNewsletters as $tag) {
-      if(isset($_REQUEST['my-data']['tags'][$tag['id']]) && $_REQUEST['my-data']['tags'][$tag['id']] == 'add' ) {
-        if(!$contact->hasTag($tag['id'])) $contact->setTag($tag['id']);
-        $contact->executeAutomation ($tag['automup']);
-      } else {
-        if($contact->hasTag($tag['id'])) $contact->deleteTag($tag['id']);
-        $contact->executeAutomation ($tag['automdown']);
-      }
-    }
-    echo "<p style='color: green; border: 1px solid green; text-align: center;'>".__('DATOS ACTUALIZADOS', 'wp-a-tu-gusto')."</p>";
-  } ?>
-  <form method="post" action="<?php echo get_the_permalink()."?wpatg_tab=boletines"; ?>">
-    <?php foreach ($formNewsletters as $field ) { ?>
-      <div>
-        <label><input class="checkbox-boletines" type="checkbox" id="checkbox-<?php echo $field['field']; ?>" name="my-data[tags][<?php echo $field['id']; ?>]" value="add" <?=($contact->hasTag($field['id']) ? "checked" : "") ?> />
-        <b><?php echo $field['text']; ?></b></label>
-        <p><?php echo $field['description']; ?></p>
-      </div>
-    <?php } ?>
-    <p>Mira nuestros boletines anteriores, querrás suscribirte. <a href="https://www.spri.eus/es/boletin/archivo/" target="_blank">Click aquí</a></p>
-    <button type="submit" name="wpatg_save_newsletters"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
-  </form>
-
-<?php }*/
-
-/*function wpatg_zone_notifications() {
-  $contact = getLoggedUser();
-  $formNotifications = getFields("notifications"); ?>
-  <h2><?php _e("Notificaciones", "wp-a-tu-gusto"); ?></h2>
-  <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  <?php if(isset($_REQUEST['wpatg_save_notifications'])) {
-    foreach ($formNotifications as $tag) {
-      if(isset($_REQUEST['my-data']['tags'][$tag['id']]) && $_REQUEST['my-data']['tags'][$tag['id']] == 'add' ) {
-        if(!$contact->hasTag($tag['id'])) $contact->setTag($tag['id']);
-      } else {
-        if($contact->hasTag($tag['id'])) $contact->deleteTag($tag['id']);
-      }
-    }
-    echo "<p style='color: green; border: 1px solid green; text-align: center;'>".__('DATOS ACTUALIZADOS', 'wp-a-tu-gusto')."</p>";
-  } ?>
-  <form method="post" action="<?php echo get_the_permalink()."?wpatg_tab=notificaciones"; ?>">
-    <div>
-      <label><b><?php _e('¿Quieres recibir notificaciones especiales de alguno de estos tipos?', 'wp-a-tu-gusto'); ?></b></label>
-      <?php foreach ($formNotifications as $tag ) { ?>
-        <label><input type="checkbox" class="checkbox-tag-notifications" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
-      <?php } ?>
-      <label style="width: calc(50% - 14px);"><input type="checkbox" id="select-all-notifications" /> <?php _e('Me interesan las comunicaciones de todos estos tipos.', 'wp-a-tu-gusto'); ?></label>
-    </div>
-    <button type="submit" name="wpatg_save_notifications"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
-  </form>
-  <script>
-    jQuery(document).ready(function() {
-      if(jQuery('.checkbox-tag-notifications:checked').length == jQuery('.checkbox-tag-notifications').length) {
-        jQuery("#select-all-notifications").prop('checked', true);
-      }
-      jQuery(".checkbox-tag-notifications").change(function() {
-        if(jQuery('.checkbox-tag-notifications:checked').length == jQuery('.checkbox-tag-notifications').length) {
-          jQuery("#select-all-notifications").prop('checked', true);
-        } else {
-          jQuery("#select-all-notifications").prop('checked', false);
-        }
-      });
-      jQuery("#select-all-notifications").change(function() {
-        jQuery(".checkbox-tag-notifications").prop('checked', jQuery(this).is(':checked'));
-      });
-    });
-  </script>
-<?php }*/

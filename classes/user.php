@@ -10,6 +10,7 @@ class UserAC {
   public $telefono;
   public $fields;
   public $tags;
+  public $lists;
 
   public function __construct($id, $createifnotexists = false) {
     $response = false;
@@ -30,6 +31,7 @@ class UserAC {
       $this->telefono = $response->phone;
       $this->fields = $this->getApiFields(); //Campos personalizados
       $this->tags = $this->getApiTags(); //Etiquetas
+      $this->lists = $this->getApiLists(); //Listas
     } else if ($createifnotexists && filter_var($id, FILTER_VALIDATE_EMAIL)) { //Si no existe y tenemos el email lo creamos
       $data['contact'] = [
         'email' => $id, 
@@ -58,6 +60,16 @@ class UserAC {
     $this->tags[$tag_id] = $response->contactTag->id;
   } 
 
+  function setList($list_id, $status = 1) {
+    $data['contactList'] = [
+      "contact" => $this->id,
+      "list"     => $list_id,
+      "status" => $status  // Status: Set to "1" to subscribe the contact to the list. Set to "2" to unsubscribe the contact from the list.  
+    ];
+    $response = curlCallPost("/contactLists", json_encode($data)); 
+    $this->lists[$list_id] = $response->contactList->status;
+  } 
+
   //EXECUTE
   function executeAutomation ($automation_id) {
     $data['contactAutomation'] = [
@@ -74,6 +86,11 @@ class UserAC {
     else return false;
   }
 
+  function hasList($list_id) {
+    if(isset($this->lists[$list_id]) && $this->lists[$list_id] == 1) return true;
+    else return false;
+  }
+
   //DELETE --------------------------------
   function deleteTag($tag_id) { 
     $response = curlCallDelete("/contactTags/".$this->tags[$tag_id]);
@@ -83,6 +100,7 @@ class UserAC {
 	//UPDATEs --------------------------------
 	function updateProfileAC() {
     $userFields = getFields('fields');
+    if(WPATG_LAST_UPDATE_FIELD_ID > 0) $userFields[] =array ("id" => WPATG_LAST_UPDATE_FIELD_ID);
     foreach ($userFields as $field) {
       $myfields[] = [
         "field" => $field['id'],
@@ -119,6 +137,7 @@ class UserAC {
   function getApiFields() {
     $userFields = getFields('fields');
     $userfields = curlCallGet("/contacts/".$this->id."/fieldValues")->fieldValues;
+    $currentfields = [];
     foreach ($userFields as $field) {
       $currentfields[$field['id']] = false;
       foreach ($userfields as $userfield) {
@@ -129,6 +148,24 @@ class UserAC {
       }
     }
     return $currentfields;
+  }
+
+  function getApiLists() {
+    $lists = [WPATG_MAIN_NEWLETTER_ID];
+    $userlists = curlCallGet("/contacts/".$this->id."/contactLists")->contactLists;
+    $currentlists = [];
+    if(count($userlists) > 0){
+      foreach ($lists as $list_id) {
+        $currentlists[$list_id] = false;
+        foreach ($userlists as $userlist) {
+        if ($list_id == $userlist->list) {
+            $currentlists[$list_id] = $userlist->status;
+            break;
+          }
+        }
+      }
+    }
+    return $currentlists;
   }
 }
 

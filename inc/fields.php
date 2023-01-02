@@ -8,10 +8,10 @@ function getFields($label = '') {
   );
 
   if ($label == 'newsletters') return array( 
-    array("id" => 19, "automup" => 17, "automdown" => 215, "text" => __('Mi boletín semanal de Grupo SPRI', 'wp-a-tu-gusto'), "description" => __("Lo mejor de la semana: entrevistas, noticias, ayudas, agenda, formación y tendencias sobre ciberseguridad, digitalización, nuevos modelos de gestión avanzada, internacionalización, emprendimiento, infraestructuras.", 'wp-a-tu-gusto')),
-    array("id" => 21, "automup" => 18, "automdown" => 216, "text" => __('Mi boletín semanal de Adi! Agenda', 'wp-a-tu-gusto'), "description" => __("Si formas parte de la Nueva red de Statups de Euskadi, quieres invertir o arrancas ahora tu proyecto innovador, aquí te contamos toda lo que se mueve sobre emprendimiento.", 'wp-a-tu-gusto')),
-    array("id" => 20, "automup" => 19, "automdown" => 217, "text" => __('Mi boletín mensual UP! Euskadi', 'wp-a-tu-gusto'), "description" => __("Una vez al mes la información sobre la red de Startups vascas y sus últimas innovaciones.", 'wp-a-tu-gusto')),
-    array("id" => 80, "automup" => 46, "automdown" => 214, "text" => __('Mi boletín semanal Oferta y demanda tecnológica.', 'wp-a-tu-gusto'), "description" => __("Cada semana las oportunidades del mercado en materia de transferencia tecnológica internacional.", 'wp-a-tu-gusto')),
+    array("id" => 19, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 17, "automdown" => 215, "text" => __('Mi boletín semanal de Grupo SPRI', 'wp-a-tu-gusto'), "description" => __("Lo mejor de la semana: entrevistas, noticias, ayudas, agenda, formación y tendencias sobre ciberseguridad, digitalización, nuevos modelos de gestión avanzada, internacionalización, emprendimiento, infraestructuras.", 'wp-a-tu-gusto')),
+    array("id" => 21, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 18, "automdown" => 216, "text" => __('Mi boletín semanal de Adi! Agenda', 'wp-a-tu-gusto'), "description" => __("Si formas parte de la Nueva red de Statups de Euskadi, quieres invertir o arrancas ahora tu proyecto innovador, aquí te contamos toda lo que se mueve sobre emprendimiento.", 'wp-a-tu-gusto')),
+    array("id" => 20, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 19, "automdown" => 217, "text" => __('Mi boletín mensual UP! Euskadi', 'wp-a-tu-gusto'), "description" => __("Una vez al mes la información sobre la red de Startups vascas y sus últimas innovaciones.", 'wp-a-tu-gusto')),
+    array("id" => 80, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 46, "automdown" => 214, "text" => __('Mi boletín semanal Oferta y demanda tecnológica.', 'wp-a-tu-gusto'), "description" => __("Cada semana las oportunidades del mercado en materia de transferencia tecnológica internacional.", 'wp-a-tu-gusto')),
   ); 
 
   //Intereses
@@ -45,9 +45,9 @@ function getFields($label = '') {
 
   //Notificaciones
   if ($label == 'notifications') return array (
+    array("id" => 282, "tag" => "notificar-ayudas", "text" => __('Ayudas', 'wp-a-tu-gusto')),    
     array("id" => 280, "tag" => "notificar-eventos", "text" => __('Eventos', 'wp-a-tu-gusto')),
-    array("id" => 281, "tag" => "notificar-documentacion", "text" => __('Documentos', 'wp-a-tu-gusto')),
-    array("id" => 282, "tag" => "notificar-encuestas", "text" => __('Encuestas', 'wp-a-tu-gusto')),    
+    array("id" => 281, "tag" => "notificar-documentacion", "text" => __('Informes de mercados y sectores', 'wp-a-tu-gusto')),
   );
 
   //Campos de datos personales

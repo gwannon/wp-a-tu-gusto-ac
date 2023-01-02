@@ -45,6 +45,12 @@
 
   #wpatg form > div:nth-child(even) {
     width: calc(75% - 10px);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 10px;
   }
 }
 
@@ -63,7 +69,7 @@
 
 #wpatg form > div:nth-child(odd) p {
   margin: 0px;
-  padding: 0px 0px 5px 0px;
+  padding: 0px 0px 10px 0px;
   font-size: 14px;
   line-height: 120%;
   font-weight: 200;
@@ -75,8 +81,62 @@
   text-align: center;
 }
 
+@media (min-width: 650px) {
+  #wpatg form > div:nth-child(even) > * {
+    width: calc(50% - 10px);
+  }
+}
 
-/*#wpatg #newsletters {
+#wpatg #newsletters img {
+  width: 100%;
+  margin: 0px 0px 10px 0px;
+}
+
+#wpatg #newsletters label {
+  margin: 0px;
+  padding: 0px 0px 10px 20px;
+  font-size: 14px;
+  line-height: 120%;
+  font-weight: 200;
+}
+
+#wpatg #newsletters label input[type=checkbox] {
+  margin-left: -20px;
+}
+
+#wpatg #newsletters p {
+  margin: 0px;
+  padding: 0px 0px 30px 20px;
+  font-size: 14px;
+  line-height: 120%;
+  font-weight: 200;
+}
+
+#wpatg #notifications > div {
+  width: 100%;
+}
+
+@media (min-width: 650px) {
+  #wpatg #notifications > div > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  #wpatg #notifications > div > div > label {
+    width: calc(50% - 10px);
+  }
+}
+
+
+
+
+
+
+#wpatg #archive {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -86,7 +146,7 @@
   gap: 20px;
 }
 
-#wpatg #newsletters > a {
+#wpatg #archive > a {
   display: block;
   width: calc(100% - 20px);
   background: #000 none no-repeat;
@@ -102,17 +162,17 @@
   box-sizing: border-box;
 }
 @media (min-width: 650px) {
-  #wpatg #newsletters > a { width: calc(50% - 20px); }
+  #wpatg #archive > a { width: calc(50% - 20px); }
 }
 @media (min-width: 1200px) {
-  #wpatg #newsletters > a { width: calc(25% - 20px); }
+  #wpatg #archive > a { width: calc(25% - 20px); }
 }
-#wpatg #newsletters > a:hover {
+#wpatg #archive > a:hover {
   background-color: #333;
   border-color: #333;
   color: #fff !important
 }
-#wpatg #newsletters > a > span {
+#wpatg #archive > a > span {
   display: block;
   background: #fff none no-repeat;
   background-size: 100% auto;
@@ -122,4 +182,4 @@
   left: 0px;
   height: 450px;
   width: 100%;
-}*/
+}
