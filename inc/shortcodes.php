@@ -52,19 +52,15 @@ function wpatg_zone($params = array(), $content = null) {
     <?php if(isset($_REQUEST['wpatg_tab'])) { 
       if($_REQUEST['wpatg_tab'] == 'editar-perfil') {
         wpatg_zone_edit_profile();
-      }
-      //else if($_REQUEST['wpatg_tab'] == 'mis-datos') wpatg_zone_my_data ();
-      //else if($_REQUEST['wpatg_tab'] == 'notificaciones') wpatg_zone_notifications();
-      else if($_REQUEST['wpatg_tab'] == 'mis-noticias') { ?>
+      } else if($_REQUEST['wpatg_tab'] == 'mis-noticias') { ?>
         <h2><?php _e("Mis noticias", "wp-a-tu-gusto"); ?></h2>
         <p>Fase 3</p>
-      <?php } //else if($_REQUEST['wpatg_tab'] == 'boletines') wpatg_zone_newsletters();
-        //else if($_REQUEST['wpatg_tab'] == 'intereses') wpatg_zone_my_interests();
-        else if($_REQUEST['wpatg_tab'] == 'archivo-boletines') wpatg_zone_archive();
+      <?php } else if($_REQUEST['wpatg_tab'] == 'archivo-boletines') wpatg_zone_archive();
       } else { ?>
-        <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <h2>Porcentaje de perfíl relleno</h2>
-        <p>Fase 2</p>
+      	<h2><?php _e("Solo te contamos cosas que te interesan", "wp-a-tu-gusto"); ?></h2>
+        <p><?php _e("Te vamos a contar el día a día de la empresa. Para que en pocos segundos tengas una visión de la actualidad. De hacia dónde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, coger ideas de la competencia o aprender de los éxitos y fracasos… porque eso, también te lo contamos.", "wp-a-tu-gusto"); ?></p>
+        <p><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias, Spricomunica adquiere el compromiso de informar solo lo que tú lo pides y cómo tú lo pides.", "wp-a-tu-gusto"); ?></p>
+        <?php wpatg_gamification(); ?>
         <h2>Banners</h2>
         <p>Fase 2</p>
     <?php } ?>
@@ -159,7 +155,7 @@ function wpatg_zone_edit_profile() {
   <form id="wpatg_form_my_data" method="post" action="<?php echo get_the_permalink()."?wpatg_tab=editar-perfil"; ?>">
     <div>
       <h2><?php _e("Mis datos", "wp-a-tu-gusto"); ?></h2>
-      <p>EXPLICACIÓN DE QUÉ ES ESTO. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      
     </div>
     <div>
       <label><b><?php _e('Email', 'wp-a-tu-gusto'); ?></b><br/><?php echo $contact->email; ?></label>
@@ -184,25 +180,28 @@ function wpatg_zone_edit_profile() {
     </div>
 
     <div>
+      <h2><?php _e("¿Con cual de estos perfiles de empresa te identificas?", "wp-a-tu-gusto"); ?></h2>
+      <p><?php _e("Cuéntanos más sobre ti para poder acercarte las ayudas, eventos y servicios de los que te puedes beneficiar.", "wp-a-tu-gusto"); ?></p>
+    </div>
+    <div id="companies">
+      <?php foreach ($formCompanies as $tag ) {  ?>
+        <label><input type="checkbox" class="checkbox-tag-companies" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
+      <?php } ?>
+      <label><input type="checkbox" id="select-all-companies" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
+    </div>
+
+    <div>
       <h2><?php _e("Mis intereses", "wp-a-tu-gusto"); ?></h2>
       <p><?php _e("Recibir solo aquello que es importante para ti. Ni más ni menos.", "wp-a-tu-gusto"); ?></p>
     </div>
-    <div>
-      <div>
-        <label><b><?php _e('¿Alguna prioridad respecto a la <span>temática</span>?', 'wp-a-tu-gusto'); ?></b></label>
-        <?php foreach ($formInterests as $tag ) { ?>
-          <label><input type="checkbox" class="checkbox-tag-intereses" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
-        <?php } ?>
-        <label><input type="checkbox" id="select-all-intereses" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
-      </div>
-      <div>
-        <label><b><?php _e('¿Con cuál de nuestros <span>perfiles de empresa</span> te identificas?', 'wp-a-tu-gusto'); ?></b></label>
-        <?php foreach ($formCompanies as $tag ) {  ?>
-          <label><input type="checkbox" class="checkbox-tag-companies" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
-        <?php } ?>
-        <label><input type="checkbox" id="select-all-companies" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
-      </div>
+    <div id="interests">
+      <?php foreach ($formInterests as $tag ) { ?>
+        <label><input type="checkbox" class="checkbox-tag-intereses" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
+      <?php } ?>
+      <label><input type="checkbox" id="select-all-intereses" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
     </div>
+
+
 
 
 
@@ -341,5 +340,105 @@ function wpatg_zone_archive() { ?>
           }
         }
       } ?>
+  </div>
+<?php }
+
+function wpatg_gamification() { 
+  $contact = getLoggedUser(); 
+  $total = 0;
+  $completed = []; 
+  $uncompleted = [
+    "basicprofile" => [
+      "percent" => 10,
+      "completedtext" => __("Has rellenado los datos básicos de tu perfil.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("No has rellenado los datos básicos de tu perfil.", "wp-a-tu-gusto")],
+    "advancedprofile" => [
+        "percent" => 10,
+        "completedtext" => __("Has rellenado todos los datos de tu perfil.", "wp-a-tu-gusto"),
+        "uncompletedtext" => __("No has rellenado todos los datos de tu perfil.", "wp-a-tu-gusto")],
+    "lastupdate" => [
+      "percent" => 10,
+      "completedtext" => __("Has actualizado tu perfíl hace poco.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("Hace mucho tiempo desde la última vez que actualizaste tu perfil.", "wp-a-tu-gusto")],
+    "langs" => [
+      "percent" => 14,
+      "completedtext" => __("Has especificado el idioma donde quieres tu comunicación.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("No has especificado el idioma donde quieres tu comunicación.", "wp-a-tu-gusto")],
+    "interests" => [
+      "percent" => 14,
+      "completedtext" => __("Has especificado tus intereses.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("No has especificado tus intereses.", "wp-a-tu-gusto")],
+    "companies" => [
+      "percent" => 14,
+      "completedtext" => __("Has especificado tus perfiles de empresa.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("No has especificado tus perfiles de empresa.", "wp-a-tu-gusto")],
+    "newsletters" => [
+      "percent" => 14,
+      "completedtext" => __("Estás suscrito a nuestras newsletters.", "wp-a-tu-gusto"), 
+      "uncompletedtext" => __("No estás suscrito a ninguna de nuestras newsletters.", "wp-a-tu-gusto")],
+    "notifications" => [
+      "percent" => 14,
+      "completedtext" => __("Estás suscrito a nuestras notificaciones especiales.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("No estás suscrito a ninguna notificación especial.", "wp-a-tu-gusto")],
+  ]; ?>
+  <h2><?php _e("Calidad de tu perfil", "wp-a-tu-gusto"); ?></h2>
+  <?php 
+  if($contact->nombre != '' && $contact->apellidos != '' && $contact->fields[7] != '') {
+    $completed['basicprofile'] = $uncompleted['basicprofile'];
+    unset($uncompleted['basicprofile']);
+    $total = $total +  $completed['basicprofile']['percent'];
+  }
+
+  if($contact->telefono != '' && $contact->fields[10] != '' && $contact->fields[40] != '' && $contact->fields[41] != '' && $contact->fields[42] != '' && $contact->fields[43] != '' && $contact->fields[44] != '') {
+    $completed['advancedprofile'] = $uncompleted['advancedprofile'];
+    unset($uncompleted['advancedprofile']);
+    $total = $total +  $completed['advancedprofile']['percent'];
+  }
+
+  if((strtotime("now") - strtotime($contact->fields[WPATG_LAST_UPDATE_FIELD_ID])) < (60*60*24*30)) { //Si hace menos de un mes de la ultima actualziación del perfil 
+    $completed['lastupdate'] = $uncompleted['lastupdate'];
+    unset($uncompleted['lastupdate']);
+    $total = $total +  $completed['lastupdate']['lastupdate'];
+  }
+
+
+  foreach (array("langs", "interests", "companies", "newsletters", "notifications") as $label) {
+    foreach (getFields($label) as $tag) {
+      if($contact->hasTag($tag['id'])) {
+        $completed[$label] = $uncompleted[$label];
+        unset($uncompleted[$label]);
+        $total = $total +  $completed[$label]['percent'];
+        break;
+      }
+    }
+  } ?>
+  <div class="chartbar" style="--percent: <?=$total;?>%;"><?php printf(__("Rellenado al<span>%s&#37;</span>", "wp-a-tu-gusto"), $total);?></div>
+  <div id="tasks">
+    <div class="advise">
+      <?php if($total == 100) _e("<span>Enhorabuena, tienes un perfil perfecto.</span>", "wp-a-tu-gusto");
+        else if($total >= 75) _e("<span>Tu perfil es muy bueno,</span> pero con un poco de trabajo sería perfecto.", "wp-a-tu-gusto");
+        else if($total >= 50) _e("<span>El perfil es bueno.</span> Trata de mejorarlo para conseguir la máxima puntuación.", "wp-a-tu-gusto");
+        else if($total >= 25) _e("<span>Dedícale un poco de tiempo a tu perfil</span> y veras como nuestras comunicaciones contigo mejoran.", "wp-a-tu-gusto");
+        else if($total >= 0) _e("<span>Tu perfil necesita muchisimo trabajo,</span> pero te prometemos que si le dedicas tiempo veras como nuestras comunicaciones contigo mejoran mucho ofreciendote los temas que realmente te interesan.", "wp-a-tu-gusto"); ?>
+    </div>
+    <?php if(count($completed) > 0) { ?>
+      <div id="completed">
+        <ul>
+        <?php foreach($completed as $item) { ?>
+          <li><?=$item['completedtext'];?></li>
+        <?php } ?>
+        </ul>
+      </div>
+    <?php } ?>
+    <?php if(count($uncompleted) > 0) { ?>
+      <div id="uncompleted">
+        <ul>
+        <?php foreach($uncompleted as $item) { ?>
+          <li><?=$item['uncompletedtext'];?></li>
+        <?php } ?>
+        </ul>
+      </div>
+    <?php } ?>
+    
   </div>
 <?php }

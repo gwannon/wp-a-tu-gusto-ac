@@ -136,6 +136,7 @@ class UserAC {
 
   function getApiFields() {
     $userFields = getFields('fields');
+    $userFields[] = ["id" => WPATG_LAST_UPDATE_FIELD_ID];
     $userfields = curlCallGet("/contacts/".$this->id."/fieldValues")->fieldValues;
     $currentfields = [];
     foreach ($userFields as $field) {
