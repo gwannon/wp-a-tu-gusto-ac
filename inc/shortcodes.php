@@ -353,9 +353,9 @@ function wpatg_gamification() {
       "completedtext" => __("Has rellenado los datos básicos de tu perfil.", "wp-a-tu-gusto"),
       "uncompletedtext" => __("No has rellenado los datos básicos de tu perfil.", "wp-a-tu-gusto")],
     "advancedprofile" => [
-        "percent" => 10,
-        "completedtext" => __("Has rellenado todos los datos de tu perfil.", "wp-a-tu-gusto"),
-        "uncompletedtext" => __("No has rellenado todos los datos de tu perfil.", "wp-a-tu-gusto")],
+      "percent" => 10,
+      "completedtext" => __("Has rellenado todos los datos de tu perfil.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("No has rellenado todos los datos de tu perfil.", "wp-a-tu-gusto")],
     "lastupdate" => [
       "percent" => 10,
       "completedtext" => __("Has actualizado tu perfíl hace poco.", "wp-a-tu-gusto"),
@@ -398,9 +398,8 @@ function wpatg_gamification() {
   if((strtotime("now") - strtotime($contact->fields[WPATG_LAST_UPDATE_FIELD_ID])) < (60*60*24*30)) { //Si hace menos de un mes de la ultima actualziación del perfil 
     $completed['lastupdate'] = $uncompleted['lastupdate'];
     unset($uncompleted['lastupdate']);
-    $total = $total +  $completed['lastupdate']['lastupdate'];
+    $total = $total +  $completed['lastupdate']['percent'];
   }
-
 
   foreach (array("langs", "interests", "companies", "newsletters", "notifications") as $label) {
     foreach (getFields($label) as $tag) {
@@ -415,11 +414,11 @@ function wpatg_gamification() {
   <div class="chartbar" style="--percent: <?=$total;?>%;"><?php printf(__("Rellenado al<span>%s&#37;</span>", "wp-a-tu-gusto"), $total);?></div>
   <div id="tasks">
     <div class="advise">
-      <?php if($total == 100) _e("<span>Enhorabuena, tienes un perfil perfecto.</span>", "wp-a-tu-gusto");
-        else if($total >= 75) _e("<span>Tu perfil es muy bueno,</span> pero con un poco de trabajo sería perfecto.", "wp-a-tu-gusto");
-        else if($total >= 50) _e("<span>El perfil es bueno.</span> Trata de mejorarlo para conseguir la máxima puntuación.", "wp-a-tu-gusto");
-        else if($total >= 25) _e("<span>Dedícale un poco de tiempo a tu perfil</span> y veras como nuestras comunicaciones contigo mejoran.", "wp-a-tu-gusto");
-        else if($total >= 0) _e("<span>Tu perfil necesita muchisimo trabajo,</span> pero te prometemos que si le dedicas tiempo veras como nuestras comunicaciones contigo mejoran mucho ofreciendote los temas que realmente te interesan.", "wp-a-tu-gusto"); ?>
+      <?php if($total == 100) _e("<span>¡Bien hecho!</span> Has completado tu perfil.", "wp-a-tu-gusto");
+        else if($total >= 75) _e("<span>El perfil es bueno.</span> Trata de mejorarlo para recibir los contenidos que mejor se ajustan a tus preferencias.", "wp-a-tu-gusto");
+        else if($total >= 50) _e("<span>El perfil es bueno.</span> Trata de mejorarlo para recibir los contenidos que mejor se ajustan a tus preferencias.", "wp-a-tu-gusto");
+        else if($total >= 25) _e("<span>Dedícale un poco de tiempo a tu perfil/span> y veras como nuestras comunicaciones contigo mejoran.", "wp-a-tu-gusto");
+        else if($total >= 0) _e("<span>Tu perfil necesita dedicación por tu parte.</span> Si le dedicas tiempo, nosotros nos comprometemos a mejorar nuestras comunicaciones contigo para ofrecerte los temas que realmente te interesan.", "wp-a-tu-gusto"); ?>
     </div>
     <?php if(count($completed) > 0) { ?>
       <div id="completed">
@@ -439,6 +438,5 @@ function wpatg_gamification() {
         </ul>
       </div>
     <?php } ?>
-    
   </div>
 <?php }
