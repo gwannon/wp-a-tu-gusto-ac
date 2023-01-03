@@ -33,11 +33,7 @@ function wpatg_zone($params = array(), $content = null) {
   ob_start(); 
   $menu = [
     "editar-perfil" => __("Editar perfil", "wp-a-tu-gusto"),
-    //"mis-datos" => __("Mis datos", "wp-a-tu-gusto"),
-    //"notificaciones" => __("Notificaciones", "wp-a-tu-gusto"),
     "mis-noticias" => __("Mis noticias", "wp-a-tu-gusto"),
-    //"boletines" => __("Boletines", "wp-a-tu-gusto"),
-    //"intereses" => __("Intereses", "wp-a-tu-gusto"),
     "archivo-boletines" => __("Archivo de boletines", "wp-a-tu-gusto"),
   ]; ?>
   <div id="wpatg">
