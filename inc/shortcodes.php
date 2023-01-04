@@ -72,8 +72,9 @@ function wpatg_zone_show_css() { ?>
 <?php }
 
 function wpatg_zone_edit_profile() {
-  $contact = getLoggedUser();
-  $formData = getFields(); 
+  $contact = getLoggedUser(); ?>
+  <?php wpatg_gamification($contact, true); ?>
+  <?php $formData = getFields(); 
   $formFields = getFields("fields");
   $fomLangs = getFields("langs");
   $formNewsletters = getFields("newsletters");
@@ -317,29 +318,61 @@ function wptag_zone_my_data_draw_field($field, $contact) { ?>
   </label>
 <?php }
 
-function wpatg_zone_archive() { ?>
-  <h2><?php _e("Archivo de boletines", "wp-a-tu-gusto"); ?></h2>
-  <div id="archive">
-    <?php
-      $items = array();
-      $json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=0&limit=100");
+function wpatg_zone_archive() { 
+  $file = plugin_dir_path(__FILE__).'archive.json';
+  if (file_exists($file) && time()-filemtime($file) < (60 * 60 * 24)) { //Si es menos de 1 día usamos el cacheo
+    $campaigns = json_decode(file_get_contents($file), true);
+  } else {
+    $campaigns = array();
+    $offset = 0;
+    $max = 100;
+    while (count($campaigns) < 100) {
+      $json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=".$offset."&limit=".$max);
       $codes = explode(",", WPATG_NEWLETTERS_FILTER);
       $counter = 0;
+      
       foreach($json->campaigns as $campaign) {
         foreach ($codes as $key => $code) {
           if(preg_match("/".$code."/", $campaign->name)) {
-            //unset ($codes[$key]);
             $message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage));
-            echo "<a href='".(parse_url(get_the_permalink(), PHP_URL_QUERY) ? '&' : '?') . "preview_newsletter=". md5($campaign->name). "'>".$message->campaignMessage->subject."<span style='background-image: url(".$message->campaignMessage->screenshot.");'></span></a><br/>";
-            break;
+            $campaigns[] = [
+              "name" => $campaign->name,
+              "subject" => $message->campaignMessage->subject,
+              "screenshot" => $message->campaignMessage->screenshot,
+            ];
+            //
           }
         }
-      } ?>
+      }
+      $offset = $offset + $max;
+    }
+    if (count($campaigns) > 0) { //Guardamos el nuevo cache
+      file_put_contents($file, json_encode($campaigns));
+    }
+  } 
+
+  if(isset($_GET['wpatg_offset'])) $offset = $_GET['wpatg_offset'];
+  else $offset = 0; ?>
+  <h2><?php _e("Archivo de boletines", "wp-a-tu-gusto"); ?></h2>
+  <div id="archive">
+    <?php $sliced_campaigns = array_slice($campaigns, $offset, WPATG_ARCHIVE_MAX_ITEMS); foreach ($sliced_campaigns as $campaign) {
+      echo "<a href='".(parse_url(get_the_permalink(), PHP_URL_QUERY) ? '&' : '?') . "preview_newsletter=". md5($campaign['name']). "'>".$campaign['subject']."<span style='background-image: url(".$campaign['screenshot'].");'></span></a><br/>";
+    } ?>
+  </div>
+  <div class="paginator">
+    <?php $counter = 0; for ($i = 0; $i < count($campaigns); $i = $i + WPATG_ARCHIVE_MAX_ITEMS) { $counter++; ?>
+      <?php if($i != $offset) { ?>
+        <a href="<?php echo get_the_permalink()."?wpatg_tab=archivo-boletines&wpatg_offset=".$i; ?>#archive"><?php echo $counter; ?></a>
+      <?php } else { ?>
+        <?php echo $counter; ?>
+      <?php } ?>
+    <?php } ?>
   </div>
 <?php }
 
-function wpatg_gamification() { 
-  $contact = getLoggedUser(); 
+function wpatg_gamification($current_contact = '', $mini = false) { 
+  if (is_object($current_contact)) $contact = $current_contact;
+  else $contact = getLoggedUser(); 
   $total = 0;
   $completed = []; 
   $uncompleted = [
@@ -376,7 +409,7 @@ function wpatg_gamification() {
       "completedtext" => __("Estás suscrito a nuestras notificaciones especiales.", "wp-a-tu-gusto"),
       "uncompletedtext" => __("No estás suscrito a ninguna notificación especial.", "wp-a-tu-gusto")],
   ]; ?>
-  <h2><?php _e("Calidad de tu perfil", "wp-a-tu-gusto"); ?></h2>
+  <?php if(!$mini) { ?><h2><?php _e("Calidad de tu perfil", "wp-a-tu-gusto"); ?></h2><?php } ?>
   <?php 
   if($contact->nombre != '' && $contact->apellidos != '' && $contact->fields[7] != '') {
     $completed['basicprofile'] = $uncompleted['basicprofile'];
@@ -407,33 +440,35 @@ function wpatg_gamification() {
     }
   } ?>
   <div class="chartbar" style="--percent: <?=$total;?>%;"><?php printf(__("Rellenado al<span>%s&#37;</span>", "wp-a-tu-gusto"), $total);?></div>
-  <div id="tasks">
-    <div class="advise">
-      <?php if($total == 100) _e("<span>¡Bien hecho!</span> Has completado tu perfil.", "wp-a-tu-gusto");
-        else if($total >= 75) _e("<span>El perfil es bueno.</span> Trata de mejorarlo para recibir los contenidos que mejor se ajustan a tus preferencias.", "wp-a-tu-gusto");
-        else if($total >= 50) _e("<span>El perfil es bueno.</span> Trata de mejorarlo para recibir los contenidos que mejor se ajustan a tus preferencias.", "wp-a-tu-gusto");
-        else if($total >= 25) _e("<span>Dedícale un poco de tiempo a tu perfil/span> y veras como nuestras comunicaciones contigo mejoran.", "wp-a-tu-gusto");
-        else if($total >= 0) _e("<span>Tu perfil necesita dedicación por tu parte.</span> Si le dedicas tiempo, nosotros nos comprometemos a mejorar nuestras comunicaciones contigo para ofrecerte los temas que realmente te interesan.", "wp-a-tu-gusto"); ?>
+  <?php if(!$mini) { ?>
+    <div id="tasks">
+      <div class="advise">
+        <?php if($total == 100) _e("<span>¡Bien hecho!</span> Has completado tu perfil.", "wp-a-tu-gusto");
+          else if($total >= 75) _e("<span>El perfil es bueno.</span> Trata de mejorarlo para recibir los contenidos que mejor se ajustan a tus preferencias.", "wp-a-tu-gusto");
+          else if($total >= 50) _e("<span>El perfil es bueno.</span> Trata de mejorarlo para recibir los contenidos que mejor se ajustan a tus preferencias.", "wp-a-tu-gusto");
+          else if($total >= 25) _e("<span>Dedícale un poco de tiempo a tu perfil/span> y veras como nuestras comunicaciones contigo mejoran.", "wp-a-tu-gusto");
+          else if($total >= 0) _e("<span>Tu perfil necesita dedicación por tu parte.</span> Si le dedicas tiempo, nosotros nos comprometemos a mejorar nuestras comunicaciones contigo para ofrecerte los temas que realmente te interesan.", "wp-a-tu-gusto"); ?>
+      </div>
+      <?php if(count($completed) > 0) { ?>
+        <div id="completed">
+          <ul>
+          <?php foreach($completed as $item) { ?>
+            <li><?=$item['completedtext'];?></li>
+          <?php } ?>
+          </ul>
+        </div>
+      <?php } ?>
+      <?php if(count($uncompleted) > 0) { ?>
+        <div id="uncompleted">
+          <ul>
+          <?php foreach($uncompleted as $item) { ?>
+            <li><?=$item['uncompletedtext'];?></li>
+          <?php } ?>
+          </ul>
+        </div>
+      <?php } ?>
     </div>
-    <?php if(count($completed) > 0) { ?>
-      <div id="completed">
-        <ul>
-        <?php foreach($completed as $item) { ?>
-          <li><?=$item['completedtext'];?></li>
-        <?php } ?>
-        </ul>
-      </div>
-    <?php } ?>
-    <?php if(count($uncompleted) > 0) { ?>
-      <div id="uncompleted">
-        <ul>
-        <?php foreach($uncompleted as $item) { ?>
-          <li><?=$item['uncompletedtext'];?></li>
-        <?php } ?>
-        </ul>
-      </div>
-    <?php } ?>
-  </div>
+  <?php } ?>
 <?php }
 
 
@@ -442,9 +477,11 @@ function wpatg_gamification() {
 function wpatg_banner($params = array(), $content = null) {
   ob_start(); ?>
   <div id="wpatg_banner" style="background-image: url(<?php echo get_option("_wpatg_banner_image"); ?>);">
-    <p class="title"><?php echo get_option("_wpatg_banner_title"); ?></p>
-    <p class="subtitle"><?php echo get_option("_wpatg_banner_subtitle"); ?></p>
-    <a href="<?php echo get_option("_wpatg_banner_link"); ?>"><?php echo get_option("_wpatg_banner_button"); ?></a>
+    <div>
+      <?php if(get_option("_wpatg_banner_title") != '') { ?><p class="title"><?php echo get_option("_wpatg_banner_title"); ?></p><?php } ?>
+      <?php if(get_option("_wpatg_banner_subtitle") != '') { ?><p class="subtitle"><?php echo get_option("_wpatg_banner_subtitle"); ?></p><?php } ?>
+      <?php if(get_option("_wpatg_banner_link") != '' && get_option("_wpatg_banner_button") != '') { ?><a href="<?php echo get_option("_wpatg_banner_link"); ?>"><?php echo get_option("_wpatg_banner_button"); ?></a><?php } ?>
+    </div>
   </div>
   <?php return ob_get_clean();
 }
