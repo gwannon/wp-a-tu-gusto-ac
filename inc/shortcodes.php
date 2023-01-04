@@ -57,9 +57,8 @@ function wpatg_zone($params = array(), $content = null) {
         <p><?php _e("Te vamos a contar el día a día de la empresa. Para que en pocos segundos tengas una visión de la actualidad. De hacia dónde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, coger ideas de la competencia o aprender de los éxitos y fracasos… porque eso, también te lo contamos.", "wp-a-tu-gusto"); ?></p>
         <p><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias, Spricomunica adquiere el compromiso de informar solo lo que tú lo pides y cómo tú lo pides.", "wp-a-tu-gusto"); ?></p>
         <?php wpatg_gamification(); ?>
-        <h2>Banners</h2>
-        <p>Fase 2</p>
     <?php } ?>
+    <?php echo do_shortcode("[wpatg_banner]"); ?>
   </div>
   <?php echo wpatg_zone_show_css(); ?>
   <?php return ob_get_clean();
@@ -436,3 +435,17 @@ function wpatg_gamification() {
     <?php } ?>
   </div>
 <?php }
+
+
+
+/* wpatg_login */
+function wpatg_banner($params = array(), $content = null) {
+  ob_start(); ?>
+  <div id="wpatg_banner" style="background-image: url(<?php echo get_option("_wpatg_banner_image"); ?>);">
+    <p class="title"><?php echo get_option("_wpatg_banner_title"); ?></p>
+    <p class="subtitle"><?php echo get_option("_wpatg_banner_subtitle"); ?></p>
+    <a href="<?php echo get_option("_wpatg_banner_link"); ?>"><?php echo get_option("_wpatg_banner_button"); ?></a>
+  </div>
+  <?php return ob_get_clean();
+}
+add_shortcode('wpatg_banner', 'wpatg_banner');

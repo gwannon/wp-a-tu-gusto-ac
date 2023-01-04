@@ -195,8 +195,8 @@
 
 #wpatg #tasks {
   display: flex;
-  gap: 10px;
-  flex-wrap: nowrap;
+  gap: 0px;
+  flex-wrap: wrap;
   align-content: flex-start;
   justify-content: flex-start;
   align-items: flex-start;
@@ -207,6 +207,9 @@
 }
 
 @media (min-width: 650px) {
+  #wpatg #tasks {
+    gap: 10px;
+  }
   #wpatg #tasks > * { width: calc(33.33% - 10px); }
 }
 
@@ -344,4 +347,9 @@
   line-height: 120%;
   width: 100%;
   text-align: center;
+}
+
+
+#wpatg_banner {
+  border: 1px solid red;
 }
