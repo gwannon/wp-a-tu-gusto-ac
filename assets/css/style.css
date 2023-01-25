@@ -1,5 +1,12 @@
-#wpatg {
+.contentlimit.page {
+	background-color: red;
+}
+
+#wpatg,
+#wpatg-form-login {
   max-width: 800px;
+  margin: auto;
+  background-color: red;
 }
 
 #wpatg ul.menu {
