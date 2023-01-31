@@ -84,7 +84,7 @@
 }
 
 #wpatg .menu-wpatg {
-  
+  margin-bottom: 20px;
   background-color: #e4e4e4;
 }
 
@@ -150,6 +150,30 @@
   margin: 0px auto;
 }
 
+#wpatg .content-wpatg h2 {
+	margin-bottom: 0px !important;
+}
+
+#wpatg .content-wpatg h3 {
+	margin-top: 0px !important;
+	font-weight: 400 !important;
+	font-family: 'ubuntu', 'open_sans', 'rawline', sans-serif !important;
+	padding-bottom: 15px;
+  position: relative;
+}
+
+#wpatg .content-wpatg h3:after {
+	content: " ";
+  position: absolute;
+  background-color: #21f3f3;
+  width: 70px;
+  height: 10px;
+  bottom: 0px;
+  left: 0px;
+}
+
+
+
 #wpatg form {
   display: flex;
   flex-direction: row;
@@ -166,7 +190,7 @@
 }
 
 #wpatg form > div:nth-child(even) {
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 #wpatg form > div:nth-child(odd) {
@@ -176,7 +200,7 @@
 @media (min-width: 650px) {
   #wpatg form > div:nth-child(odd) {
     width: calc(25% - 10px);
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid rgba(0,0,0,.1);
     padding: 5px 5px 20px 5px;
     margin: 0px 0px 20px;
   }
@@ -192,20 +216,16 @@
   }
 }
 
-#wpatg form select {
-  max-width: 100%;
-}
-
-#wpatg form > div:nth-child(odd) h2 {
-  margin: 0px 0px 10px 0px;
+#wpatg .content-wpatg form > div:nth-child(odd) h2 {
+  margin: 0px 0px 10px 0px !important;
   padding: 0px;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 120%;
   font-weight: 200;
   text-transform: uppercase;
 } 
 
-#wpatg form > div:nth-child(odd) p {
+#wpatg .content-wpatg form > div:nth-child(odd) p {
   margin: 0px;
   padding: 0px 0px 10px 0px;
   font-size: 14px;
@@ -217,6 +237,12 @@
   width: 100%;
   border: none;
   text-align: center;
+  padding: 0px;
+    margin: 0px;
+}
+
+#wpatg form > div:nth-child(even) > *  {
+  width: 100%;
 }
 
 @media (min-width: 650px) {
@@ -225,8 +251,9 @@
   }
 }
 
-#wpatg form > div#interests:nth-child(even) > *:last-child/* ,
-#wpatg form > div#companies:nth-child(even) > *:last-child*/ {
+#wpatg form > div#interests:nth-child(even) > *:last-child/*,
+#wpatg form > div#companies > *:last-child,
+#wpatg form > div#notifications > div > div > *:last-child */{
   width: calc(100% - 10px);
 }
 
@@ -237,19 +264,43 @@
 
 #wpatg #newsletters label {
   margin: 0px;
-  padding: 0px 0px 10px 20px;
+  padding: 0px 0px 10px 35px;
   font-size: 14px;
   line-height: 120%;
   font-weight: 200;
+  position: relative;
 }
 
-#wpatg #newsletters label input[type=checkbox] {
-  margin-left: -20px;
+#wpatg #langs label {
+  width: 100%;
+  /*padding-bottom: 10px;*/
+}
+
+#wpatg #langs label,
+#wpatg #interests label,
+#wpatg #companies label,
+#wpatg #notifications label {
+  position: relative;
+  padding-left: 35px;
+}
+
+#wpatg #langs label:first-child,
+#wpatg #notifications > div:first-child > label:first-child {
+  padding-left: 0px;
+}
+
+#wpatg label input[type=checkbox] {
+  margin: 0px;
+  width: 25px !important;
+  height: 25px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 #wpatg #newsletters p {
   margin: 0px;
-  padding: 0px 0px 30px 20px;
+  padding: 0px 0px 30px 35px;
   font-size: 14px;
   line-height: 120%;
   font-weight: 200;
@@ -258,7 +309,33 @@
 #wpatg #notifications > div {
   width: 100%;
 }
+#wpatg #wpatg_form_my_data input[type=text],
+#wpatg #wpatg_form_my_data input[type=url],
+#wpatg #wpatg_form_my_data input[type=tel],
+#wpatg .content-wpatg form select {
+  border: none;
+  border-bottom: 1px solid black;
+  background: transparent;
+  padding: 6px 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  /*font-weight: 700;*/
+}
 
+#wpatg #wpatg_form_my_data label.required b:after {
+  content: " *";
+  color: #790000;
+}
+#wpatg .content-wpatg .adviseok {
+  background-color: #21f3f3;
+  border: 1px solid #21f3f3; 
+  color: #000;
+  text-align: center;
+  padding: 30px;
+  font-size: 25px;
+  line-height: 100%;
+}
 @media (min-width: 650px) {
   #wpatg #notifications > div > div {
     display: flex;
@@ -284,14 +361,13 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
-  justify-content: center;
+  justify-content: space-between;
   align-items: stretch;
-  gap: 10px;
 }
 
 #wpatg #archive > a {
   display: block;
-  width: calc(100% - 30px);
+  width: 100%;
   background: #000 none no-repeat;
   border: 1px solid #000;
   font-weight: 600;
@@ -305,7 +381,8 @@
   box-sizing: border-box;
 }
 @media (min-width: 650px) {
-  #wpatg #archive > a { width: calc(50% - 30px); }
+  #wpatg #archive { gap: 10px; }
+  #wpatg #archive > a { width: calc(50% - 5px); }
 }
 
 #wpatg #archive > a:hover {
@@ -324,30 +401,109 @@
   height: 450px;
   width: 100%;
 }
+#wpatg #archive > a > div {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-color: red;
+  padding: 10px 15px 8px;
+  z-index: 10;
+  clip-path: polygon(0% 100%, 0% 15px, 17px 0%, 100% 0%, 100% 100%);
+}
 
+#wpatg .paginator {
+  max-width: 240px;
+  margin: 20px auto 0px;
+  display: flex;
+  font-size: 20px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-around;
+  align-items: center;
+}
 
-
-
+#wpatg .paginator b {
+  font-weight: 900;
+}
 
 #wpatg #tasks {
-  display: flex;
-  gap: 0px;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: flex-start;
-  align-items: flex-start;
+
 }
 
 #wpatg #tasks > * {
-  width: calc(100% - 10px);
+  width: 100%;
+  padding: 20px 20px 15px 20px;
+  margin: 0px 0px 10px 0px;
+  font-size: 18px;
+  line-height: 120%;
 }
 
-@media (min-width: 650px) {
-  #wpatg #tasks {
-    gap: 10px;
-  }
-  #wpatg #tasks > * { width: calc(33.33% - 10px); }
+#wpatg #tasks .advise{
+  border: none;
+  color: #000;
+  font-size: 18px;
+  line-height: 120%;
+  background-color: #cccccc;
 }
+
+#wpatg #tasks .advise span {
+  display: block;
+  font-weight: 700;
+}
+
+#wpatg #tasks #completed{
+  border: 1px solid #000;
+  color: #000;
+}
+
+#wpatg #tasks > div#completed ul li:after {
+  content: "\2714";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  top: 1px;
+  left: 0px;
+  background-color: #808080;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: stretch;
+}
+
+#wpatg #tasks #uncompleted{
+  background: #ff0000;
+  background: -webkit-linear-gradient(135deg, #ff0000 30%, #ac196d 100%);
+  background: linear-gradient(135deg, #ff0000 30%, #ac196d 100%);
+  color: #fff;
+}
+
+#wpatg #tasks > div#uncompleted ul li:after {
+  content: "\00D7";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  top: 1px;
+  left: 0px;
+  background-color: #fff;
+  color: red;
+  border-radius: 50%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+
+
+
+
+
 
 #wpatg #tasks > div ul {
   margin: 0px;
@@ -359,130 +515,52 @@
   line-height: 120%;
 	list-style-type: none;
 	position: relative;
-	padding: 0px 0px 10px 15px;
+	padding: 0px 0px 10px 25px;
 	margin: 0;
 }
 
-#wpatg #tasks > div#uncompleted ul li {
-
-  color: red;
+#wpatg #tasks > div ul li:last-child {
+  padding-bottom: 0px;
 }
 
-#wpatg #tasks > div#uncompleted ul li:after {
-	content: "";
-	display: block;
-	position: absolute;
-	width: 12px;
-	height: 20px;
-	top: 1px;
-	left: 0px;
-	clip-path: polygon(
-		9% 15%,
-		36% 46%,
-		7% 75%,
-		18% 82%,
-		44% 56%,
-		61% 68%,
-		69% 58%,
-		55% 46%,
-		84% 19%,
-		75% 10%,
-		43% 39%,
-		16% 10%
-	);
-	background-color: red;
-}
 
-#wpatg #tasks > div#completed ul li {
-  color: green;
-}
 
-#wpatg #tasks > div#completed ul li:after {
-	content: "";
-	display: block;
-	position: absolute;
-	height: 10px;
-	width: 10px;
-	top: 5px;
-	left: 0px;
-	clip-path: polygon(
-		38% 11%,
-		25% 18%,
-		15% 31%,
-		12% 44%,
-		14% 60%,
-		18% 76%,
-		26% 86%,
-		40% 91%,
-		53% 93%,
-		69% 88%,
-		84% 82%,
-		92% 71%,
-		96% 62%,
-		97% 46%,
-		97% 33%,
-		94% 23%,
-		86% 17%,
-		73% 11%,
-		58% 8%,
-		55% 18%,
-		66% 22%,
-		79% 31%,
-		86% 44%,
-		85% 59%,
-		78% 72%,
-		64% 76%,
-		52% 80%,
-		38% 77%,
-		28% 69%,
-		24% 56%,
-		23% 43%,
-		26% 32%,
-		33% 27%,
-		43% 22%
-	);
-	background-color: green;
-}
 
-#wpatg #tasks .advise{
-  padding: 10px;
-  border: 1px solid #000;
-  color: #000;
-  font-size: 18px;
-  line-height: 120%;
-  text-align: center;
-}
-
-#wpatg #tasks .advise span {
-  display: block;
-  font-weight: 700;
-}
 
 #wpatg .chartbar {
   margin: 0px auto 10px;
   font-size: 20px;
-  line-height: 120%;
-  color: white;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  --colorbg: red;
-  --color: green;
+  border: 1px solid rgba(0,0,0,.1);
+  --colorbg: transparent;
+  --color: #21f3f3;
   --percent: 0%;
-  --size: 200px;
+  --size: 80px;
   width: 100%;
-  padding: 10px 0;
-  background: linear-gradient(90deg, var(--color) 0%, var(--color) var(--percent), var(--colorbg) var(--percent));
+  height: var(--size);
+  padding: 0;
+  background: transparent;
+  position: relative;
+}
+
+#wpatg .chartbar:before {
+  content: " ";
+  position: absolute;
+  width: var(--percent);
+  background-color: var(--color);
+  height: calc(var(--size) - 2px);
+  top: 0px;
+  left: 0px;
 }
 
 #wpatg .chartbar span {
+  position: absolute;
   display: block;
-  font-size: 40px;
+  font-size: 18px;
   line-height: 120%;
-  width: 100%;
+  font-weight: 700;
   text-align: center;
+  bottom: 10px;
+  right: calc(100% - var(--percent) + 15px);
 }
 
 
@@ -493,9 +571,21 @@
 }
 
 #wpatg_banner > div {
-  padding: 20px;
+  padding: 80px 20px;
   background-color: #000000a6;
 }
+
+#wpatg_banner > div > div {
+  max-width: 800px;
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
 #wpatg_banner .title,
 #wpatg_banner .subtitle {
@@ -515,19 +605,19 @@
 
 #wpatg_banner a {
   display: inline-block;
-  border: 1px solid red;
-  background-color: #ffffff;
-  color: red;
-  font-size: 20px;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 16px;
   line-height: 120%;
-  padding: 10px 10px 10px 8px;
+  padding: 25px 35px 23px 35px;
+  font-weight: 700;
   display: inline-block;
   text-decoration: none;
   transition: background 0.3s, color 0.3s;
 }
 
 #wpatg_banner a:hover {
-
-  color: #ffffff;
-  background-color: red;
+  color: #000 !important;
+  background-color: #ffffff;
 }

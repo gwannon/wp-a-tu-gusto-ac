@@ -32,7 +32,7 @@ function getFields($label = '') {
   if ($label == 'companies') return array (  
     array("id" => 117, "tag" => "empresa-personas-emprendedoras", "text" => __('Personas emprendedoras', 'wp-a-tu-gusto')),
     array("id" => 118, "tag" => "empresa-autonomos", "text" => __('Autonómos/as', 'wp-a-tu-gusto'), "position" => "empresa"),
-    array("id" => 119, "tag" => "empresa-micropyme", "text" => __('Micropyme (1-10 empleados/as)', 'wp-a-tu-gusto'), "position" => "empresa"),
+    array("id" => 119, "tag" => "empresa-micropyme", "text" => __('Micropyme (1-10)', 'wp-a-tu-gusto'), "position" => "empresa"),
     array("id" => 120, "tag" => "empresa-pequena-empresa", "text" => __('Pequeña empresa (10-50)', 'wp-a-tu-gusto'), "position" => "empresa"),
     array("id" => 121, "tag" => "empresa-mediana-empresa", "text" => __('Mediana empresa (50-250)', 'wp-a-tu-gusto'), "position" => "empresa"),
     array("id" => 122, "tag" => "empresa-gran-empresa", "text" => __('Gran empresa (+250)', 'wp-a-tu-gusto'), "position" => "empresa"),

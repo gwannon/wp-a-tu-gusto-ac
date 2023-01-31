@@ -60,15 +60,31 @@ function wpatg_zone($params = array(), $content = null) {
         } else { ?>
           <h2><?php _e("Personaliza tus boletines a tu gusto", "wp-a-tu-gusto"); ?></h2>
           <h3><?php _e("Solo te contamos cosas que te interesan", "wp-a-tu-gusto"); ?></h3>
-          <p><?php _e("Te vamos a contar el día a día de la empresa.<br/>Para que en pocos segundos tengas una visión de la actualidad.", "wp-a-tu-gusto"); ?></p>
+          <p><?php _e("Te vamos a contar el día a día de la empresa. Para que en pocos segundos tengas una visión de la actualidad.", "wp-a-tu-gusto"); ?></p>
           <p><?php _e("De hacia dónde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, coger ideas de la competencia o aprender de los éxitos y fracasos… porque eso, también te lo contamos.", "wp-a-tu-gusto"); ?></p>
           <p><b><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias, Spricomunica adquiere el compromiso de informar solo lo que tú solicitas y cómo tú lo quieres.", "wp-a-tu-gusto"); ?></b></p>
+          <p><a class="btn btn-primary" href="<?php echo get_the_permalink()."?wpatg_tab=editar-perfil"; ?>"><?php _e("Quiero editar mi perfil", ""); ?></a></p>
+          <hr/>
           <?php wpatg_gamification(); ?>
       <?php } ?>
     </div>
     <?php echo do_shortcode("[wpatg_banner]"); ?>
   </div>
   <?php echo wpatg_zone_show_css(); ?>
+  <?php 
+
+  $file = WPATG_ARCHIVE_CACHE_FILE;
+  if (isset($_REQUEST['wpatg_tab']) && $_REQUEST['wpatg_tab'] != 'archivo-boletines' && (!file_exists($file) || time()-filemtime($file) >= WPATG_ARCHIVE_CACHE_TIME)) { //Si el cacheo de newsletters es viejo lo recargamos via ajax sin que el usuario se de cuenta. ?>
+    <script>
+      jQuery.ajax( "<?=admin_url('admin-ajax.php'); ?>?action=archive_cache" )
+      .done(function() {
+        console.log( "Cache Success" );
+      })
+      .fail(function() {
+        console.log( "Cache Error" );
+      });
+    </script>
+  <?php } ?>
   <?php return ob_get_clean();
 }
 add_shortcode('wpatg_zone', 'wpatg_zone');
@@ -81,7 +97,7 @@ function wpatg_zone_show_css() { ?>
 
 function wpatg_zone_edit_profile() {
   $contact = getLoggedUser(); ?>
-  <?php wpatg_gamification($contact, true); ?>
+  
   <?php $formData = getFields(); 
   $formFields = getFields("fields");
   $fomLangs = getFields("langs");
@@ -154,7 +170,7 @@ function wpatg_zone_edit_profile() {
       }
     }
 
-    echo "<p style='color: green; border: 1px solid green; text-align: center;'>".__('DATOS ACTUALIZADOS', 'wp-a-tu-gusto')."</p>";
+    echo "<p class='adviseok'>".__('Datos actualizados correctamente', 'wp-a-tu-gusto')."</p>";
   } ?>
   <form id="wpatg_form_my_data" method="post" action="<?php echo get_the_permalink()."?wpatg_tab=editar-perfil"; ?>">
     <div>
@@ -162,19 +178,19 @@ function wpatg_zone_edit_profile() {
       
     </div>
     <div>
-      <label><b><?php _e('Email', 'wp-a-tu-gusto'); ?></b><br/><?php echo $contact->email; ?></label>
+      <label><b><?php _e('Email', 'wp-a-tu-gusto'); ?></b><br/><p style="margin: 12px 0px 0px 0px;"><?php echo $contact->email; ?></p></label>
       <?php foreach ($formFields as $id => $field ) { if($field['position'] == 'pre') { ?>
         <?php wptag_zone_my_data_draw_field($field, $contact); ?>
       <?php } } ?>
       <?php foreach ($formData as $label => $input ) { ?>
-        <label><b><?php echo $input['name']; ?><?php echo ($input['required'] ? "*" : ""); ?></b><br/>
-          <input type="<?php echo ($input['type'] != '' ? $input['type'] : "text"); ?>" name="my-data[data][<?php echo $label; ?>]" value="<?php echo $contact->{$label}; ?>" placeholder="<?php echo $input['name']; ?>" oninvalid="onError();"<?php echo ($input['required'] ? " required" : ""); ?> <?php echo ($input['pattern'] ? " pattern='".$input['pattern']."'" : ""); ?> />
+        <label <?php echo ($input['required'] ? "class='required'" : ""); ?>><b><?php echo $input['name']; ?></b>
+          <input type="<?php echo (isset($input['type']) && $input['type'] != '' ? $input['type'] : "text"); ?>" name="my-data[data][<?php echo $label; ?>]" value="<?php echo $contact->{$label}; ?>" placeholder="<?php echo $input['name']; ?>" oninvalid="onError();"<?php echo ($input['required'] ? " required" : ""); ?> <?php echo (isset($input['pattern']) && $input['pattern'] ? " pattern='".$input['pattern']."'" : ""); ?> />
         </label>
       <?php } ?>
       <?php foreach ($formFields as $id => $field ) { if($field['position'] == 'post') { ?>
         <?php wptag_zone_my_data_draw_field($field, $contact); ?>
       <?php } } ?>
-      <div>
+      <div id="langs">
         <label><b><?php _e('¿En qué <span>idioma</span> quieres recibirnos?', 'wp-a-tu-gusto'); ?></b></label>
         <?php foreach ($fomLangs as $lang) { ?>
           <label><input type="checkbox" class="checkbox-lang" id="checkbox-lang-<?php echo $lang['id']; ?>" name="my-data[langs][<?php echo $lang['id']; ?>]" value="add" <?php echo ($contact->hasTag($lang['id']) == true ? "checked" : "") ?> /> <?php echo $lang['text']; ?></label>
@@ -218,7 +234,7 @@ function wpatg_zone_edit_profile() {
       <?php foreach ($formNewsletters as $field ) { ?>
         <div>
           <img src="<?php echo $field['image']; ?>" alt="" />
-          <label><input class="checkbox-boletines" type="checkbox" id="checkbox-<?php echo $field['field']; ?>" name="my-data[tags][<?php echo $field['id']; ?>]" value="add" <?=($contact->hasTag($field['id']) ? "checked" : "") ?> />
+          <label><input class="checkbox-boletines" type="checkbox" id="checkbox-<?php echo (isset($field['field']) ? $field['field'] : ""); ?>" name="my-data[tags][<?php echo $field['id']; ?>]" value="add" <?=($contact->hasTag($field['id']) ? "checked" : "") ?> />
           <b><?php echo $field['text']; ?></b></label>
           <p><?php echo $field['description']; ?></p>
         </div>
@@ -242,9 +258,10 @@ function wpatg_zone_edit_profile() {
       </div>
     </div>
     <div>
-       <button type="submit" name="wpatg_save_edit_profile"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
+       <button class="btn btn-black" type="submit" name="wpatg_save_edit_profile"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
     </div>
   </form>
+  <?php wpatg_gamification($contact, true); ?>
   <script>
     jQuery(document).ready(function() {
       if(jQuery('.checkbox-lang:checked').length == jQuery('.checkbox-lang').length) {
@@ -312,7 +329,7 @@ function wpatg_zone_edit_profile() {
 <?php }
 
 function wptag_zone_my_data_draw_field($field, $contact) { ?>
-  <label><b><?php echo $field['text']; ?><?php echo ($field['required'] ? "*" : ""); ?></b><br/>
+  <label <?php echo ($field['required'] ? "class='required'" : ""); ?>><b><?php echo $field['text']; ?></b>
     <?php if(isset($field['select'])) { ?>
       <select name="my-data[field][<?php echo $field['id']; ?>]" oninvalid="onError();" <?php echo ($field['required'] ? " required" : ""); ?>>
         <option value=""><?php printf(__('Elige tu %s', 'wp-a-tu-gusto'), mb_strtolower($field['text'])); ?></option>
@@ -321,50 +338,25 @@ function wptag_zone_my_data_draw_field($field, $contact) { ?>
         <?php } ?>
       </select>
     <?php } else { ?>
-      <input type="<?php echo ($field['type'] != '' ? $field['type'] : "text"); ?>" name="my-data[field][<?php echo $field['id']; ?>]" value="<?php echo $contact->fields[$field['id']]; ?>" placeholder="<?php echo $field['text']; ?>" oninvalid="onError();" <?php echo ($field['required'] ? " required" : ""); ?><?php echo ($field['pattern'] ? " pattern='".$field['pattern']."'" : ""); ?> />
+      <input type="<?php echo (isset($field['type']) && $field['type'] != '' ? $field['type'] : "text"); ?>" name="my-data[field][<?php echo $field['id']; ?>]" value="<?php echo $contact->fields[$field['id']]; ?>" placeholder="<?php echo $field['text']; ?>" oninvalid="onError();" <?php echo ($field['required'] ? " required" : ""); ?><?php echo (isset($field['pattern']) && $field['pattern'] ? " pattern='".$field['pattern']."'" : ""); ?> />
     <?php } ?>
   </label>
 <?php }
 
 function wpatg_zone_archive() { 
-  $file = plugin_dir_path(__FILE__).'archive.json';
-  if (file_exists($file) && time()-filemtime($file) < (60 * 60 * 24)) { //Si es menos de 1 día usamos el cacheo
+  $file = WPATG_ARCHIVE_CACHE_FILE;
+  if (file_exists($file) && time()-filemtime($file) < WPATG_ARCHIVE_CACHE_TIME) { //Si es menos de 1 día usamos el cacheo
     $campaigns = json_decode(file_get_contents($file), true);
   } else {
-    $campaigns = array();
-    $offset = 0;
-    $max = 100;
-    while (count($campaigns) < 100) {
-      $json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=".$offset."&limit=".$max);
-      $codes = explode(",", WPATG_NEWLETTERS_FILTER);
-      $counter = 0;
-      
-      foreach($json->campaigns as $campaign) {
-        foreach ($codes as $key => $code) {
-          if(preg_match("/".$code."/", $campaign->name)) {
-            $message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage));
-            $campaigns[] = [
-              "name" => $campaign->name,
-              "subject" => $message->campaignMessage->subject,
-              "screenshot" => $message->campaignMessage->screenshot,
-            ];
-            //
-          }
-        }
-      }
-      $offset = $offset + $max;
-    }
-    if (count($campaigns) > 0) { //Guardamos el nuevo cache
-      file_put_contents($file, json_encode($campaigns));
-    }
+    $campaigns = wptag_zone_archive_generate_json($file);
   } 
-
   if(isset($_GET['wpatg_offset'])) $offset = $_GET['wpatg_offset'];
   else $offset = 0; ?>
   <h2><?php _e("Archivo de boletines", "wp-a-tu-gusto"); ?></h2>
+  <h3><?php _e("Consulta boletines antiguos", "wp-a-tu-gusto"); ?></h3>
   <div id="archive">
     <?php $sliced_campaigns = array_slice($campaigns, $offset, WPATG_ARCHIVE_MAX_ITEMS); foreach ($sliced_campaigns as $campaign) {
-      echo "<a href='".(parse_url(get_the_permalink(), PHP_URL_QUERY) ? '&' : '?') . "preview_newsletter=". md5($campaign['name']). "'>".$campaign['subject']."<span style='background-image: url(".$campaign['screenshot'].");'></span></a><br/>";
+      echo "<a href='".(parse_url(get_the_permalink(), PHP_URL_QUERY) ? '&' : '?') . "wpatg_preview_newsletter=". md5($campaign['name']). "'>".$campaign['subject']."<div>".date(__("d/m/Y", "wp-atu-gusto"), $campaign['date'])."</div><span style='background-image: url(".$campaign['screenshot'].");'></span></a>";
     } ?>
   </div>
   <div class="paginator">
@@ -372,11 +364,52 @@ function wpatg_zone_archive() {
       <?php if($i != $offset) { ?>
         <a href="<?php echo get_the_permalink()."?wpatg_tab=archivo-boletines&wpatg_offset=".$i; ?>#archive"><?php echo $counter; ?></a>
       <?php } else { ?>
-        <?php echo $counter; ?>
+        <b><?php echo $counter; ?></b>
       <?php } ?>
     <?php } ?>
   </div>
 <?php }
+
+function wptag_zone_archive_generate_json($file) {
+  $campaigns = array();
+  $offset = 0;
+  $max = 100;
+  file_put_contents($file, "");
+  while (count($campaigns) < 50) {
+    $json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=".$offset."&limit=".$max);
+    $codes = explode(",", WPATG_NEWLETTERS_FILTER);
+    $counter = 0;
+    foreach($json->campaigns as $campaign) {
+      foreach ($codes as $key => $code) {
+        if(preg_match("/".$code."/", $campaign->name) && $campaign->mail_send == 1) {
+          $message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage));
+          $campaigns[] = [
+            "name" => $campaign->name,
+            "subject" => $message->campaignMessage->subject,
+            "screenshot" => $message->campaignMessage->screenshot,
+            "date" => strtotime($campaign->sdate),
+          ];
+        }
+      }
+    }
+    $offset = $offset + $max;
+  }
+  if (count($campaigns) > 0) { //Guardamos el nuevo cache
+    file_put_contents($file, json_encode($campaigns));
+  }
+  return $campaigns;
+}
+
+function wptag_zone_archive_cache_ajax() {
+  $file = WPATG_ARCHIVE_CACHE_FILE;
+  if (file_exists($file) && time()-filemtime($file) < WPATG_ARCHIVE_CACHE_TIME) { //Si es menos de 1 día usamos el cacheo
+    $campaigns = json_decode(file_get_contents($file), true);
+  } else {
+    $campaigns = wptag_zone_archive_generate_json($file);
+  }
+}
+add_action('wp_ajax_archive_cache', 'wptag_zone_archive_cache_ajax');
+add_action('wp_ajax_nopriv_archive_cache', 'wptag_zone_archive_cache_ajax');
 
 function wpatg_gamification($current_contact = '', $mini = false) { 
   if (is_object($current_contact)) $contact = $current_contact;
@@ -417,7 +450,7 @@ function wpatg_gamification($current_contact = '', $mini = false) {
       "completedtext" => __("Estás suscrito a nuestras notificaciones especiales.", "wp-a-tu-gusto"),
       "uncompletedtext" => __("No estás suscrito a ninguna notificación especial.", "wp-a-tu-gusto")],
   ]; ?>
-  <?php if(!$mini) { ?><h2><?php _e("Calidad de tu perfil", "wp-a-tu-gusto"); ?></h2><?php } ?>
+  <h4>// <?php _e("Calidad de tu perfil", "wp-a-tu-gusto"); ?></h4>
   <?php 
   if($contact->nombre != '' && $contact->apellidos != '' && $contact->fields[7] != '') {
     $completed['basicprofile'] = $uncompleted['basicprofile'];
@@ -447,7 +480,7 @@ function wpatg_gamification($current_contact = '', $mini = false) {
       }
     }
   } ?>
-  <div class="chartbar" style="--percent: <?=$total;?>%;"><?php printf(__("Rellenado al<span>%s&#37;</span>", "wp-a-tu-gusto"), $total);?></div>
+  <div class="chartbar" style="--percent: <?=$total;?>%;"><span><?php printf(__("> Rellenado al %s&#37;", "wp-a-tu-gusto"), $total);?></div>
   <?php if(!$mini) { ?>
     <div id="tasks">
       <div class="advise">
@@ -486,11 +519,66 @@ function wpatg_banner($params = array(), $content = null) {
   ob_start(); ?>
   <div id="wpatg_banner" style="background-image: url(<?php echo get_option("_wpatg_banner_image"); ?>);">
     <div>
-      <?php if(get_option("_wpatg_banner_title") != '') { ?><p class="title"><?php echo get_option("_wpatg_banner_title"); ?></p><?php } ?>
-      <?php if(get_option("_wpatg_banner_subtitle") != '') { ?><p class="subtitle"><?php echo get_option("_wpatg_banner_subtitle"); ?></p><?php } ?>
-      <?php if(get_option("_wpatg_banner_link") != '' && get_option("_wpatg_banner_button") != '') { ?><a href="<?php echo get_option("_wpatg_banner_link"); ?>"><?php echo get_option("_wpatg_banner_button"); ?></a><?php } ?>
+      <div>
+        <div>
+          <?php if(get_option("_wpatg_banner_title") != '') { ?><p class="title"><?php echo get_option("_wpatg_banner_title"); ?></p><?php } ?>
+          <?php if(get_option("_wpatg_banner_subtitle") != '') { ?><p class="subtitle"><?php echo get_option("_wpatg_banner_subtitle"); ?></p><?php } ?>
+        </div>
+        <?php if(get_option("_wpatg_banner_link") != '' && get_option("_wpatg_banner_button") != '') { ?><a href="<?php echo get_option("_wpatg_banner_link"); ?>"><?php echo get_option("_wpatg_banner_button"); ?></a><?php } ?>
+      </div>
     </div>
   </div>
   <?php return ob_get_clean();
 }
 add_shortcode('wpatg_banner', 'wpatg_banner');
+
+
+function wpatg_preview_newsletter(){
+	if(isset($_REQUEST['wpatg_preview_newsletter'])) {
+		
+		$max = 50;
+		$json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=0&limit=".$max);
+		foreach($json->campaigns as $campaign) {
+			if(md5($campaign->name) == $_REQUEST['wpatg_preview_newsletter']) {
+				$message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage,));
+				$htmlcode = curlCallGet(str_replace(WPAT_AC_API_URL, "", $message->campaignMessage->links->message));
+				echo $htmlcode->message->html;
+				break;
+			}
+		}
+		die;
+	}
+}
+add_action( "template_redirect", "wpatg_preview_newsletter" );
+
+/*
+function wptag_zone_archive_generate_json($file) {
+  $campaigns = array();
+  $offset = 0;
+  $max = 100;
+  file_put_contents($file, "");
+  while (count($campaigns) < 50) {
+    $json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=".$offset."&limit=".$max);
+    $codes = explode(",", WPATG_NEWLETTERS_FILTER);
+    $counter = 0;
+    foreach($json->campaigns as $campaign) {
+      foreach ($codes as $key => $code) {
+        if(preg_match("/".$code."/", $campaign->name) && $campaign->mail_send == 1) {
+          $message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage));
+          $campaigns[] = [
+            "name" => $campaign->name,
+            "subject" => $message->campaignMessage->subject,
+            "screenshot" => $message->campaignMessage->screenshot,
+            "date" => strtotime($campaign->sdate),
+          ];
+        }
+      }
+    }
+    $offset = $offset + $max;
+  }
+  if (count($campaigns) > 0) { //Guardamos el nuevo cache
+    file_put_contents($file, json_encode($campaigns));
+  }
+  return $campaigns;
+}
+*/

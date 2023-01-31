@@ -39,6 +39,9 @@ define('WPATG_NEWLETTERS_FILTER', get_option("_wpatg_newsletter_filter"));
 define('WPATG_MAIN_NEWLETTER_ID', get_option("_wpatg_main_newsletter_id"));
 define('WPATG_LAST_UPDATE_FIELD_ID', 39);
 define('WPATG_ARCHIVE_MAX_ITEMS', 20);
+define('WPATG_COOKIE_TIME', (60 * 60 * 24));
+define('WPATG_ARCHIVE_CACHE_FILE', plugin_dir_path(__FILE__).'archive.json');
+define('WPATG_ARCHIVE_CACHE_TIME', (60 * 60 * 24));
 
 /* -------------------- Cookies ------------------ */
 function wpatg_manage_cookie(){
@@ -50,7 +53,7 @@ function wpatg_manage_cookie(){
       "wpatg_hash" => $_REQUEST['wpatg_hash'],
       "wpatg_contact_id" => $_REQUEST['wpatg_contact_id']
     ];
-		setcookie("wpatg", json_encode($value), time()+3600);  /* expire in 1 hour */
+		setcookie("wpatg", json_encode($value), time() + WPATG_COOKIE_TIME);  /* expire in 1 hour */
     wp_redirect(get_the_permalink());
 	}
 }
