@@ -158,11 +158,11 @@
 	margin-top: 0px !important;
 	font-weight: 400 !important;
 	font-family: 'ubuntu', 'open_sans', 'rawline', sans-serif !important;
-	padding-bottom: 15px;
+	/*padding-bottom: 15px;*/
   position: relative;
 }
 
-#wpatg .content-wpatg h3:after {
+/*#wpatg .content-wpatg h3:after {
 	content: " ";
   position: absolute;
   background-color: #21f3f3;
@@ -170,9 +170,40 @@
   height: 10px;
   bottom: 0px;
   left: 0px;
+}*/
+
+#wpatg .content-wpatg .cols {
+	display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
 }
 
+#wpatg .content-wpatg .cols > * {
+  width: 100%;
+}
 
+#wpatg .content-wpatg .cols > *:nth-child(2) {
+  border: 1px solid rgba(0,0,0,.1);
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#wpatg .content-wpatg .cols > *:nth-child(2) a {
+  display: block;
+}
+
+@media (min-width: 650px) {
+  #wpatg .content-wpatg .cols > *:nth-child(1) {
+    width: 65%;
+  }
+  #wpatg .content-wpatg .cols > *:nth-child(2) {
+    width: calc(35% - 10px);
+  }
+}
 
 #wpatg form {
   display: flex;
@@ -457,45 +488,49 @@
   color: #000;
 }
 
-#wpatg #tasks > div#completed ul li:after {
-  content: "\2714";
+#wpatg #tasks > div#completed ul li.uncompleted {
+  color: red;
+}
+
+#wpatg #tasks > div#completed ul li:before,
+#wpatg #tasks > div#completed ul li.uncompleted:before {
+  content: "";
   position: absolute;
   height: 18px;
   width: 18px;
   top: 1px;
   left: 0px;
   background-color: #808080;
-  color: #fff;
   border-radius: 50%;
-  display: flex;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: stretch;
 }
 
-#wpatg #tasks #uncompleted{
+#wpatg #tasks > div#completed ul li:after,
+#wpatg #tasks > div#completed ul li.uncompleted:after {
+  content: "\2714";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  top: 0px;
+  left: 2px;
+  color: #fff;
+  border-radius: 50%;
+}
+
+/*#wpatg #tasks #uncompleted{
   background: #ff0000;
   background: -webkit-linear-gradient(135deg, #ff0000 30%, #ac196d 100%);
   background: linear-gradient(135deg, #ff0000 30%, #ac196d 100%);
   color: #fff;
+}*/
+
+#wpatg #tasks > div#completed ul li.uncompleted:before {
+  background-color: red;
 }
 
-#wpatg #tasks > div#uncompleted ul li:after {
+#wpatg #tasks > div#completed ul li.uncompleted:after {
   content: "\00D7";
-  position: absolute;
-  height: 18px;
-  width: 18px;
-  top: 1px;
-  left: 0px;
-  background-color: #fff;
-  color: red;
-  border-radius: 50%;
-  display: flex;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: space-around;
-  align-items: center;
+  top: 0px;
+  left: 4px;
 }
 
 
@@ -519,7 +554,7 @@
 	margin: 0;
 }
 
-#wpatg #tasks > div ul li:last-child {
+#wpatg #tasks > div#completed ul li:last-child {
   padding-bottom: 0px;
 }
 

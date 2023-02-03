@@ -9,7 +9,7 @@ function wpatg_login($params = array(), $content = null) {
   ob_start();?>
    <form id="wpatg-form-login" method="post">
     <h2><?php _e("Personaliza tus boletines a tu gusto", "wp-a-tu-gusto"); ?></h2>
-    <p><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferecnias. <b>Indícanos tu email para verificar que realmente eres tú.</b>", "wp-a-tu-gusto"); ?></p>
+    <p><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias. <b>Indícanos tu email para verificar que realmente eres tú.</b>", "wp-a-tu-gusto"); ?></p>
     <?php if (isset($_REQUEST['wpatg-email']) && is_email($_REQUEST['wpatg-email'])) {
       remove_all_filters('wp_mail', 10);
       if(existsUserAC($_REQUEST['wpatg-email'])) {
@@ -19,8 +19,8 @@ function wpatg_login($params = array(), $content = null) {
         $ok = __('Para actualizar tus preferencias de suscripción, comprueba tu correo electrónico porque te hemos enviado un mensaje con los pasos para poder hacerlo.', 'wp-a-tu-gusto');
       } else $error = __('Email incorrecto. El email suministrado no está en nuestra base de datos.', 'wp-a-tu-gusto');
     } else if (isset($_REQUEST['wpatg-email'])) $error = __('Email incorrecto. El email suministrado no tiene el formato adecuado.', 'wp-a-tu-gusto');?>
-    <?php if(isset($ok)) echo "<p>".$ok."</p>"; ?>
-    <?php if(isset($error)) echo "<p>".$error."</p>"; ?>
+    <?php if(isset($ok)) echo "<p><b style='color: green;'>".$ok."</b></p>"; ?>
+    <?php if(isset($error)) echo "<p><b style='color: red;'>".$error."</b></p>"; ?>
     <input type="email" name="wpatg-email" value="" placeholder="<?php _e('Email', 'wp-a-tu-gusto'); ?>" required />
     <button type="submit" name="wpatg-send"><?php _e('Enviar', 'wp-a-tu-gusto'); ?></button>
   </form>
@@ -57,15 +57,21 @@ function wpatg_zone($params = array(), $content = null) {
           <h2><?php _e("Mis noticias", "wp-a-tu-gusto"); ?></h2>
           <p>Fase 3</p>
         <?php } else if($_REQUEST['wpatg_tab'] == 'archivo-boletines') wpatg_zone_archive();
-        } else { ?>
-          <h2><?php _e("Personaliza tus boletines a tu gusto", "wp-a-tu-gusto"); ?></h2>
-          <h3><?php _e("Solo te contamos cosas que te interesan", "wp-a-tu-gusto"); ?></h3>
-          <p><?php _e("Te vamos a contar el día a día de la empresa. Para que en pocos segundos tengas una visión de la actualidad.", "wp-a-tu-gusto"); ?></p>
-          <p><?php _e("De hacia dónde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, coger ideas de la competencia o aprender de los éxitos y fracasos… porque eso, también te lo contamos.", "wp-a-tu-gusto"); ?></p>
-          <p><b><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias, Spricomunica adquiere el compromiso de informar solo lo que tú solicitas y cómo tú lo quieres.", "wp-a-tu-gusto"); ?></b></p>
-          <p><a class="btn btn-primary" href="<?php echo get_the_permalink()."?wpatg_tab=editar-perfil"; ?>"><?php _e("Quiero editar mi perfil", ""); ?></a></p>
-          <hr/>
-          <?php wpatg_gamification(); ?>
+      } else { ?>
+        <h2><?php _e("Personaliza tu perfil para recibir sólo lo que te interesa.", "wp-a-tu-gusto"); ?></h2>
+        <h3><?php _e("Solo te contamos cosas que te interesan", "wp-a-tu-gusto"); ?></h3>
+        <div class="cols">
+          <p>
+            <?php _e("Te vamos a contar el día a día de la empresa, de hacia donde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, coger ideas de la competencia o aprender de los éxitos y fracasos…, porque eso, también te lo contamos.", "wp-a-tu-gusto"); ?><br/><br/>
+            <b><?php _e("Spricomunica adquiere el compromiso de informarte solo de lo que solicites.", "wp-a-tu-gusto"); ?></b>
+          </p>
+          <p>
+            <?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias.", "wp-a-tu-gusto"); ?><br/><br/>
+            <a class="btn btn-primary" href="<?php echo get_the_permalink()."?wpatg_tab=editar-perfil"; ?>"><?php _e("Quiero editar mi perfil", "wp-a-tu-gusto"); ?></a>
+          </p>
+        </div>
+        <hr/>
+        <?php wpatg_gamification(); ?>
       <?php } ?>
     </div>
     <?php echo do_shortcode("[wpatg_banner]"); ?>
@@ -450,7 +456,7 @@ function wpatg_gamification($current_contact = '', $mini = false) {
       "completedtext" => __("Estás suscrito a nuestras notificaciones especiales.", "wp-a-tu-gusto"),
       "uncompletedtext" => __("No estás suscrito a ninguna notificación especial.", "wp-a-tu-gusto")],
   ]; ?>
-  <h4>// <?php _e("Calidad de tu perfil", "wp-a-tu-gusto"); ?></h4>
+  <p>// <?php _e("Calidad de tu perfil", "wp-a-tu-gusto"); ?></p>
   <?php 
   if($contact->nombre != '' && $contact->apellidos != '' && $contact->fields[7] != '') {
     $completed['basicprofile'] = $uncompleted['basicprofile'];
@@ -490,24 +496,20 @@ function wpatg_gamification($current_contact = '', $mini = false) {
           else if($total >= 25) _e("<span>Dedícale un poco de tiempo a tu perfil/span> y veras como nuestras comunicaciones contigo mejoran.", "wp-a-tu-gusto");
           else if($total >= 0) _e("<span>Tu perfil necesita dedicación por tu parte.</span> Si le dedicas tiempo, nosotros nos comprometemos a mejorar nuestras comunicaciones contigo para ofrecerte los temas que realmente te interesan.", "wp-a-tu-gusto"); ?>
       </div>
-      <?php if(count($completed) > 0) { ?>
-        <div id="completed">
-          <ul>
-          <?php foreach($completed as $item) { ?>
-            <li><?=$item['completedtext'];?></li>
+      <div id="completed">
+        <ul>
+          <?php if(count($completed) > 0) { ?>
+            <?php foreach($completed as $item) { ?>
+              <li><?=$item['completedtext'];?></li>
+            <?php } ?>
           <?php } ?>
-          </ul>
-        </div>
-      <?php } ?>
-      <?php if(count($uncompleted) > 0) { ?>
-        <div id="uncompleted">
-          <ul>
-          <?php foreach($uncompleted as $item) { ?>
-            <li><?=$item['uncompletedtext'];?></li>
+          <?php if(count($uncompleted) > 0) { ?>
+            <?php foreach($uncompleted as $item) { ?>
+              <li class="uncompleted"><?=$item['uncompletedtext'];?></li>
+            <?php } ?>
           <?php } ?>
-          </ul>
-        </div>
-      <?php } ?>
+        </ul>
+      </div>
     </div>
   <?php } ?>
 <?php }
