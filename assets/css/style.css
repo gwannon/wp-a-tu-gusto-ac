@@ -36,7 +36,8 @@
   margin-bottom: 30px;
 }
 
-#wpatg-form-login input[type=email] {
+#wpatg-form-login input[type=email],
+#wpatg-form-login select {
   box-shadow: 0px 0px 8px 4px #cecece;
   border: none;
   padding: 30px;
@@ -46,6 +47,30 @@
   color: #9d9d9c;
   margin-right: -4px;
   padding: 19px;
+  background-color: #fff;
+}
+
+#wpatg-form-login.wpatg-form-register {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#wpatg-form-login.wpatg-form-register input[type=email],
+#wpatg-form-login.wpatg-form-register select {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 5px 0px;
+}
+
+#wpatg-form-login.wpatg-form-register .legal {
+  font-size: 12px;
+  line-height: 14px;
+  font-style: italic;
 }
 
 #wpatg-form-login button[type=submit] {
@@ -84,7 +109,7 @@
 }
 
 #wpatg .menu-wpatg {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   background-color: #e4e4e4;
 }
 
@@ -140,8 +165,37 @@
 #wpatg .menu-wpatg ul li a.selected {
   color: #ff0000;
 }
+#wpatg .menu-wpatg.wpatg-registerlogin ul li a {
+  padding-right: 30px;
+  position: relative;
+}
 
+#wpatg .menu-wpatg.wpatg-registerlogin ul li.register a {
+  /*background-color: red;
+  color: #000;
+  padding: 3px 30px 3px 8px;
+  font-weight: 700;*/
+}
 
+#wpatg .menu-wpatg.wpatg-registerlogin ul li.login a:before,
+#wpatg .menu-wpatg.wpatg-registerlogin ul li.register a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0px;
+  top: 2px;
+  background-color: red;
+  margin-right: 5px;
+  background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAhZJREFUWIXtl80rZlEcx3/exssCg2JHeR2NlBJZiJAsKGIrLJSZxvwB1hZI1GxGyFvZTKMUpVCIhbXCErETj9eY8fb9dX+35z6P5+Gce6+mJt/6rO79nt/33PN7zjkP0bvsKR3UgXbwFTSDUhD7lkUzQD84AI9B+AtWQAuIdKvwRzAkg/sXvAEX4D7Asz3Q6LR4IfnO+BKMgFqQbHnvA/gMvoFNvyDjZPNrVIArGYRn+AMkKXorwbYlxDKI0SmeB87F7AHVOmZRNJiyhJgBISrGCLAjJg5RaKO4KS44bAnRqWpKFRIcFDcVDtbJO6EUF8bUVg74IyF6/0UA1pgEOCZjmW2Lf2o5Nnwl5O2FcicBpsEZqNf0hYITCdAV6IVEkKbArAzyALpBmEaINfFOBno4T8H3+JdYAPGKAX6JZ87NAEtknBeOA/A2m6qAdQl6SG8JVsU7oeF5Jm5CPgF1T7pXm1BV30GuDV8xufQztKtRcmkjsqNMcCsB+lQM3Gxp5N5hZDaf0mHEn2dXDLzjFTgozifrT9I8jln5ZHQ6m07JuB3pKoqM65hZ/DcpXkhMVYFrMd+BAVJfkjKwZSm+KIG0VQQOLQPxGvInrSHf+yGv8yfQATbId6ccJ4dXdJ41X6vu6Pk2zF/IE+TZPmhyUthfWWAQHAUoZsJBuOPbyMU/Jv7iRsoGDeALGTtjKxm7W9xbFf1/9QSYH75TBSDFzAAAAABJRU5ErkJggg==')  center center no-repeat;
+  background-size: cover;
+}
+
+#wpatg .menu-wpatg.wpatg-registerlogin ul li.register a:before {
+  /*top: 5px;*/
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAe5JREFUWIXtlksohFEUxw8GY+GViZLUZIUoUmQjj9goSYqdkIWNx46FBXltkFKeKclCyUJiIyNLJSQrG0Ty2KA88vqf7plGw+T7fJdSc+pX8zjn/P9zvzv3XCJ//NOIACWgAdSDAhD2F8LxYArcgzcvbsAAiPot8TxwJWKHoA/UgDowBE7luyOQpls8A9yBJ9AEgr7ICQXd4BWcg0Rd4iy2J40rDeS3klqJFV0GKqThjMH8AOCSmiwdBuakWaaJmnKp6dVhYB/ckvplRsMhBpZ1GOBdfWKyJlAMbOowsE3qfx9soiZBDCzqMDAmzQpN1NRKTbsOA3nSbI2M7YMQcACeQZIOAxyrYqLjmzx+9hOSO65LnINnwLE0ngZxX+Q4wZLk7IJwnQbcAjsi8EBqVXgGDIN1Ukv+Jq8dusU5eAR3gRf6PAndsLFmUsd3JMjRJc6z/4w8Y3cWNIIyUqceiy6QZ0zz/WBQXjutivOFg5f3EXSSWglfEQuqgI3UJmQDqVbES0ktOd8Dck3WWjYQAy5IPddsA/l2MA82BPcj25L3LlBtxkC/NGgzmB8NLsn3BmV6jIrzaXZNagXMXDb5pLQJkyKa/uEzw5EvxSNmirzC0h4oIrXziy0YGBUDyT9tYLcgzpECWkjNB3/4w2e8A1c6gPolVwhLAAAAAElFTkSuQmCC');
+}
 
 
 #wpatg .content-wpatg {
@@ -186,8 +240,8 @@
 }
 
 #wpatg .content-wpatg .cols > *:nth-child(2) {
-  border: 1px solid rgba(0,0,0,.1);
-  padding: 10px;
+  border: 1px solid rgba(0,0,0,.7);
+  padding: 20px;
   box-sizing: border-box;
   text-align: center;
 }
@@ -196,12 +250,16 @@
   display: block;
 }
 
+#wpatg .content-wpatg .cols > *:nth-child(2) a:first-of-type {
+  margin-bottom: 20px;
+}
+
 @media (min-width: 650px) {
   #wpatg .content-wpatg .cols > *:nth-child(1) {
-    width: 65%;
+    width: 50%;
   }
   #wpatg .content-wpatg .cols > *:nth-child(2) {
-    width: calc(35% - 10px);
+    width: calc(50% - 10px);
   }
 }
 
@@ -212,6 +270,10 @@
   align-items: stretch;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+#wpatg form#wpatg-form-login {
+  justify-content: center;
 }
 
 #wpatg form > div {
@@ -602,7 +664,7 @@
 #wpatg_banner {
   background: #000000 none center center no-repeat;
   background-size: cover;
-  margin-top: 30px;
+  margin-top: 100px;
 }
 
 #wpatg_banner > div {

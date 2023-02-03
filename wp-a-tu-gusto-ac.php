@@ -54,7 +54,7 @@ function wpatg_manage_cookie(){
       "wpatg_contact_id" => $_REQUEST['wpatg_contact_id']
     ];
 		setcookie("wpatg", json_encode($value), time() + WPATG_COOKIE_TIME);  /* expire in 1 hour */
-    wp_redirect(get_the_permalink());
+    wp_redirect(get_the_permalink().(isset($_REQUEST['wpatg_tab']) &&  $_REQUEST['wpatg_tab'] != '' ? "?wpatg_tab=".$_REQUEST['wpatg_tab'] : ""));
 	}
 }
 add_action( "template_redirect", "wpatg_manage_cookie");

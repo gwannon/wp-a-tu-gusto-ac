@@ -16,7 +16,20 @@ function wpatg_send_login_email($user) {
     "X-Mailer: PHP/".phpversion(),
     "Content-type: text/html; charset=utf-8"
   );
-  $message = str_replace("[LINK]", get_the_permalink()."?wpatg_hash=".$user->hash."&wpatg_contact_id=".$user->id, file_get_contents(dirname(__FILE__)."/../emails/email_es.html"));
+  $message = str_replace("[LINK]", get_the_permalink()."?wpatg_tab=editar-perfil&wpatg_hash=".$user->hash."&wpatg_contact_id=".$user->id, file_get_contents(dirname(__FILE__)."/../emails/email_login_es.html"));
+  $message = str_replace("[URL]", plugin_dir_url(__FILE__)."..", $message);
+  $message = str_replace("[BANNER]", wptag_generate_email_banner(), $message);
+  wp_mail ($user->email, __("Aquí puedes actualizar tus preferencias de suscripción a Grupo SPRI", 'wp-a-tu-gusto'), $message, $headers);
+}
+
+function wpatg_send_register_email($user) {
+  $headers = array(
+    "From: info@spri.eus",
+    "Reply-To: info@spri.eus",
+    "X-Mailer: PHP/".phpversion(),
+    "Content-type: text/html; charset=utf-8"
+  );
+  $message = str_replace("[LINK]", get_the_permalink()."?wpatg_tab=editar-perfil&wpatg_hash=".$user->hash."&wpatg_contact_id=".$user->id, file_get_contents(dirname(__FILE__)."/../emails/email_register_es.html"));
   $message = str_replace("[URL]", plugin_dir_url(__FILE__)."..", $message);
   $message = str_replace("[BANNER]", wptag_generate_email_banner(), $message);
   wp_mail ($user->email, __("Aquí puedes actualizar tus preferencias de suscripción a Grupo SPRI", 'wp-a-tu-gusto'), $message, $headers);

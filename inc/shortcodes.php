@@ -6,24 +6,81 @@
 /* wpatg_login */
 function wpatg_login($params = array(), $content = null) {
   if(isset($_COOKIE['wpatg'])) return; //Si existe la cookie ni seguimos.
+  $menu = [
+    "register" => __("Suscríbete", "wp-a-tu-gusto"),
+    "login" => __("Iniciar sesión", "wp-a-tu-gusto"),
+  ];
   ob_start();?>
-   <form id="wpatg-form-login" method="post">
-    <h2><?php _e("Personaliza tus boletines a tu gusto", "wp-a-tu-gusto"); ?></h2>
-    <p><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias. <b>Indícanos tu email para verificar que realmente eres tú.</b>", "wp-a-tu-gusto"); ?></p>
-    <?php if (isset($_REQUEST['wpatg-email']) && is_email($_REQUEST['wpatg-email'])) {
-      remove_all_filters('wp_mail', 10);
-      if(existsUserAC($_REQUEST['wpatg-email'])) {
-        $user = new UserAC($_REQUEST['wpatg-email']);
-        $user->executeAutomation (WPATG_AC_ENGAGEMENT_AUTOMATION);
-        wpatg_send_login_email($user);
-        $ok = __('Para actualizar tus preferencias de suscripción, comprueba tu correo electrónico porque te hemos enviado un mensaje con los pasos para poder hacerlo.', 'wp-a-tu-gusto');
-      } else $error = __('Email incorrecto. El email suministrado no está en nuestra base de datos.', 'wp-a-tu-gusto');
-    } else if (isset($_REQUEST['wpatg-email'])) $error = __('Email incorrecto. El email suministrado no tiene el formato adecuado.', 'wp-a-tu-gusto');?>
-    <?php if(isset($ok)) echo "<p><b style='color: green;'>".$ok."</b></p>"; ?>
-    <?php if(isset($error)) echo "<p><b style='color: red;'>".$error."</b></p>"; ?>
-    <input type="email" name="wpatg-email" value="" placeholder="<?php _e('Email', 'wp-a-tu-gusto'); ?>" required />
-    <button type="submit" name="wpatg-send"><?php _e('Enviar', 'wp-a-tu-gusto'); ?></button>
-  </form>
+  <div id="wpatg">
+    <div class="menu-wpatg wpatg-registerlogin">
+      <ul>
+        <?php foreach($menu as $tab => $label) { ?>
+          <li class="<?=$tab;?>"><a href="<?php echo get_the_permalink()."?wpatg_tab=".$tab; ?>"><?=$label;?></a></li>
+        <?php } ?>
+      </ul>
+    </div>
+    <?php if(isset($_REQUEST['wpatg_tab']) && $_REQUEST['wpatg_tab'] == 'register') { ?>
+      <form id="wpatg-form-login" class="wpatg-form-register" method="post">
+        <h2><?php _e("Lorem ipsum sid amet", "wp-a-tu-gusto"); ?></h2>
+        <p><?php _e("Mira nuestros boletines anteriores, querrás suscribirte. <a target='_blank' href='https://spri.eus/es/boletin/archivo/'>Click aquí</a>", "wp-a-tu-gusto"); ?></p>
+        <?php if (isset($_REQUEST['wpatg-email']) && is_email($_REQUEST['wpatg-email'])) {
+          remove_all_filters('wp_mail', 10);
+          if(!existsUserAC($_REQUEST['wpatg-email'])) {
+            $user = new UserAC($_REQUEST['wpatg-email']);
+            $user->executeAutomation (WPATG_AC_ENGAGEMENT_AUTOMATION);
+            //TODO meter etiqueta de idioma
+            //TODO meter en lista de boletines
+            wpatg_send_register_email($user);
+            $ok = __('Ya estás registrado. Ahora para actualizar tus preferencias de suscripción, comprueba tu correo electrónico porque te hemos enviado un mensaje con los pasos para poder hacerlo.', 'wp-a-tu-gusto');
+          } else $error = __('Email incorrecto. El email suministrado no está en nuestra base de datos.', 'wp-a-tu-gusto');
+        } else if (isset($_REQUEST['wpatg-email'])) $error = __('Email incorrecto. El email suministrado no tiene el formato adecuado.', 'wp-a-tu-gusto'); ?>
+        <?php if(isset($ok)) echo "<p style='padding: 10px; color: #000; background-color: #21f3f3;'><b>".$ok."</b></p>"; ?>
+        <?php if(isset($error)) echo "<p><b style='color: red;'>".$error."</b></p>"; ?>
+        <input type="email" name="wpatg-email" value="" placeholder="<?php _e('Email', 'wp-a-tu-gusto'); ?>" required /></br>
+        <select name="lang">
+          <option value="" selected="selected" class="gf_placeholder"><?php _e('Idioma', 'wp-a-tu-gusto'); ?></option>
+          <option value="newsletter-es" selected="selected"><?php _e('Castellano', 'wp-a-tu-gusto'); ?></option>
+          <option value="newsletter-eu"><?php _e('Euskera', 'wp-a-tu-gusto'); ?></option>
+        </select></br>
+        <p class="legal"><?php _e('SPRI-Agencia Vasca de Desarrollo Empresarial, como responsable del tratamiento de los datos, recoge sus datos personales para la prestación de los servicios relacionados con nuestros programas y servicios. Tiene derecho a retirar su consentimiento en cualquier momento, oponerse al tratamiento, acceder, rectificar y suprimir los datos, así como otros derechos, mediante correo electrónico dirigido a la dirección <a href="mailto:lopd@spri.eus">lopd@spri.eus</a>. Así mismo, puede consultar la información adicional y detallada sobre Protección de Datos en el Apartado <a href="/es/politica-de-privacidad/">Política de privacidad</a>. Al pulsar "Enviar" consentirá el tratamiento de sus datos en los términos indicados.', 'wp-a-tu-gusto'); ?></p>
+        <button type="submit" name="wpatg-send"><?php _e('¡Suscríbete!', 'wp-a-tu-gusto'); ?></button>
+      </form>
+    <?php } else if((isset($_REQUEST['wpatg_tab']) && $_REQUEST['wpatg_tab'] == 'login') ) { ?>
+      <form id="wpatg-form-login" method="post">
+        <h2><?php _e("Personaliza tus boletines a tu gusto", "wp-a-tu-gusto"); ?></h2>
+        <p><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias. <b>Indícanos tu email para verificar que realmente eres tú.</b>", "wp-a-tu-gusto"); ?></p>
+        <?php if (isset($_REQUEST['wpatg-email']) && is_email($_REQUEST['wpatg-email'])) {
+          remove_all_filters('wp_mail', 10);
+          if(existsUserAC($_REQUEST['wpatg-email'])) {
+            $user = new UserAC($_REQUEST['wpatg-email']);
+            $user->executeAutomation (WPATG_AC_ENGAGEMENT_AUTOMATION);
+            wpatg_send_login_email($user);
+            $ok = __('Para actualizar tus preferencias de suscripción, comprueba tu correo electrónico porque te hemos enviado un mensaje con los pasos para poder hacerlo.', 'wp-a-tu-gusto');
+          } else $error = __('Email incorrecto. El email suministrado no está en nuestra base de datos.', 'wp-a-tu-gusto');
+        } else if (isset($_REQUEST['wpatg-email'])) $error = __('Email incorrecto. El email suministrado no tiene el formato adecuado.', 'wp-a-tu-gusto');?>
+        <?php if(isset($ok)) echo "<p style='padding: 10px; color: #000; background-color: #21f3f3;'><b>".$ok."</b></p>"; ?>
+        <?php if(isset($error)) echo "<p><b style='color: red;'>".$error."</b></p>"; ?>
+        <input type="email" name="wpatg-email" value="" placeholder="<?php _e('Email', 'wp-a-tu-gusto'); ?>" required />
+        <button type="submit" name="wpatg-send"><?php _e('Enviar', 'wp-a-tu-gusto'); ?></button>
+      </form>
+    <?php } else { ?>
+      <div class="content-wpatg">
+        <h2><?php _e("Personaliza tu perfil para recibir ", "wp-a-tu-gusto"); ?></h2>
+        <h3><?php _e("sólo lo que te interesa", "wp-a-tu-gusto"); ?></h3>
+        <div class="cols">
+          <p>
+            <?php _e("Te vamos a contar el día a día de la empresa, de hacia donde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, coger ideas de la competencia o aprender de los éxitos y fracasos…, porque eso, también te lo contamos.", "wp-a-tu-gusto"); ?><br/><br/>
+            <b><?php _e("Spricomunica te informa solo si lo solicitas.", "wp-a-tu-gusto"); ?></b>
+          </p>
+          <p>
+            <?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias.", "wp-a-tu-gusto"); ?><br/><br/>
+            <a class="btn btn-primary" href="<?php echo get_the_permalink()."?wpatg_tab=login"; ?>"><?php _e("Quiero editar mi perfil", "wp-a-tu-gusto"); ?></a>
+            <a class="btn btn-primary" href="<?php echo get_the_permalink()."?wpatg_tab=register"; ?>"><?php _e("Quiero darme de alta", "wp-a-tu-gusto"); ?></a>
+          </p>
+        </div>
+      </div>
+    <?php } ?>
+  </div>
   <?php echo wpatg_zone_show_css(); ?>  
   <?php return ob_get_clean();
 }
@@ -42,11 +99,11 @@ function wpatg_zone($params = array(), $content = null) {
   <div id="wpatg">
     <div class="menu-wpatg">
       <ul>
-        <li><a href="<?php echo get_the_permalink(); ?>"><?php _e("Inicio", "wp-a-tu-gusto"); ?></a></li>
+        <?php /* <li class="home"><a href="<?php echo get_the_permalink(); ?>"><?php _e("Inicio", "wp-a-tu-gusto"); ?></a></li> */ ?>
         <?php foreach($menu as $tab => $label) { ?>
-          <li><a href="<?php echo get_the_permalink()."?wpatg_tab=".$tab; ?>"><?=$label;?></a></li>
+          <li class="<?=$tab;?>"><a href="<?php echo get_the_permalink()."?wpatg_tab=".$tab; ?>"><?=$label;?></a></li>
         <?php } ?>
-        <li><a href="<?php echo get_the_permalink()."?wpatg_logout=yes"; ?>"><?php _e("Salir", "wp-a-tu-gusto"); ?></a></li>
+        <li class="logout"><a href="<?php echo get_the_permalink()."?wpatg_logout=yes"; ?>"><?php _e("Salir", "wp-a-tu-gusto"); ?></a></li>
       </ul>
     </div>
     <div class="content-wpatg">
@@ -57,22 +114,9 @@ function wpatg_zone($params = array(), $content = null) {
           <h2><?php _e("Mis noticias", "wp-a-tu-gusto"); ?></h2>
           <p>Fase 3</p>
         <?php } else if($_REQUEST['wpatg_tab'] == 'archivo-boletines') wpatg_zone_archive();
-      } else { ?>
-        <h2><?php _e("Personaliza tu perfil para recibir sólo lo que te interesa.", "wp-a-tu-gusto"); ?></h2>
-        <h3><?php _e("Solo te contamos cosas que te interesan", "wp-a-tu-gusto"); ?></h3>
-        <div class="cols">
-          <p>
-            <?php _e("Te vamos a contar el día a día de la empresa, de hacia donde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, coger ideas de la competencia o aprender de los éxitos y fracasos…, porque eso, también te lo contamos.", "wp-a-tu-gusto"); ?><br/><br/>
-            <b><?php _e("Spricomunica adquiere el compromiso de informarte solo de lo que solicites.", "wp-a-tu-gusto"); ?></b>
-          </p>
-          <p>
-            <?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias.", "wp-a-tu-gusto"); ?><br/><br/>
-            <a class="btn btn-primary" href="<?php echo get_the_permalink()."?wpatg_tab=editar-perfil"; ?>"><?php _e("Quiero editar mi perfil", "wp-a-tu-gusto"); ?></a>
-          </p>
-        </div>
-        <hr/>
+      } /*else { ?>
         <?php wpatg_gamification(); ?>
-      <?php } ?>
+      <?php }*/ ?>
     </div>
     <?php echo do_shortcode("[wpatg_banner]"); ?>
   </div>
@@ -99,11 +143,11 @@ function wpatg_zone_show_css() { ?>
   <style>
     <?php echo file_get_contents(dirname(__FILE__)."/../assets/css/style.css"); ?>
   </style>
+  
 <?php }
 
 function wpatg_zone_edit_profile() {
   $contact = getLoggedUser(); ?>
-  
   <?php $formData = getFields(); 
   $formFields = getFields("fields");
   $fomLangs = getFields("langs");
@@ -176,8 +220,9 @@ function wpatg_zone_edit_profile() {
       }
     }
 
-    echo "<p class='adviseok'>".__('Datos actualizados correctamente', 'wp-a-tu-gusto')."</p>";
-  } ?>
+    echo "<p class='adviseok'>".__('Datos actualizados correctamente', 'wp-a-tu-gusto')."</p>"; /* ?>
+    <?php wpatg_gamification($contact, true); ?>
+  <?php */ } ?>
   <form id="wpatg_form_my_data" method="post" action="<?php echo get_the_permalink()."?wpatg_tab=editar-perfil"; ?>">
     <div>
       <h2><?php _e("Mis datos", "wp-a-tu-gusto"); ?></h2>
@@ -267,7 +312,8 @@ function wpatg_zone_edit_profile() {
        <button class="btn btn-black" type="submit" name="wpatg_save_edit_profile"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
     </div>
   </form>
-  <?php wpatg_gamification($contact, true); ?>
+  
+  <?php wpatg_gamification(); ?>
   <script>
     jQuery(document).ready(function() {
       if(jQuery('.checkbox-lang:checked').length == jQuery('.checkbox-lang').length) {
@@ -437,16 +483,16 @@ function wpatg_gamification($current_contact = '', $mini = false) {
       "uncompletedtext" => __("Hace mucho tiempo desde la última vez que actualizaste tu perfil.", "wp-a-tu-gusto")],
     "langs" => [
       "percent" => 14,
-      "completedtext" => __("Has especificado el idioma donde quieres tu comunicación.", "wp-a-tu-gusto"),
-      "uncompletedtext" => __("No has especificado el idioma donde quieres tu comunicación.", "wp-a-tu-gusto")],
+      "completedtext" => __("Has elegido el idioma.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("No has elegido el idioma.", "wp-a-tu-gusto")],
     "interests" => [
       "percent" => 14,
       "completedtext" => __("Has especificado tus intereses.", "wp-a-tu-gusto"),
       "uncompletedtext" => __("No has especificado tus intereses.", "wp-a-tu-gusto")],
     "companies" => [
       "percent" => 14,
-      "completedtext" => __("Has especificado tus perfiles de empresa.", "wp-a-tu-gusto"),
-      "uncompletedtext" => __("No has especificado tus perfiles de empresa.", "wp-a-tu-gusto")],
+      "completedtext" => __("Has detallado tu perfil de empresa.", "wp-a-tu-gusto"),
+      "uncompletedtext" => __("No has detallado tu perfil de empresa.", "wp-a-tu-gusto")],
     "newsletters" => [
       "percent" => 14,
       "completedtext" => __("Estás suscrito a nuestras newsletters.", "wp-a-tu-gusto"), 
