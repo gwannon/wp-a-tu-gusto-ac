@@ -32,47 +32,67 @@ function wpatg_page_settings() {
 	<h1><?php _e("Configuración de Banners", 'wp-a-tu-gusto'); ?></h1>
 	<?php if(isset($_REQUEST['sendbanner']) && $_REQUEST['sendbanner'] != '') { 
 		?><p style="border: 1px solid green; color: green; text-align: center;"><?php _e("Datos guardados correctamente.", 'wp-a-tu-gusto'); ?></p><?php
-		update_option('_wpatg_banner_title', $_POST['_wpatg_banner_title']);
-		update_option('_wpatg_banner_subtitle', $_POST['_wpatg_banner_subtitle']);
-		update_option('_wpatg_banner_button', $_POST['_wpatg_banner_button']);
-		update_option('_wpatg_banner_image', $_POST['_wpatg_banner_image']);
-		update_option('_wpatg_banner_link', $_POST['_wpatg_banner_link']);
+		update_option('_wpatg_banner_title_es', $_POST['_wpatg_banner_title_es']);
+		update_option('_wpatg_banner_subtitle_es', $_POST['_wpatg_banner_subtitle_es']);
+		update_option('_wpatg_banner_button_es', $_POST['_wpatg_banner_button_es']);
+		update_option('_wpatg_banner_image_es', $_POST['_wpatg_banner_image_es']);
+		update_option('_wpatg_banner_link_es', $_POST['_wpatg_banner_link_es']);
+		update_option('_wpatg_banner_title_eu', $_POST['_wpatg_banner_title_eu']);
+		update_option('_wpatg_banner_subtitle_eu', $_POST['_wpatg_banner_subtitle_eu']);
+		update_option('_wpatg_banner_button_eu', $_POST['_wpatg_banner_button_eu']);
+		update_option('_wpatg_banner_image_eu', $_POST['_wpatg_banner_image_eu']);
+		update_option('_wpatg_banner_link_eu', $_POST['_wpatg_banner_link_eu']);
 	} ?>
 	<form method="post">
     <h2><?php _e("Banner en el panel", 'wp-a-tu-gusto'); ?></h2>
 		<b><?php _e("Título", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_title" value="<?php echo get_option("_wpatg_banner_title"); ?>" style="width: calc(100% - 20px);" /><br/>
+		<input type="text" name="_wpatg_banner_title_es" value="<?php echo get_option("_wpatg_banner_title_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_title_eu" value="<?php echo get_option("_wpatg_banner_title_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/>
 		<b><?php _e("Subtítulo", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_subtitle" value="<?php echo get_option("_wpatg_banner_subtitle"); ?>" style="width: calc(100% - 20px);" /><br/>
+		<input type="text" name="_wpatg_banner_subtitle_es" value="<?php echo get_option("_wpatg_banner_subtitle_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_subtitle_eu" value="<?php echo get_option("_wpatg_banner_subtitle_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/>
 		<b><?php _e("Botón", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_button" value="<?php echo get_option("_wpatg_banner_button"); ?>" style="width: calc(100% - 20px);" /><br/>
+		<input type="text" name="_wpatg_banner_button_es" value="<?php echo get_option("_wpatg_banner_button_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_button_eu" value="<?php echo get_option("_wpatg_banner_button_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/>
 		<b><?php _e("Imagen", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_image" value="<?php echo get_option("_wpatg_banner_image"); ?>" style="width: calc(100% - 20px);" /><br/>
+		<input type="text" name="_wpatg_banner_image_es" value="<?php echo get_option("_wpatg_banner_image_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_image_eu" value="<?php echo get_option("_wpatg_banner_image_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/>
 		<b><?php _e("Enlace", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_link" value="<?php echo get_option("_wpatg_banner_link"); ?>" style="width: calc(100% - 20px);" /><br/><br/>
+		<input type="text" name="_wpatg_banner_link_es" value="<?php echo get_option("_wpatg_banner_link_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_link_eu" value="<?php echo get_option("_wpatg_banner_link_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/><br/>
 		<input type="submit" name="sendbanner" class="button button-primary" value="<?php _e("Guardar", 'wp-a-tu-gusto'); ?>" />
 	</form>
 	<hr/>
 	<?php if(isset($_REQUEST['sendbanneremail']) && $_REQUEST['sendbanneremail'] != '') { 
 		?><p style="border: 1px solid green; color: green; text-align: center;"><?php _e("Datos guardados correctamente.", 'wp-a-tu-gusto'); ?></p><?php
-		update_option('_wpatg_banner_email_title', $_POST['_wpatg_banner_email_title']);
-		update_option('_wpatg_banner_email_subtitle', $_POST['_wpatg_banner_email_subtitle']);
-		update_option('_wpatg_banner_email_button', $_POST['_wpatg_banner_email_button']);
-		update_option('_wpatg_banner_email_image', $_POST['_wpatg_banner_email_image']);
-		update_option('_wpatg_banner_email_link', $_POST['_wpatg_banner_email_link']);
+		update_option('_wpatg_banner_email_title_es', $_POST['_wpatg_banner_email_title_es']);
+		update_option('_wpatg_banner_email_subtitle_es', $_POST['_wpatg_banner_email_subtitle_es']);
+		update_option('_wpatg_banner_email_button_es', $_POST['_wpatg_banner_email_button_es']);
+		update_option('_wpatg_banner_email_image_es', $_POST['_wpatg_banner_email_image_es']);
+		update_option('_wpatg_banner_email_link_es', $_POST['_wpatg_banner_email_link_es']);
+		update_option('_wpatg_banner_email_title_eu', $_POST['_wpatg_banner_email_title_eu']);
+		update_option('_wpatg_banner_email_subtitle_eu', $_POST['_wpatg_banner_email_subtitle_eu']);
+		update_option('_wpatg_banner_email_button_eu', $_POST['_wpatg_banner_email_button_eu']);
+		update_option('_wpatg_banner_email_image_eu', $_POST['_wpatg_banner_email_image_eu']);
+		update_option('_wpatg_banner_email_link_eu', $_POST['_wpatg_banner_email_link_eu']);
 	} ?>
 	<form method="post">
 		<h2><?php _e("Banner en los emails", 'wp-a-tu-gusto'); ?></h2>
 		<b><?php _e("Título", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_email_title" value="<?php echo get_option("_wpatg_banner_email_title"); ?>" style="width: calc(100% - 20px);" /><br/>
+		<input type="text" name="_wpatg_banner_email_title_es" value="<?php echo get_option("_wpatg_banner_email_title_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_email_title_eu" value="<?php echo get_option("_wpatg_banner_email_title_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/>
 		<b><?php _e("Subtítulo", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_email_subtitle" value="<?php echo get_option("_wpatg_banner_email_subtitle"); ?>" style="width: calc(100% - 20px);" /><br/>
+		<input type="text" name="_wpatg_banner_email_subtitle_es" value="<?php echo get_option("_wpatg_banner_email_subtitle_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_email_subtitle_eu" value="<?php echo get_option("_wpatg_banner_email_subtitle_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/>
 		<b><?php _e("Botón", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_email_button" value="<?php echo get_option("_wpatg_banner_email_button"); ?>" style="width: calc(100% - 20px);" /><br/>
+		<input type="text" name="_wpatg_banner_email_button_es" value="<?php echo get_option("_wpatg_banner_email_button_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_email_button_eu" value="<?php echo get_option("_wpatg_banner_email_button_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/>
 		<b><?php _e("Imagen", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_email_image" value="<?php echo get_option("_wpatg_banner_email_image"); ?>" style="width: calc(100% - 20px);" /><br/>
+		<input type="text" name="_wpatg_banner_email_image_es" value="<?php echo get_option("_wpatg_banner_email_image_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_email_image_eu" value="<?php echo get_option("_wpatg_banner_email_image_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/>
 		<b><?php _e("Enlace", 'wp-a-tu-gusto'); ?>:</b><br/>
-		<input type="text" name="_wpatg_banner_email_link" value="<?php echo get_option("_wpatg_banner_email_link"); ?>" style="width: calc(100% - 20px);" /><br/><br/>
+		<input type="text" name="_wpatg_banner_email_link_es" value="<?php echo get_option("_wpatg_banner_email_link_es"); ?>" style="width: calc(100% - 20px);" placeholder="ES" /><br/>
+		<input type="text" name="_wpatg_banner_email_link_eu" value="<?php echo get_option("_wpatg_banner_email_link_eu"); ?>" style="width: calc(100% - 20px);" placeholder="EU" /><br/><br/>
 		<input type="submit" name="sendbanneremail" class="button button-primary" value="<?php _e("Guardar", 'wp-a-tu-gusto'); ?>" />
 	</form>
 	<?php

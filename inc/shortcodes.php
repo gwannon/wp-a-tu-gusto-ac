@@ -594,10 +594,10 @@ function wpatg_banner($params = array(), $content = null) {
     <div>
       <div>
         <div>
-          <?php if(get_option("_wpatg_banner_title") != '') { ?><p class="title"><?php echo get_option("_wpatg_banner_title"); ?></p><?php } ?>
-          <?php if(get_option("_wpatg_banner_subtitle") != '') { ?><p class="subtitle"><?php echo get_option("_wpatg_banner_subtitle"); ?></p><?php } ?>
+          <?php if(get_option("_wpatg_banner_title_".ICL_LANGUAGE_CODE) != '') { ?><p class="title"><?php echo get_option("_wpatg_banner_title_".ICL_LANGUAGE_CODE); ?></p><?php } ?>
+          <?php if(get_option("_wpatg_banner_subtitle_".ICL_LANGUAGE_CODE) != '') { ?><p class="subtitle"><?php echo get_option("_wpatg_banner_subtitle_".ICL_LANGUAGE_CODE); ?></p><?php } ?>
         </div>
-        <?php if(get_option("_wpatg_banner_link") != '' && get_option("_wpatg_banner_button") != '') { ?><a href="<?php echo get_option("_wpatg_banner_link"); ?>"><?php echo get_option("_wpatg_banner_button"); ?></a><?php } ?>
+        <?php if(get_option("_wpatg_banner_link_".ICL_LANGUAGE_CODE) != '' && get_option("_wpatg_banner_button_".ICL_LANGUAGE_CODE) != '') { ?><a href="<?php echo get_option("_wpatg_banner_link_".ICL_LANGUAGE_CODE); ?>"><?php echo get_option("_wpatg_banner_button_".ICL_LANGUAGE_CODE); ?></a><?php } ?>
       </div>
     </div>
   </div>
