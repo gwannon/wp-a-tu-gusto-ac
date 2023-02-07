@@ -3,7 +3,7 @@
 function getFields($label = '') { 
   //Idiomas
   if ($label == 'langs') return array (
-    array("id" => 18, "tag" => "newsletter-es", "text" => __('Castellano ', 'wp-a-tu-gusto')),
+    array("id" => 18, "tag" => "newsletter-es", "text" => __('Castellano', 'wp-a-tu-gusto')),
     array("id" => 30, "tag" => "newsletter-eu", "text" => __('Euskera', 'wp-a-tu-gusto')),
   );
 

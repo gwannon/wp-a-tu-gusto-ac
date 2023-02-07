@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ac-update-forms\n"
-"POT-Creation-Date: 2023-02-07 15:08+0100\n"
-"PO-Revision-Date: 2023-02-07 15:09+0100\n"
+"POT-Creation-Date: 2023-02-07 16:41+0100\n"
+"PO-Revision-Date: 2023-02-07 16:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: jorge@enutt.net\n"
 "Language: eu_ES\n"
@@ -36,10 +36,8 @@ msgid "Configuración WP A tu gusto"
 msgstr ""
 
 #: ../inc/admin.php:12 ../inc/admin.php:34 ../inc/admin.php:57
-#, fuzzy
-#| msgid "Datos de acceso incorrectos."
 msgid "Datos guardados correctamente."
-msgstr "Sartzeko datuak ez dira zuzenak."
+msgstr ""
 
 #: ../inc/admin.php:19
 msgid "Configuración Active Campaign"
@@ -66,11 +64,9 @@ msgid "Filtro de boletines para archivo"
 msgstr ""
 
 #: ../inc/admin.php:29 ../inc/admin.php:53 ../inc/admin.php:76
-#: ../inc/shortcodes.php:313
-#, fuzzy
-#| msgid "Guarda tu perfil"
+#: ../inc/shortcodes.php:333
 msgid "Guardar"
-msgstr "Gorde zure profila"
+msgstr "Gorde"
 
 #: ../inc/admin.php:32
 msgid "Configuración de Banners"
@@ -104,19 +100,17 @@ msgstr ""
 msgid "Banner en los emails"
 msgstr ""
 
-#: ../inc/fields.php:6
-msgid "Castellano "
+#: ../inc/fields.php:6 ../inc/shortcodes.php:62
+msgid "Castellano"
 msgstr "Gaztelania"
 
-#: ../inc/fields.php:7 ../inc/shortcodes.php:44
+#: ../inc/fields.php:7 ../inc/shortcodes.php:63
 msgid "Euskera"
 msgstr "Euskara"
 
 #: ../inc/fields.php:11
-#, fuzzy
-#| msgid "Mi boletín semanal de Grupo SPRI "
 msgid "Mi boletín semanal de Grupo SPRI"
-msgstr "SPRI Taldearen nire asteroko buletina"
+msgstr ""
 
 #: ../inc/fields.php:11
 msgid ""
@@ -129,10 +123,8 @@ msgstr ""
 "nazioartekotzeari, ekintzailetzari eta azpiegiturei buruzko joerak"
 
 #: ../inc/fields.php:12
-#, fuzzy
-#| msgid "Mi boletín semanal de Grupo SPRI "
 msgid "Mi boletín semanal de Adi! Agenda"
-msgstr "SPRI Taldearen nire asteroko buletina"
+msgstr ""
 
 #: ../inc/fields.php:12
 msgid ""
@@ -177,10 +169,8 @@ msgid "Emprendimiento"
 msgstr "Ekintzailetza"
 
 #: ../inc/fields.php:22
-#, fuzzy
-#| msgid "Fundición"
 msgid "Financiación"
-msgstr "Galdaketa"
+msgstr "Finantzaketa"
 
 #: ../inc/fields.php:23
 msgid "I+D"
@@ -188,7 +178,7 @@ msgstr "I+G"
 
 #: ../inc/fields.php:24
 msgid "Infraestructuras"
-msgstr ""
+msgstr "Azpiegiturak"
 
 #: ../inc/fields.php:25
 msgid "Innovación"
@@ -215,10 +205,8 @@ msgid "Autonómos/as"
 msgstr "Autonomoak"
 
 #: ../inc/fields.php:35
-#, fuzzy
-#| msgid "Micropyme (1-10 empleados/as)"
 msgid "Micropyme (1-10)"
-msgstr "MikroETEak (1-10 langile)"
+msgstr "MikroETEak (1-10)"
 
 #: ../inc/fields.php:36
 msgid "Pequeña empresa (10-50)"
@@ -446,51 +434,39 @@ msgid ""
 "href='https://spri.eus/es/boletin/archivo/'>Click aquí</a>"
 msgstr ""
 
-#: ../inc/shortcodes.php:35
-#, fuzzy
-#| msgid ""
-#| "Para actualizar tus preferencias de suscripción, comprueba tu correo "
-#| "electrónico porque te hemos enviado un mensaje con los pasos para poder "
-#| "hacerlo."
+#: ../inc/shortcodes.php:40 ../inc/shortcodes.php:53
 msgid ""
 "Ya estás registrado. Ahora para actualizar tus preferencias de suscripción, "
 "comprueba tu correo electrónico porque te hemos enviado un mensaje con los "
 "pasos para poder hacerlo."
 msgstr ""
-"Zure harpidetzaren lehentasunak eguneratzeko, begiratu zure posta "
-"elektronikoa, mezu bat bidali dizugulako eguneraketa egiteko pausoekin."
 
-#: ../inc/shortcodes.php:36
-#, fuzzy
-#| msgid ""
-#| "Email incorrecto. El email suministrado no está en nuestra base de datos."
+#: ../inc/shortcodes.php:41
+msgid "Ha ocurrido un error. Vuelve a intentarlo más tarde."
+msgstr ""
+
+#: ../inc/shortcodes.php:54
 msgid ""
 "Email incorrecto. El email suministrado ya está en nuestra base de datos."
 msgstr ""
 "Posta elektronikoa ez da zuzena. Eman diguzun posta elektronikoa ez dago "
 "gure datu-basean."
 
-#: ../inc/shortcodes.php:37 ../inc/shortcodes.php:61
+#: ../inc/shortcodes.php:56 ../inc/shortcodes.php:80
 msgid "Email incorrecto. El email suministrado no tiene el formato adecuado."
 msgstr ""
 "Posta elektronikoa ez da zuzena. Eman diguzun posta elektronikoaren formatua "
 "ez da egokia."
 
-#: ../inc/shortcodes.php:40 ../inc/shortcodes.php:64 ../inc/shortcodes.php:233
+#: ../inc/shortcodes.php:59 ../inc/shortcodes.php:83 ../inc/shortcodes.php:253
 msgid "Email"
 msgstr "Posta elektronikoa"
 
-#: ../inc/shortcodes.php:42
+#: ../inc/shortcodes.php:61
 msgid "Idioma"
 msgstr ""
 
-#: ../inc/shortcodes.php:43
-#, fuzzy
-#| msgid "Castellano "
-msgid "Castellano"
-msgstr "Gaztelania"
-
-#: ../inc/shortcodes.php:46
+#: ../inc/shortcodes.php:65
 msgid ""
 "SPRI-Agencia Vasca de Desarrollo Empresarial, como responsable del "
 "tratamiento de los datos, recoge sus datos personales para la prestación de "
@@ -504,23 +480,21 @@ msgid ""
 "el tratamiento de sus datos en los términos indicados."
 msgstr ""
 
-#: ../inc/shortcodes.php:47
+#: ../inc/shortcodes.php:66
 msgid "¡Suscríbete!"
 msgstr ""
 
-#: ../inc/shortcodes.php:51
-#, fuzzy
-#| msgid "Personaliza tus boletines"
+#: ../inc/shortcodes.php:70
 msgid "Personaliza tus boletines a tu gusto"
-msgstr "Pertsonalizatu zure buletinak."
+msgstr ""
 
-#: ../inc/shortcodes.php:52
+#: ../inc/shortcodes.php:71
 msgid ""
 "Elige lo que te interesa y recibe en tu email las comunicaciones según tus "
 "preferencias. <b>Indícanos tu email para verificar que realmente eres tú.</b>"
 msgstr ""
 
-#: ../inc/shortcodes.php:59
+#: ../inc/shortcodes.php:78
 msgid ""
 "Para actualizar tus preferencias de suscripción, comprueba tu correo "
 "electrónico porque te hemos enviado un mensaje con los pasos para poder "
@@ -529,28 +503,26 @@ msgstr ""
 "Zure harpidetzaren lehentasunak eguneratzeko, begiratu zure posta "
 "elektronikoa, mezu bat bidali dizugulako eguneraketa egiteko pausoekin."
 
-#: ../inc/shortcodes.php:60
+#: ../inc/shortcodes.php:79
 msgid ""
 "Email incorrecto. El email suministrado no está en nuestra base de datos."
 msgstr ""
 "Posta elektronikoa ez da zuzena. Eman diguzun posta elektronikoa ez dago "
 "gure datu-basean."
 
-#: ../inc/shortcodes.php:65
+#: ../inc/shortcodes.php:84
 msgid "Enviar"
 msgstr "Bidali"
 
-#: ../inc/shortcodes.php:69
-#, fuzzy
-#| msgid "Personaliza tus boletines"
+#: ../inc/shortcodes.php:88
 msgid "Personaliza tu perfil para recibir "
-msgstr "Pertsonalizatu zure buletinak."
+msgstr ""
 
-#: ../inc/shortcodes.php:70
+#: ../inc/shortcodes.php:89
 msgid "sólo lo que te interesa"
 msgstr ""
 
-#: ../inc/shortcodes.php:73
+#: ../inc/shortcodes.php:92
 msgid ""
 "Te vamos a contar el día a día de la empresa, de hacia donde va tu sector, "
 "los eventos a los que no puedes faltar, las ayudas de las que te puedes "
@@ -558,238 +530,224 @@ msgid ""
 "fracasos…, porque eso, también te lo contamos."
 msgstr ""
 
-#: ../inc/shortcodes.php:74
+#: ../inc/shortcodes.php:93
 msgid "Spricomunica te informa solo si lo solicitas."
 msgstr ""
 
-#: ../inc/shortcodes.php:77
-#, fuzzy
-#| msgid "Empieza a recibir los boletines según tus preferencias."
+#: ../inc/shortcodes.php:96
 msgid ""
 "Elige lo que te interesa y recibe en tu email las comunicaciones según tus "
 "preferencias."
-msgstr "Jaso zure lehentasunen arabera osatutako buletinak."
+msgstr ""
 
-#: ../inc/shortcodes.php:78
-#, fuzzy
-#| msgid "Guarda tu perfil"
+#: ../inc/shortcodes.php:97
 msgid "Quiero editar mi perfil"
-msgstr "Gorde zure profila"
+msgstr ""
 
-#: ../inc/shortcodes.php:79
+#: ../inc/shortcodes.php:98
 msgid "Quiero darme de alta"
 msgstr ""
 
-#: ../inc/shortcodes.php:96
-#, fuzzy
-#| msgid "Guarda tu perfil"
+#: ../inc/shortcodes.php:115
 msgid "Editar perfil"
-msgstr "Gorde zure profila"
+msgstr ""
 
-#: ../inc/shortcodes.php:98 ../inc/shortcodes.php:408
+#: ../inc/shortcodes.php:117 ../inc/shortcodes.php:424
 msgid "Archivo de boletines"
 msgstr ""
 
-#: ../inc/shortcodes.php:107
+#: ../inc/shortcodes.php:126
 msgid "Salir"
 msgstr ""
 
-#: ../inc/shortcodes.php:115
+#: ../inc/shortcodes.php:134
 msgid "Mis noticias"
 msgstr ""
 
-#: ../inc/shortcodes.php:224
+#: ../inc/shortcodes.php:244
 msgid "Datos actualizados correctamente"
 msgstr ""
 
-#: ../inc/shortcodes.php:229
+#: ../inc/shortcodes.php:249
 msgid "Mis datos"
 msgstr ""
 
-#: ../inc/shortcodes.php:246
+#: ../inc/shortcodes.php:266
 msgid "¿En qué <span>idioma</span> quieres recibirnos?"
 msgstr "Zein <span>hizkuntzatan</span> jaso nahi gaituzu?"
 
-#: ../inc/shortcodes.php:250
-#, fuzzy
-#| msgid "Seleccionar ambos"
+#: ../inc/shortcodes.php:270
 msgid "Seleccionar/Deseleccionar ambos"
-msgstr "Hautatu biak"
+msgstr ""
 
-#: ../inc/shortcodes.php:255
-#, fuzzy
-#| msgid ""
-#| "¿Con cuál de nuestros <span>perfiles de empresa</span> te identificas?"
+#: ../inc/shortcodes.php:275
 msgid "¿Con cual de estos perfiles de empresa te identificas?"
-msgstr "Gure zein enpresa-profilekin <span>identifikatzen zara</span>?"
+msgstr ""
 
-#: ../inc/shortcodes.php:256
+#: ../inc/shortcodes.php:276
 msgid ""
 "Cuéntanos más sobre ti para poder acercarte las ayudas, eventos y servicios "
 "de los que te puedes beneficiar."
 msgstr ""
 
-#: ../inc/shortcodes.php:262 ../inc/shortcodes.php:273
+#: ../inc/shortcodes.php:282 ../inc/shortcodes.php:293
 msgid "Me interesan los contenidos de todas estas temáticas."
 msgstr "Gai hauei guztiei buruzko edukiak interesatzen zaizkit."
 
-#: ../inc/shortcodes.php:266
+#: ../inc/shortcodes.php:286
 msgid "Mis intereses"
 msgstr ""
 
-#: ../inc/shortcodes.php:267
+#: ../inc/shortcodes.php:287
 msgid "Recibir solo aquello que es importante para ti. Ni más ni menos."
 msgstr ""
 
-#: ../inc/shortcodes.php:281
+#: ../inc/shortcodes.php:301
 msgid "Newsletters"
 msgstr ""
 
-#: ../inc/shortcodes.php:282
+#: ../inc/shortcodes.php:302
 msgid ""
 "Ideas clave y titulares que te avanzan los detalles en los que puedes "
 "profundizar."
 msgstr ""
 
-#: ../inc/shortcodes.php:283
+#: ../inc/shortcodes.php:303
 #, php-format
 msgid ""
 "<a href='%s' target='_blank'>Mira nuestros boletines anteriores</a>, querrás "
 "suscribirte."
 msgstr ""
 
-#: ../inc/shortcodes.php:298
-#, fuzzy
-#| msgid "Asociaciones"
+#: ../inc/shortcodes.php:318
 msgid "Otras notificaciones"
-msgstr "Elkarteak"
+msgstr ""
 
-#: ../inc/shortcodes.php:299
+#: ../inc/shortcodes.php:319
 msgid ""
 "Recibir de manera independiente las alertas informativas con información "
 "especializada."
 msgstr ""
 
-#: ../inc/shortcodes.php:303
+#: ../inc/shortcodes.php:323
 msgid "¿Quieres recibir notificaciones especiales de alguno de estos tipos?"
 msgstr ""
 
-#: ../inc/shortcodes.php:308
-#, fuzzy
-#| msgid "Me interesan los contenidos de todas estas temáticas."
+#: ../inc/shortcodes.php:328
 msgid "Me interesan las comunicaciones de todos estos tipos."
-msgstr "Gai hauei guztiei buruzko edukiak interesatzen zaizkit."
+msgstr ""
 
-#: ../inc/shortcodes.php:388
+#: ../inc/shortcodes.php:404
 #, php-format
 msgid "Elige tu %s"
 msgstr "Aukeratu zure %s"
 
-#: ../inc/shortcodes.php:409
+#: ../inc/shortcodes.php:425
 msgid "Consulta boletines antiguos"
 msgstr ""
 
-#: ../inc/shortcodes.php:412
+#: ../inc/shortcodes.php:428
 msgid "d/m/Y"
 msgstr ""
 
-#: ../inc/shortcodes.php:475
+#: ../inc/shortcodes.php:491
 msgid "Has rellenado los datos básicos de tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:476
+#: ../inc/shortcodes.php:492
 msgid "No has rellenado los datos básicos de tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:479
+#: ../inc/shortcodes.php:495
 msgid "Has rellenado todos los datos de tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:480
+#: ../inc/shortcodes.php:496
 msgid "No has rellenado todos los datos de tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:483
+#: ../inc/shortcodes.php:499
 msgid "Has actualizado tu perfíl hace poco."
 msgstr ""
 
-#: ../inc/shortcodes.php:484
+#: ../inc/shortcodes.php:500
 msgid "Hace mucho tiempo desde la última vez que actualizaste tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:487
+#: ../inc/shortcodes.php:503
 msgid "Has elegido el idioma."
 msgstr ""
 
-#: ../inc/shortcodes.php:488
+#: ../inc/shortcodes.php:504
 msgid "No has elegido el idioma."
 msgstr ""
 
-#: ../inc/shortcodes.php:491
+#: ../inc/shortcodes.php:507
 msgid "Has especificado tus intereses."
 msgstr ""
 
-#: ../inc/shortcodes.php:492
+#: ../inc/shortcodes.php:508
 msgid "No has especificado tus intereses."
 msgstr ""
 
-#: ../inc/shortcodes.php:495
+#: ../inc/shortcodes.php:511
 msgid "Has detallado tu perfil de empresa."
 msgstr ""
 
-#: ../inc/shortcodes.php:496
+#: ../inc/shortcodes.php:512
 msgid "No has detallado tu perfil de empresa."
 msgstr ""
 
-#: ../inc/shortcodes.php:499
+#: ../inc/shortcodes.php:515
 msgid "Estás suscrito a nuestras newsletters."
 msgstr ""
 
-#: ../inc/shortcodes.php:500
+#: ../inc/shortcodes.php:516
 msgid "No estás suscrito a ninguna de nuestras newsletters."
 msgstr ""
 
-#: ../inc/shortcodes.php:503
+#: ../inc/shortcodes.php:519
 msgid "Estás suscrito a nuestras notificaciones especiales."
 msgstr ""
 
-#: ../inc/shortcodes.php:504
+#: ../inc/shortcodes.php:520
 msgid "No estás suscrito a ninguna notificación especial."
 msgstr ""
 
-#: ../inc/shortcodes.php:506
-#, fuzzy
-#| msgid "Guarda tu perfil"
+#: ../inc/shortcodes.php:522
 msgid "Calidad de tu perfil"
-msgstr "Gorde zure profila"
+msgstr ""
 
-#: ../inc/shortcodes.php:536
+#: ../inc/shortcodes.php:552
 #, php-format
 msgid "> Rellenado al %s&#37;"
 msgstr ""
 
-#: ../inc/shortcodes.php:540
+#: ../inc/shortcodes.php:556
 msgid "<span>¡Bien hecho!</span> Has completado tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:541 ../inc/shortcodes.php:542
+#: ../inc/shortcodes.php:557 ../inc/shortcodes.php:558
 msgid ""
 "<span>El perfil es bueno.</span> Trata de mejorarlo para recibir los "
 "contenidos que mejor se ajustan a tus preferencias."
 msgstr ""
 
-#: ../inc/shortcodes.php:543
+#: ../inc/shortcodes.php:559
 msgid ""
 "<span>Dedícale un poco de tiempo a tu perfil/span> y veras como nuestras "
 "comunicaciones contigo mejoran."
 msgstr ""
 
-#: ../inc/shortcodes.php:544
+#: ../inc/shortcodes.php:560
 msgid ""
 "<span>Tu perfil necesita dedicación por tu parte.</span> Si le dedicas "
 "tiempo, nosotros nos comprometemos a mejorar nuestras comunicaciones contigo "
 "para ofrecerte los temas que realmente te interesan."
 msgstr ""
+
+#~ msgid "Castellano "
+#~ msgstr "Gaztelania"
 
 #~ msgid "Indícanos tu <b>email</b> para verificar que realmente eres tú."
 #~ msgstr ""

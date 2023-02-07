@@ -548,15 +548,16 @@
   display: block;
   position: absolute;
   height: 20px;
-  width: 100%;
+  width: 50px;
   bottom: 5px;
-  left: 0px;
+  left: calc(50% - 25px);
   text-align: center;
   transition: all 0.3s;
+  transform: rotate(0deg) scalex(3);
 }
 
 #wpatg #tasks .advise.opened:after {
-  transform: rotate(-180deg);
+  transform: rotate(-180deg) scalex(3);
 }
 
 #wpatg #tasks .advise span {

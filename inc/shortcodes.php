@@ -350,12 +350,6 @@ function wpatg_zone_edit_profile() {
         jQuery(".checkbox-lang").prop('checked', jQuery(this).is(':checked'));
       });
 
-      jQuery('#wpatg #tasks .advise').click(function() {
-        jQuery('#wpatg #tasks #completed').fadeToggle();
-        jQuery('#wpatg #tasks .advise').toggleClass("opened");
-      });
-
-
       if(jQuery('.checkbox-tag-notifications:checked').length == jQuery('.checkbox-tag-notifications').length) {
         jQuery("#select-all-notifications").prop('checked', true);
       }
@@ -580,6 +574,14 @@ function wpatg_gamification($current_contact = '', $mini = false) {
         </ul>
       </div>
     </div>
+    <script>
+      jQuery(document).ready(function() {
+        jQuery('#wpatg #tasks .advise').click(function() {
+          jQuery('#wpatg #tasks #completed').fadeToggle();
+          jQuery('#wpatg #tasks .advise').toggleClass("opened");
+        });
+      });
+    </script>
   <?php } ?>
 <?php }
 
