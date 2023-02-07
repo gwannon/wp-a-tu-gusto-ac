@@ -1,6 +1,6 @@
 .contentlimit.page {
 	background-color: #efefef;
-	padding: 100px 0px;
+	padding: 20px 0px;
 }
 
 /* ---------------- LOGIN -------------------- */
@@ -532,12 +532,31 @@
   line-height: 120%;
 }
 
-#wpatg #tasks .advise{
+#wpatg #tasks .advise {
   border: none;
   color: #000;
   font-size: 18px;
   line-height: 120%;
   background-color: #cccccc;
+  cursor: pointer;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+#wpatg #tasks .advise:after {
+  content: "\25BC";
+  display: block;
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  bottom: 5px;
+  left: 0px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+#wpatg #tasks .advise.opened:after {
+  transform: rotate(-180deg);
 }
 
 #wpatg #tasks .advise span {
@@ -548,6 +567,7 @@
 #wpatg #tasks #completed{
   border: 1px solid #000;
   color: #000;
+  display: none;
 }
 
 #wpatg #tasks > div#completed ul li.uncompleted {

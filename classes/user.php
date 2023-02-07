@@ -170,6 +170,18 @@ class UserAC {
   }
 }
 
+function createUserAC ($email) {
+  $data['contact'] = [
+    'email' => $email, 
+  ];
+  $response = curlCallPost("/contacts", json_encode($data))->contact;
+  if($response->id > 0) {
+    $user = new UserAC($response->id);
+    return $user;
+  } 
+  return false;
+}
+
 function existsUserAC ($email) {
   $temp = curlCallGet("/contacts?email=".$email);
   if(isset($temp->contacts[0])) return true;

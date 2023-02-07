@@ -25,14 +25,34 @@ function wpatg_login($params = array(), $content = null) {
         <p><?php _e("Mira nuestros boletines anteriores, querrás suscribirte. <a target='_blank' href='https://spri.eus/es/boletin/archivo/'>Click aquí</a>", "wp-a-tu-gusto"); ?></p>
         <?php if (isset($_REQUEST['wpatg-email']) && is_email($_REQUEST['wpatg-email'])) {
           remove_all_filters('wp_mail', 10);
+          //Comprobar si no existe
           if(!existsUserAC($_REQUEST['wpatg-email'])) {
+            $user = createUserAC($_REQUEST['wpatg-email']);
+            if($user) {
+              $user->executeAutomation (WPATG_AC_ENGAGEMENT_AUTOMATION);
+              //Metemos etiqueta de idioma
+              if(ICL_LANGUAGE_CODE == 'es') $user->setTag(18);
+              else $user->setTag(30);
+              //Metemos en lista de boletines
+              $user->setList(17, 1);
+              //Mandamos email
+              wpatg_send_register_email($user);
+              $ok = __('Ya estás registrado. Ahora para actualizar tus preferencias de suscripción, comprueba tu correo electrónico porque te hemos enviado un mensaje con los pasos para poder hacerlo.', 'wp-a-tu-gusto');
+            } else $error = __('Ha ocurrido un error. Vuelve a intentarlo más tarde.', 'wp-a-tu-gusto'); 
+          } else { 
             $user = new UserAC($_REQUEST['wpatg-email']);
             $user->executeAutomation (WPATG_AC_ENGAGEMENT_AUTOMATION);
-            //TODO meter etiqueta de idioma
-            //TODO meter en lista de boletines
-            wpatg_send_register_email($user);
-            $ok = __('Ya estás registrado. Ahora para actualizar tus preferencias de suscripción, comprueba tu correo electrónico porque te hemos enviado un mensaje con los pasos para poder hacerlo.', 'wp-a-tu-gusto');
-          } else $error = __('Email incorrecto. El email suministrado no está en nuestra base de datos.', 'wp-a-tu-gusto');
+            if(!$user->hasList(17)) { //Comprobamos si existe y no esta en boletines SPRI (lista)
+              //Metemos etiqueta de idioma
+              if(ICL_LANGUAGE_CODE == 'es') $user->setTag(18);
+              else $user->setTag(30);
+              //Metemos en lista de boletines
+              $user->setList(17, 1);
+              //Mandamos email
+              wpatg_send_register_email($user);
+              $ok = __('Ya estás registrado. Ahora para actualizar tus preferencias de suscripción, comprueba tu correo electrónico porque te hemos enviado un mensaje con los pasos para poder hacerlo.', 'wp-a-tu-gusto');
+            } else $error = __('Email incorrecto. El email suministrado ya está en nuestra base de datos.', 'wp-a-tu-gusto');
+          }
         } else if (isset($_REQUEST['wpatg-email'])) $error = __('Email incorrecto. El email suministrado no tiene el formato adecuado.', 'wp-a-tu-gusto'); ?>
         <?php if(isset($ok)) echo "<p style='padding: 10px; color: #000; background-color: #21f3f3;'><b>".$ok."</b></p>"; ?>
         <?php if(isset($error)) echo "<p><b style='color: red;'>".$error."</b></p>"; ?>
@@ -108,15 +128,15 @@ function wpatg_zone($params = array(), $content = null) {
     </div>
     <div class="content-wpatg">
       <?php if(isset($_REQUEST['wpatg_tab'])) { 
-        if($_REQUEST['wpatg_tab'] == 'editar-perfil') {
+        if($_REQUEST['wpatg_tab'] == 'editar-perfil' ) {
           wpatg_zone_edit_profile();
         } else if($_REQUEST['wpatg_tab'] == 'mis-noticias') { ?>
           <h2><?php _e("Mis noticias", "wp-a-tu-gusto"); ?></h2>
           <p>Fase 3</p>
         <?php } else if($_REQUEST['wpatg_tab'] == 'archivo-boletines') wpatg_zone_archive();
-      } /*else { ?>
-        <?php wpatg_gamification(); ?>
-      <?php }*/ ?>
+      } else { ?>
+        <?php wpatg_zone_edit_profile(); ?>
+      <?php } ?>
     </div>
     <?php echo do_shortcode("[wpatg_banner]"); ?>
   </div>
@@ -148,6 +168,7 @@ function wpatg_zone_show_css() { ?>
 
 function wpatg_zone_edit_profile() {
   $contact = getLoggedUser(); ?>
+  <?php wpatg_gamification($contact, false); ?>
   <?php $formData = getFields(); 
   $formFields = getFields("fields");
   $fomLangs = getFields("langs");
@@ -312,8 +333,7 @@ function wpatg_zone_edit_profile() {
        <button class="btn btn-black" type="submit" name="wpatg_save_edit_profile"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
     </div>
   </form>
-  
-  <?php wpatg_gamification(); ?>
+  <?php /*wpatg_gamification();*/ ?>
   <script>
     jQuery(document).ready(function() {
       if(jQuery('.checkbox-lang:checked').length == jQuery('.checkbox-lang').length) {
@@ -330,7 +350,10 @@ function wpatg_zone_edit_profile() {
         jQuery(".checkbox-lang").prop('checked', jQuery(this).is(':checked'));
       });
 
-      
+      jQuery('#wpatg #tasks .advise').click(function() {
+        jQuery('#wpatg #tasks #completed').fadeToggle();
+        jQuery('#wpatg #tasks .advise').toggleClass("opened");
+      });
 
 
       if(jQuery('.checkbox-tag-notifications:checked').length == jQuery('.checkbox-tag-notifications').length) {

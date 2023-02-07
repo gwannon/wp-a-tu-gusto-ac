@@ -18,6 +18,12 @@
 
 ini_set("display_errors", 1);
 
+//Cargamos el multi-idioma
+function ac_plugins_loaded() {
+  load_plugin_textdomain('wp-a-tu-gusto', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
+}
+add_action('plugins_loaded', 'ac_plugins_loaded', 0 );
+
 function wpatg_load_scripts(){
   wp_enqueue_script('jquery');
 }
@@ -42,6 +48,7 @@ define('WPATG_ARCHIVE_MAX_ITEMS', 20);
 define('WPATG_COOKIE_TIME', (60 * 60 * 24));
 define('WPATG_ARCHIVE_CACHE_FILE', plugin_dir_path(__FILE__).'archive.json');
 define('WPATG_ARCHIVE_CACHE_TIME', (60 * 60 * 24));
+if(!defined('ICL_LANGUAGE_CODE'))  define('ICL_LANGUAGE_CODE', "es");
 
 /* -------------------- Cookies ------------------ */
 function wpatg_manage_cookie(){
