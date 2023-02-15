@@ -120,7 +120,13 @@ class UserAC {
 
   //APIs calls --------------------------------
   function getApiTags() {
-    $tags = array_merge(getFields('langs'), getFields("interests"), getFields("companies"), getFields("newsletters"), getFields("notifications"));
+    $tags = array_merge(
+      getFields('langs'),
+      getFields("interests"),
+      array(array("id" => 322, "tag" => "interes-newsletter-todos", "text" =>  __('Todos', 'wp-a-tu-gusto'))),
+      getFields("companies"),
+      getFields("newsletters"),
+      getFields("notifications"));
     $usertags = curlCallGet("/contacts/".$this->id."/contactTags")->contactTags;
     foreach ($tags as $tag) {
       $currenttags[$tag['id']] = false;

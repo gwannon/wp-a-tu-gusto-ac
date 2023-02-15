@@ -3,7 +3,7 @@
 function getFields($label = '') { 
   //Idiomas
   if ($label == 'langs') return array (
-    array("id" => 18, "tag" => "newsletter-es", "text" => __('Castellano', 'wp-a-tu-gusto')),
+    array("id" => 18, "tag" => "newsletter-es", "text" => __('Castellano ', 'wp-a-tu-gusto')),
     array("id" => 30, "tag" => "newsletter-eu", "text" => __('Euskera', 'wp-a-tu-gusto')),
   );
 
@@ -16,7 +16,7 @@ function getFields($label = '') {
 
   //Intereses
   if ($label == 'interests') return array (
-    array("id" => 98, "tag" => "interes-ciberseguridad", "text" => __('Ciberseguridad ', 'wp-a-tu-gusto'), "automup" => 107, "automdown" => 108),
+    /*array("id" => 98, "tag" => "interes-ciberseguridad", "text" => __('Ciberseguridad ', 'wp-a-tu-gusto'), "automup" => 107, "automdown" => 108),
     array("id" => 101, "tag" => "interes-digitalizacion", "text" => __('Digitalización', 'wp-a-tu-gusto'), "automup" => 114, "automdown" => 115),
     array("id" => 96, "tag" => "interes-emprendimiento", "text" =>  __('Emprendimiento', 'wp-a-tu-gusto'), "automup" => 120, "automdown" => 121),
     array("id" => 105, "tag" => "interes-financiacion", "text" =>  __('Financiación', 'wp-a-tu-gusto'), "automup" => 126, "automdown" => 127),
@@ -25,7 +25,17 @@ function getFields($label = '') {
     array("id" => 97, "tag" => "interes-innovacion", "text" =>  __('Innovación', 'wp-a-tu-gusto'), "automup" => 144, "automdown" => 145),
     array("id" => 103, "tag" => "interes-internacionalizacion", "text" =>  __('Internacionalización', 'wp-a-tu-gusto'), "automup" => 150, "automdown" => 151),
     array("id" => 104, "tag" => "interes-invertir-en-euskadi", "text" =>  __('Invertir en Euskadi', 'wp-a-tu-gusto'), "automup" => 156, "automdown" => 157),
-    array("id" => 106, "tag" => "interes-sostenibilidad-medioambiental", "text" =>  __('Sostenibilidad Medioambiental', 'wp-a-tu-gusto'), "automup" => 162, "automdown" => 163),
+    array("id" => 106, "tag" => "interes-sostenibilidad-medioambiental", "text" =>  __('Sostenibilidad Medioambiental', 'wp-a-tu-gusto'), "automup" => 162, "automdown" => 163),*/
+    array("id" => 312, "tag" => "interes-newsletter-ciberseguridad", "text" => __('Ciberseguridad ', 'wp-a-tu-gusto')),
+    array("id" => 313, "tag" => "interes-newsletter-digitalizacion", "text" => __('Digitalización', 'wp-a-tu-gusto')),
+    array("id" => 314, "tag" => "interes-newsletter-emprendimiento", "text" =>  __('Emprendimiento', 'wp-a-tu-gusto')),
+    array("id" => 315, "tag" => "interes-newsletter-financiacion", "text" =>  __('Financiación', 'wp-a-tu-gusto')),
+    array("id" => 316, "tag" => "interes-newsletter-i+d", "text" =>  __('I+D', 'wp-a-tu-gusto')),
+    array("id" => 317, "tag" => "interes-newsletter-infraestructuras", "text" => __('Infraestructuras', 'wp-a-tu-gusto')),
+    array("id" => 318, "tag" => "interes-newsletter-innovacion", "text" =>  __('Innovación', 'wp-a-tu-gusto')),
+    array("id" => 319, "tag" => "interes-newsletter-internacionalizacion", "text" =>  __('Internacionalización', 'wp-a-tu-gusto')),
+    array("id" => 320, "tag" => "interes-newsletter-invertir-en-euskadi", "text" =>  __('Invertir en Euskadi', 'wp-a-tu-gusto')),
+    array("id" => 321, "tag" => "interes-newsletter-sostenibilidad-medioambiental", "text" =>  __('Sostenibilidad Medioambiental', 'wp-a-tu-gusto')), 
   );
   
   //Tipo de empresas
@@ -52,11 +62,11 @@ function getFields($label = '') {
 
   //Campos de datos personales
   if ($label == 'fields') return array( 
-    array("id" => 40, "text" => __('Tratamiento', 'wp-a-tu-gusto'), "position" => "pre", 'required' => false, "select" => array(
+    /*array("id" => 40, "text" => __('Tratamiento', 'wp-a-tu-gusto'), "position" => "pre", 'required' => false, "select" => array(
       array("text" => __("Sr.", 'wp-a-tu-gusto'), "label" => "Sr."),
       array("text" => __("Sra.", 'wp-a-tu-gusto'), "label" => "Sra."),
-    )),
-    array("id" => 42, "text" => __('DNI/CIF/Pasaporte', 'wp-a-tu-gusto'), "position" => "post", 'required' => false),
+    )),*/
+    //array("id" => 42, "text" => __('DNI/CIF/Pasaporte', 'wp-a-tu-gusto'), "position" => "post", 'required' => false),
     array("id" => 7, "text" => __('Provincia', 'wp-a-tu-gusto'), "position" => "post", 'required' => true, "select" => array(
       array("text" => __("Bizkaia", 'wp-a-tu-gusto'), "label" => "Bizkaia"),
       array("text" => __("Gipuzkoa", 'wp-a-tu-gusto'), "label" => "Gipuzkoa"),
@@ -64,8 +74,8 @@ function getFields($label = '') {
       array("text" => __("Otros", 'wp-a-tu-gusto'), "label" => "Otros"),
     )),
     array("id" => 41, "text" => __('Nombre de empresa', 'wp-a-tu-gusto'), "position" => "post", 'required' => false),
-    array("id" => 43, "text" => __('CIF', 'wp-a-tu-gusto'), "position" => "post", 'required' => false/*, 'pattern' => '(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))'*/),
-    array("id" => 44, "text" => __('Perfíl de Linkedin', 'wp-a-tu-gusto'), "position" => "post", 'required' => false, "type" => 'url', 'pattern' => '^http(s)?:\/\/(www\.)?linkedin\.com\/in\/.*$'),
+    //array("id" => 43, "text" => __('CIF', 'wp-a-tu-gusto'), "position" => "post", 'required' => false/*, 'pattern' => '(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))'*/),
+    //array("id" => 44, "text" => __('Perfíl de Linkedin', 'wp-a-tu-gusto'), "position" => "post", 'required' => false, "type" => 'url', 'pattern' => '^http(s)?:\/\/(www\.)?linkedin\.com\/in\/.*$'),
     array("id" => 10, "text" => __('Sector', 'wp-a-tu-gusto'), "position" => "post", 'required' => false, "select" => array(
       array("text" => __("Administración gubernamental", 'wp-a-tu-gusto'), "label" => "Administración gubernamental"),
       array("text" => __("Aeronáutica/Aviación", 'wp-a-tu-gusto'), "label" => "Aeronáutica/Aviación"),

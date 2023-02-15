@@ -67,7 +67,7 @@ function wpatg_login($params = array(), $content = null) {
       </form>
     <?php } else if((isset($_REQUEST['wpatg_tab']) && $_REQUEST['wpatg_tab'] == 'login') ) { ?>
       <form id="wpatg-form-login" method="post">
-        <h2><?php _e("Personaliza tus boletines a tu gusto", "wp-a-tu-gusto"); ?></h2>
+        <h2><?php _e("Inicia tu perfil y personaliza tus comunicaciones a tu gusto", "wp-a-tu-gusto"); ?></h2>
         <p><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias. <b>Indícanos tu email para verificar que realmente eres tú.</b>", "wp-a-tu-gusto"); ?></p>
         <?php if (isset($_REQUEST['wpatg-email']) && is_email($_REQUEST['wpatg-email'])) {
           remove_all_filters('wp_mail', 10);
@@ -168,7 +168,6 @@ function wpatg_zone_show_css() { ?>
 
 function wpatg_zone_edit_profile() {
   $contact = getLoggedUser(); ?>
-  <?php wpatg_gamification($contact, false); ?>
   <?php $formData = getFields(); 
   $formFields = getFields("fields");
   $fomLangs = getFields("langs");
@@ -200,24 +199,39 @@ function wpatg_zone_edit_profile() {
     }
 
     //Intereses y tipos de empresa
+    $controlTags = 0;
     foreach ($formInterests as $tag) {
       if(isset($_REQUEST['my-data']['tags'][$tag['id']]) && $_REQUEST['my-data']['tags'][$tag['id']] == 'add' ) {
         if(!$contact->hasTag($tag['id'])) {
+          $controlTags ++;
           $contact->setTag($tag['id']);
-          $contact->executeAutomation ($tag['automup']);
+          if(isset($tag['automup'])) $contact->executeAutomation ($tag['automup']);
         }
       } else {
         if($contact->hasTag($tag['id'])) {
           $contact->deleteTag($tag['id']);
-          $contact->executeAutomation ($tag['automdown']);
+          if(isset($tag['automdown'])) $contact->executeAutomation ($tag['automdown']);
         }
       }
     }
+    if($controlTags > 0) { //Si elegimos algún interes, quitamos al etiqueta 322 => interes-newsletter-todos
+      $contact->deleteTag(322);
+    } else { //Si no elige ningún interes, añadimos la etiqueta 322 => interes-newsletter-todos
+      $contact->setTag(322);
+    }
+
+
     foreach ($formCompanies as $tag) {
       if(isset($_REQUEST['my-data']['tags'][$tag['id']]) && $_REQUEST['my-data']['tags'][$tag['id']] == 'add' ) {
-        if(!$contact->hasTag($tag['id'])) $contact->setTag($tag['id']);
+        if(!$contact->hasTag($tag['id'])) {
+          $contact->setTag($tag['id']);
+          if(isset($tag['automup'])) $contact->executeAutomation ($tag['automup']);
+        }
       } else {
-        if($contact->hasTag($tag['id'])) $contact->deleteTag($tag['id']);
+        if($contact->hasTag($tag['id'])) {
+          $contact->deleteTag($tag['id']);
+          if(isset($tag['automdown'])) $contact->executeAutomation ($tag['automdown']);
+        }
       }
     }
 
@@ -241,13 +255,64 @@ function wpatg_zone_edit_profile() {
       }
     }
 
-    echo "<p class='adviseok'>".__('Datos actualizados correctamente', 'wp-a-tu-gusto')."</p>"; /* ?>
-    <?php wpatg_gamification($contact, true); ?>
-  <?php */ } ?>
+    echo "<p class='adviseok'>".__('Datos actualizados correctamente', 'wp-a-tu-gusto')."</p>";?>
+  <?php } ?>
+  <?php wpatg_gamification($contact); ?>
   <form id="wpatg_form_my_data" method="post" action="<?php echo get_the_permalink()."?wpatg_tab=editar-perfil"; ?>">
+
+
+    <div>
+      <h2><?php _e("Mis intereses", "wp-a-tu-gusto"); ?></h2>
+      <p><?php _e("Recibir solo aquello que es importante para ti. Ni más ni menos.", "wp-a-tu-gusto"); ?></p>
+    </div>
+    <div id="interests">
+      <?php foreach ($formInterests as $tag ) { ?>
+        <label><input type="checkbox" class="checkbox-tag-intereses" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
+      <?php } ?>
+      <label><input type="checkbox" id="select-all-intereses" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
+    </div>
+
+
+
+
+    <div>
+      <h2><?php _e("Boletines", "wp-a-tu-gusto"); ?></h2>
+      <p><?php _e("Ideas clave y titulares que te avanzan los detalles en los que puedes profundizar.", "wp-a-tu-gusto"); ?></p>
+      <p><?php printf(__("<a href='%s' target='_blank'>Mira nuestros boletines anteriores</a>, querrás suscribirte.", "wp-a-tu-gusto"), get_the_permalink()."?wpatg_tab=archivo-boletines"); ?></p>
+    </div>
+    <div id="newsletters">
+      <?php foreach ($formNewsletters as $field ) { ?>
+        <div>
+          <img src="<?php echo $field['image']; ?>" alt="" />
+          <label><input class="checkbox-boletines" type="checkbox" id="checkbox-<?php echo (isset($field['field']) ? $field['field'] : ""); ?>" name="my-data[tags][<?php echo $field['id']; ?>]" value="add" <?=($contact->hasTag($field['id']) ? "checked" : "") ?> />
+          <b><?php echo $field['text']; ?></b></label>
+          <p><?php echo $field['description']; ?></p>
+        </div>
+      <?php } ?>
+    </div>
+
+
+
+    <div>
+      <h2><?php _e("Otras notificaciones", "wp-a-tu-gusto"); ?></h2>
+      <p><?php _e("Recibir de manera independiente las alertas informativas con información especializada.", "wp-a-tu-gusto"); ?></p>
+    </div>
+    <div id="notifications">
+      <div>
+        <label><b><?php _e('¿Quieres recibir notificaciones especiales de alguno de estos tipos?', 'wp-a-tu-gusto'); ?></b></label>
+        <div>
+          <?php foreach ($formNotifications as $tag ) { ?>
+            <label><input type="checkbox" class="checkbox-tag-notifications" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
+          <?php } ?>
+          <label><input type="checkbox" id="select-all-notifications" /> <?php _e('Me interesan las comunicaciones de todos estos tipos.', 'wp-a-tu-gusto'); ?></label>
+        </div>
+      </div>
+    </div>
+
+
+
     <div>
       <h2><?php _e("Mis datos", "wp-a-tu-gusto"); ?></h2>
-      
     </div>
     <div>
       <label><b><?php _e('Email', 'wp-a-tu-gusto'); ?></b><br/><p style="margin: 12px 0px 0px 0px;"><?php echo $contact->email; ?></p></label>
@@ -271,6 +336,10 @@ function wpatg_zone_edit_profile() {
       </div>
     </div>
 
+
+
+
+
     <div>
       <h2><?php _e("¿Con cual de estos perfiles de empresa te identificas?", "wp-a-tu-gusto"); ?></h2>
       <p><?php _e("Cuéntanos más sobre ti para poder acercarte las ayudas, eventos y servicios de los que te puedes beneficiar.", "wp-a-tu-gusto"); ?></p>
@@ -282,53 +351,31 @@ function wpatg_zone_edit_profile() {
       <label><input type="checkbox" id="select-all-companies" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
     </div>
 
-    <div>
-      <h2><?php _e("Mis intereses", "wp-a-tu-gusto"); ?></h2>
-      <p><?php _e("Recibir solo aquello que es importante para ti. Ni más ni menos.", "wp-a-tu-gusto"); ?></p>
-    </div>
-    <div id="interests">
-      <?php foreach ($formInterests as $tag ) { ?>
-        <label><input type="checkbox" class="checkbox-tag-intereses" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
-      <?php } ?>
-      <label><input type="checkbox" id="select-all-intereses" /> <?php _e('Me interesan los contenidos de todas estas temáticas.', 'wp-a-tu-gusto'); ?></label>
-    </div>
 
 
 
 
 
-    <div>
-      <h2><?php _e("Newsletters", "wp-a-tu-gusto"); ?></h2>
-      <p><?php _e("Ideas clave y titulares que te avanzan los detalles en los que puedes profundizar.", "wp-a-tu-gusto"); ?></p>
-      <p><?php printf(__("<a href='%s' target='_blank'>Mira nuestros boletines anteriores</a>, querrás suscribirte.", "wp-a-tu-gusto"), get_the_permalink()."?wpatg_tab=archivo-boletines"); ?></p>
-    </div>
-    <div id="newsletters">
-      <?php foreach ($formNewsletters as $field ) { ?>
-        <div>
-          <img src="<?php echo $field['image']; ?>" alt="" />
-          <label><input class="checkbox-boletines" type="checkbox" id="checkbox-<?php echo (isset($field['field']) ? $field['field'] : ""); ?>" name="my-data[tags][<?php echo $field['id']; ?>]" value="add" <?=($contact->hasTag($field['id']) ? "checked" : "") ?> />
-          <b><?php echo $field['text']; ?></b></label>
-          <p><?php echo $field['description']; ?></p>
-        </div>
-      <?php } ?>
-      
-    </div>
 
-    <div>
-      <h2><?php _e("Otras notificaciones", "wp-a-tu-gusto"); ?></h2>
-      <p><?php _e("Recibir de manera independiente las alertas informativas con información especializada.", "wp-a-tu-gusto"); ?></p>
-    </div>
-    <div id="notifications">
-      <div>
-        <label><b><?php _e('¿Quieres recibir notificaciones especiales de alguno de estos tipos?', 'wp-a-tu-gusto'); ?></b></label>
-        <div>
-          <?php foreach ($formNotifications as $tag ) { ?>
-            <label><input type="checkbox" class="checkbox-tag-notifications" id="checkbox-tag-<?php echo $tag['id']; ?>" name="my-data[tags][<?php echo $tag['id']; ?>]" value="add" <?php echo ($contact->hasTag($tag['id']) == true ? "checked" : "") ?> /> <?php echo $tag['text']; ?></label>
-          <?php } ?>
-          <label><input type="checkbox" id="select-all-notifications" /> <?php _e('Me interesan las comunicaciones de todos estos tipos.', 'wp-a-tu-gusto'); ?></label>
-        </div>
-      </div>
-    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div>
        <button class="btn btn-black" type="submit" name="wpatg_save_edit_profile"><?php _e('Guardar', 'wp-a-tu-gusto'); ?></button>
     </div>
@@ -527,7 +574,13 @@ function wpatg_gamification($current_contact = '', $mini = false) {
     $total = $total +  $completed['basicprofile']['percent'];
   }
 
-  if($contact->telefono != '' && $contact->fields[10] != '' && $contact->fields[40] != '' && $contact->fields[41] != '' && $contact->fields[42] != '' && $contact->fields[43] != '' && $contact->fields[44] != '') {
+  if($contact->telefono != '' && 
+  $contact->fields[10] != '' && 
+  /*$contact->fields[40] != '' &&*/ 
+  /*$contact->fields[44] != '' &&*/ 
+  /*$contact->fields[42] != '' &&*/
+  /*$contact->fields[43] != '' &&*/ 
+  $contact->fields[41] != '') {
     $completed['advancedprofile'] = $uncompleted['advancedprofile'];
     unset($uncompleted['advancedprofile']);
     $total = $total +  $completed['advancedprofile']['percent'];
