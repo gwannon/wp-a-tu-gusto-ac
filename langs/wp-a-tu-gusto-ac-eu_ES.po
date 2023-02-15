@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ac-update-forms\n"
-"POT-Creation-Date: 2023-02-07 16:41+0100\n"
-"PO-Revision-Date: 2023-02-07 16:43+0100\n"
+"POT-Creation-Date: 2023-02-15 17:13+0100\n"
+"PO-Revision-Date: 2023-02-15 17:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: jorge@enutt.net\n"
 "Language: eu_ES\n"
@@ -23,6 +23,10 @@ msgstr "Hemen eguneratu ditzakezu SPRI Talderako harpidetzaren lehentasunak"
 msgid "Gracias por registrarte "
 msgstr ""
 
+#: ../classes/user.php:126
+msgid "Todos"
+msgstr ""
+
 #: ../inc/admin.php:6
 msgid "A tu gusto"
 msgstr ""
@@ -35,7 +39,7 @@ msgstr ""
 msgid "Configuración WP A tu gusto"
 msgstr ""
 
-#: ../inc/admin.php:12 ../inc/admin.php:34 ../inc/admin.php:57
+#: ../inc/admin.php:12 ../inc/admin.php:34 ../inc/admin.php:67
 msgid "Datos guardados correctamente."
 msgstr ""
 
@@ -63,8 +67,8 @@ msgstr ""
 msgid "Filtro de boletines para archivo"
 msgstr ""
 
-#: ../inc/admin.php:29 ../inc/admin.php:53 ../inc/admin.php:76
-#: ../inc/shortcodes.php:333
+#: ../inc/admin.php:29 ../inc/admin.php:63 ../inc/admin.php:96
+#: ../inc/shortcodes.php:384
 msgid "Guardar"
 msgstr "Gorde"
 
@@ -72,36 +76,36 @@ msgstr "Gorde"
 msgid "Configuración de Banners"
 msgstr ""
 
-#: ../inc/admin.php:42
+#: ../inc/admin.php:47
 msgid "Banner en el panel"
 msgstr ""
 
-#: ../inc/admin.php:43 ../inc/admin.php:66
+#: ../inc/admin.php:48 ../inc/admin.php:81
 msgid "Título"
 msgstr ""
 
-#: ../inc/admin.php:45 ../inc/admin.php:68
+#: ../inc/admin.php:51 ../inc/admin.php:84
 msgid "Subtítulo"
 msgstr ""
 
-#: ../inc/admin.php:47 ../inc/admin.php:70
+#: ../inc/admin.php:54 ../inc/admin.php:87
 msgid "Botón"
 msgstr ""
 
-#: ../inc/admin.php:49 ../inc/admin.php:72
+#: ../inc/admin.php:57 ../inc/admin.php:90
 msgid "Imagen"
 msgstr ""
 
-#: ../inc/admin.php:51 ../inc/admin.php:74
+#: ../inc/admin.php:60 ../inc/admin.php:93
 msgid "Enlace"
 msgstr ""
 
-#: ../inc/admin.php:65
+#: ../inc/admin.php:80
 msgid "Banner en los emails"
 msgstr ""
 
-#: ../inc/fields.php:6 ../inc/shortcodes.php:62
-msgid "Castellano"
+#: ../inc/fields.php:6
+msgid "Castellano "
 msgstr "Gaztelania"
 
 #: ../inc/fields.php:7 ../inc/shortcodes.php:63
@@ -123,21 +127,33 @@ msgstr ""
 "nazioartekotzeari, ekintzailetzari eta azpiegiturei buruzko joerak"
 
 #: ../inc/fields.php:12
+msgid "Mi boletín semanal de Grupo SPRI Empresas"
+msgstr ""
+
+#: ../inc/fields.php:12 ../inc/fields.php:13
+msgid "Lorem ipsum sid amet."
+msgstr ""
+
+#: ../inc/fields.php:13
+msgid "Mi boletín semanal de Empresa Digitala"
+msgstr ""
+
+#: ../inc/fields.php:14
 msgid "Mi boletín semanal de Adi! Agenda"
 msgstr ""
 
-#: ../inc/fields.php:12
+#: ../inc/fields.php:14
 msgid ""
 "Si formas parte de la Nueva red de Statups de Euskadi, quieres invertir o "
 "arrancas ahora tu proyecto innovador, aquí te contamos toda lo que se mueve "
 "sobre emprendimiento."
 msgstr ""
 
-#: ../inc/fields.php:13
+#: ../inc/fields.php:15
 msgid "Mi boletín mensual UP! Euskadi"
 msgstr "Nire hileroko UP! Euskadi buletina"
 
-#: ../inc/fields.php:13
+#: ../inc/fields.php:15
 msgid ""
 "Una vez al mes la información sobre la red de Startups vascas y sus últimas "
 "innovaciones."
@@ -145,274 +161,250 @@ msgstr ""
 "Euskal startupen sareari eta euren azken berrikuntzei buruzko informazioa "
 "hilean behin."
 
-#: ../inc/fields.php:14
+#: ../inc/fields.php:16
 msgid "Mi boletín semanal Oferta y demanda tecnológica."
 msgstr "Eskaintza eta eskaera teknologikoaren nire asteroko buletina."
 
-#: ../inc/fields.php:14
+#: ../inc/fields.php:16
 msgid ""
 "Cada semana las oportunidades del mercado en materia de transferencia "
 "tecnológica internacional."
 msgstr ""
 "Nazioarteko transferentzia teknologikoaren arloko merkatuko aukerak astero."
 
-#: ../inc/fields.php:19
+#: ../inc/fields.php:31
 msgid "Ciberseguridad "
 msgstr "Zibersegurtasuna"
 
-#: ../inc/fields.php:20
+#: ../inc/fields.php:32
 msgid "Digitalización"
 msgstr "Digitalizazioa"
 
-#: ../inc/fields.php:21
+#: ../inc/fields.php:33
 msgid "Emprendimiento"
 msgstr "Ekintzailetza"
 
-#: ../inc/fields.php:22
+#: ../inc/fields.php:34
 msgid "Financiación"
 msgstr "Finantzaketa"
 
-#: ../inc/fields.php:23
+#: ../inc/fields.php:35
 msgid "I+D"
 msgstr "I+G"
 
-#: ../inc/fields.php:24
+#: ../inc/fields.php:36
 msgid "Infraestructuras"
 msgstr "Azpiegiturak"
 
-#: ../inc/fields.php:25
+#: ../inc/fields.php:37
 msgid "Innovación"
 msgstr "Berrikuntza"
 
-#: ../inc/fields.php:26
+#: ../inc/fields.php:38
 msgid "Internacionalización"
 msgstr "Nazioartekotzea"
 
-#: ../inc/fields.php:27
+#: ../inc/fields.php:39
 msgid "Invertir en Euskadi"
 msgstr "Euskadin Inbertitzea"
 
-#: ../inc/fields.php:28
+#: ../inc/fields.php:40
 msgid "Sostenibilidad Medioambiental"
 msgstr "Ingurumen jasangarritasuna"
 
-#: ../inc/fields.php:33
+#: ../inc/fields.php:45
 msgid "Personas emprendedoras"
 msgstr "Ekintzaileak"
 
-#: ../inc/fields.php:34
+#: ../inc/fields.php:46
 msgid "Autonómos/as"
 msgstr "Autonomoak"
 
-#: ../inc/fields.php:35
+#: ../inc/fields.php:47
 msgid "Micropyme (1-10)"
 msgstr "MikroETEak (1-10)"
 
-#: ../inc/fields.php:36
+#: ../inc/fields.php:48
 msgid "Pequeña empresa (10-50)"
 msgstr "Enpresa txikiak (10-50)"
 
-#: ../inc/fields.php:37
+#: ../inc/fields.php:49
 msgid "Mediana empresa (50-250)"
 msgstr "Enpresa Ertainak (50-250)"
 
-#: ../inc/fields.php:38
+#: ../inc/fields.php:50
 msgid "Gran empresa (+250)"
 msgstr "Enpresa Handiak (+250)"
 
-#: ../inc/fields.php:39
+#: ../inc/fields.php:51
 msgid "Agentes de la RVCTI"
 msgstr "ZTBESeko agenteak"
 
-#: ../inc/fields.php:40
+#: ../inc/fields.php:52
 msgid "Asociaciones"
 msgstr "Elkarteak"
 
-#: ../inc/fields.php:41
+#: ../inc/fields.php:53
 msgid "Estudiantes"
 msgstr "Ikasleak"
 
-#: ../inc/fields.php:42
+#: ../inc/fields.php:54
 msgid "Inversores"
 msgstr "Inbertitzaileak"
 
-#: ../inc/fields.php:43
+#: ../inc/fields.php:55
 msgid "Agentes intermedios"
 msgstr "Bitarteko agenteak"
 
-#: ../inc/fields.php:48
+#: ../inc/fields.php:60
 msgid "Ayudas"
 msgstr ""
 
-#: ../inc/fields.php:49
+#: ../inc/fields.php:61
 msgid "Eventos"
 msgstr ""
 
-#: ../inc/fields.php:50
+#: ../inc/fields.php:62
 msgid "Informes de mercados y sectores"
 msgstr ""
 
-#: ../inc/fields.php:55
-msgid "Tratamiento"
-msgstr "Tratamendua"
-
-#: ../inc/fields.php:56
-msgid "Sr."
-msgstr "jn."
-
-#: ../inc/fields.php:57
-msgid "Sra."
-msgstr "and."
-
-#: ../inc/fields.php:59
-msgid "DNI/CIF/Pasaporte"
-msgstr "NAN / IFK / pasaportea"
-
-#: ../inc/fields.php:60
+#: ../inc/fields.php:72
 msgid "Provincia"
 msgstr "Probintzia"
 
-#: ../inc/fields.php:61
+#: ../inc/fields.php:73
 msgid "Bizkaia"
 msgstr "Bizkaia"
 
-#: ../inc/fields.php:62
+#: ../inc/fields.php:74
 msgid "Gipuzkoa"
 msgstr "Gipuzkoa"
 
-#: ../inc/fields.php:63
+#: ../inc/fields.php:75
 msgid "Araba"
 msgstr "Araba"
 
-#: ../inc/fields.php:64 ../inc/fields.php:95
+#: ../inc/fields.php:76 ../inc/fields.php:107
 msgid "Otros"
 msgstr "Beste batzuk"
 
-#: ../inc/fields.php:66
+#: ../inc/fields.php:78
 msgid "Nombre de empresa"
 msgstr "Enpresaren izena"
 
-#: ../inc/fields.php:67
-msgid "CIF"
-msgstr "IFK"
-
-#: ../inc/fields.php:68
-msgid "Perfíl de Linkedin"
-msgstr "Linkedin-eko profila"
-
-#: ../inc/fields.php:69
+#: ../inc/fields.php:81
 msgid "Sector"
 msgstr "Sektorea"
 
-#: ../inc/fields.php:70
+#: ../inc/fields.php:82
 msgid "Administración gubernamental"
 msgstr "Gobernu-administrazioa"
 
-#: ../inc/fields.php:71
+#: ../inc/fields.php:83
 msgid "Aeronáutica/Aviación"
 msgstr "Aeronautika / Abiazioa"
 
-#: ../inc/fields.php:72
+#: ../inc/fields.php:84
 msgid "Alimentación"
 msgstr "Elikadura"
 
-#: ../inc/fields.php:73
+#: ../inc/fields.php:85
 msgid "Automoción"
 msgstr "Automozioa"
 
-#: ../inc/fields.php:74
+#: ../inc/fields.php:86
 msgid "Banca de inversiones"
 msgstr "Inbertsio-banka"
 
-#: ../inc/fields.php:75
+#: ../inc/fields.php:87
 msgid "Biosalud"
 msgstr "Bio-osasuna"
 
-#: ../inc/fields.php:76
+#: ../inc/fields.php:88
 msgid "Capital de riesgo y capital privado"
 msgstr "Arrisku kapitala eta kapital pribatua"
 
-#: ../inc/fields.php:77
+#: ../inc/fields.php:89
 msgid "Construcción"
 msgstr "Eraikuntza"
 
-#: ../inc/fields.php:78
+#: ../inc/fields.php:90
 msgid "Contenidos digitales"
 msgstr "Eduki digitalak"
 
-#: ../inc/fields.php:79
+#: ../inc/fields.php:91
 msgid "Energía"
 msgstr "Energia"
 
-#: ../inc/fields.php:80
+#: ../inc/fields.php:92
 msgid "Equipos Ferroviarios"
 msgstr "Trenbide-ekipoak"
 
-#: ../inc/fields.php:81
+#: ../inc/fields.php:93
 msgid "Fundición"
 msgstr "Galdaketa"
 
-#: ../inc/fields.php:82
+#: ../inc/fields.php:94
 msgid "Industrías Marítimas"
 msgstr "Itsas industriak"
 
-#: ../inc/fields.php:83
+#: ../inc/fields.php:95
 msgid "Investigación"
 msgstr "Ikerketa"
 
-#: ../inc/fields.php:84
+#: ../inc/fields.php:96
 msgid "Maquinaria"
 msgstr "Makinak"
 
-#: ../inc/fields.php:85
+#: ../inc/fields.php:97
 msgid "Medioambiente"
 msgstr "Ingurumena"
 
-#: ../inc/fields.php:86
+#: ../inc/fields.php:98
 msgid "Papel"
 msgstr "Papera"
 
-#: ../inc/fields.php:87
+#: ../inc/fields.php:99
 msgid "Petróleo y energía"
 msgstr "Petrolioa eta energia"
 
-#: ../inc/fields.php:88
+#: ../inc/fields.php:100
 msgid "Seguridad del ordenador y de las redes"
 msgstr "Ordenagailuaren eta sareen segurtasuna"
 
-#: ../inc/fields.php:89
+#: ../inc/fields.php:101
 msgid "Servicios y tecnologías de la información"
 msgstr "Informazio-zerbitzuak eta -teknologiak"
 
-#: ../inc/fields.php:90
+#: ../inc/fields.php:102
 msgid "Siderurgia"
 msgstr "Siderurgia"
 
-#: ../inc/fields.php:91
+#: ../inc/fields.php:103
 msgid "Tec. Av. Fabricación"
 msgstr "Fabrikazioko teknologia aurreratuak"
 
-#: ../inc/fields.php:92
+#: ../inc/fields.php:104
 msgid "Telecomunicaciones"
 msgstr "Telekomunikazioak"
 
-#: ../inc/fields.php:93
+#: ../inc/fields.php:105
 msgid "Transporte, movilidad y logística"
 msgstr "Garraioa, mugikortasuna eta logistika"
 
-#: ../inc/fields.php:94
+#: ../inc/fields.php:106
 msgid "Videojuegos"
 msgstr "Bideojokoak"
 
-#: ../inc/fields.php:101
+#: ../inc/fields.php:113
 msgid "Nombre"
 msgstr "Izena"
 
-#: ../inc/fields.php:102
+#: ../inc/fields.php:114
 msgid "Apellidos"
 msgstr "Abizenak"
 
-#: ../inc/fields.php:103
+#: ../inc/fields.php:115
 msgid "Teléfono"
 msgstr "Telefonoa"
 
@@ -458,13 +450,17 @@ msgstr ""
 "Posta elektronikoa ez da zuzena. Eman diguzun posta elektronikoaren formatua "
 "ez da egokia."
 
-#: ../inc/shortcodes.php:59 ../inc/shortcodes.php:83 ../inc/shortcodes.php:253
+#: ../inc/shortcodes.php:59 ../inc/shortcodes.php:83 ../inc/shortcodes.php:322
 msgid "Email"
 msgstr "Posta elektronikoa"
 
 #: ../inc/shortcodes.php:61
 msgid "Idioma"
 msgstr ""
+
+#: ../inc/shortcodes.php:62
+msgid "Castellano"
+msgstr "Gaztelania"
 
 #: ../inc/shortcodes.php:65
 msgid ""
@@ -485,7 +481,7 @@ msgid "¡Suscríbete!"
 msgstr ""
 
 #: ../inc/shortcodes.php:70
-msgid "Personaliza tus boletines a tu gusto"
+msgid "Inicia tu perfil y personaliza tus comunicaciones a tu gusto"
 msgstr ""
 
 #: ../inc/shortcodes.php:71
@@ -552,7 +548,7 @@ msgstr ""
 msgid "Editar perfil"
 msgstr ""
 
-#: ../inc/shortcodes.php:117 ../inc/shortcodes.php:424
+#: ../inc/shortcodes.php:117 ../inc/shortcodes.php:475
 msgid "Archivo de boletines"
 msgstr ""
 
@@ -564,190 +560,205 @@ msgstr ""
 msgid "Mis noticias"
 msgstr ""
 
-#: ../inc/shortcodes.php:244
+#: ../inc/shortcodes.php:262
 msgid "Datos actualizados correctamente"
 msgstr ""
 
-#: ../inc/shortcodes.php:249
-msgid "Mis datos"
-msgstr ""
-
-#: ../inc/shortcodes.php:266
-msgid "¿En qué <span>idioma</span> quieres recibirnos?"
-msgstr "Zein <span>hizkuntzatan</span> jaso nahi gaituzu?"
-
-#: ../inc/shortcodes.php:270
-msgid "Seleccionar/Deseleccionar ambos"
-msgstr ""
-
-#: ../inc/shortcodes.php:275
-msgid "¿Con cual de estos perfiles de empresa te identificas?"
-msgstr ""
-
-#: ../inc/shortcodes.php:276
-msgid ""
-"Cuéntanos más sobre ti para poder acercarte las ayudas, eventos y servicios "
-"de los que te puedes beneficiar."
-msgstr ""
-
-#: ../inc/shortcodes.php:282 ../inc/shortcodes.php:293
-msgid "Me interesan los contenidos de todas estas temáticas."
-msgstr "Gai hauei guztiei buruzko edukiak interesatzen zaizkit."
-
-#: ../inc/shortcodes.php:286
+#: ../inc/shortcodes.php:269
 msgid "Mis intereses"
 msgstr ""
 
-#: ../inc/shortcodes.php:287
+#: ../inc/shortcodes.php:270
 msgid "Recibir solo aquello que es importante para ti. Ni más ni menos."
 msgstr ""
 
-#: ../inc/shortcodes.php:301
-msgid "Newsletters"
+#: ../inc/shortcodes.php:276 ../inc/shortcodes.php:355
+msgid "Me interesan los contenidos de todas estas temáticas."
+msgstr "Gai hauei guztiei buruzko edukiak interesatzen zaizkit."
+
+#: ../inc/shortcodes.php:283
+msgid "Boletines"
 msgstr ""
 
-#: ../inc/shortcodes.php:302
+#: ../inc/shortcodes.php:284
 msgid ""
 "Ideas clave y titulares que te avanzan los detalles en los que puedes "
 "profundizar."
 msgstr ""
 
-#: ../inc/shortcodes.php:303
+#: ../inc/shortcodes.php:285
 #, php-format
 msgid ""
 "<a href='%s' target='_blank'>Mira nuestros boletines anteriores</a>, querrás "
 "suscribirte."
 msgstr ""
 
-#: ../inc/shortcodes.php:318
+#: ../inc/shortcodes.php:301
 msgid "Otras notificaciones"
 msgstr ""
 
-#: ../inc/shortcodes.php:319
+#: ../inc/shortcodes.php:302
 msgid ""
 "Recibir de manera independiente las alertas informativas con información "
 "especializada."
 msgstr ""
 
-#: ../inc/shortcodes.php:323
+#: ../inc/shortcodes.php:306
 msgid "¿Quieres recibir notificaciones especiales de alguno de estos tipos?"
 msgstr ""
 
-#: ../inc/shortcodes.php:328
+#: ../inc/shortcodes.php:311
 msgid "Me interesan las comunicaciones de todos estos tipos."
 msgstr ""
 
-#: ../inc/shortcodes.php:404
+#: ../inc/shortcodes.php:319
+msgid "Mis datos"
+msgstr ""
+
+#: ../inc/shortcodes.php:335
+msgid "¿En qué <span>idioma</span> quieres recibirnos?"
+msgstr "Zein <span>hizkuntzatan</span> jaso nahi gaituzu?"
+
+#: ../inc/shortcodes.php:339
+msgid "Seleccionar/Deseleccionar ambos"
+msgstr ""
+
+#: ../inc/shortcodes.php:348
+msgid "¿Con cual de estos perfiles de empresa te identificas?"
+msgstr ""
+
+#: ../inc/shortcodes.php:349
+msgid ""
+"Cuéntanos más sobre ti para poder acercarte las ayudas, eventos y servicios "
+"de los que te puedes beneficiar."
+msgstr ""
+
+#: ../inc/shortcodes.php:455
 #, php-format
 msgid "Elige tu %s"
 msgstr "Aukeratu zure %s"
 
-#: ../inc/shortcodes.php:425
+#: ../inc/shortcodes.php:476
 msgid "Consulta boletines antiguos"
 msgstr ""
 
-#: ../inc/shortcodes.php:428
+#: ../inc/shortcodes.php:479
 msgid "d/m/Y"
 msgstr ""
 
-#: ../inc/shortcodes.php:491
+#: ../inc/shortcodes.php:542
 msgid "Has rellenado los datos básicos de tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:492
+#: ../inc/shortcodes.php:543
 msgid "No has rellenado los datos básicos de tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:495
+#: ../inc/shortcodes.php:546
 msgid "Has rellenado todos los datos de tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:496
+#: ../inc/shortcodes.php:547
 msgid "No has rellenado todos los datos de tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:499
+#: ../inc/shortcodes.php:550
 msgid "Has actualizado tu perfíl hace poco."
 msgstr ""
 
-#: ../inc/shortcodes.php:500
+#: ../inc/shortcodes.php:551
 msgid "Hace mucho tiempo desde la última vez que actualizaste tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:503
+#: ../inc/shortcodes.php:554
 msgid "Has elegido el idioma."
 msgstr ""
 
-#: ../inc/shortcodes.php:504
+#: ../inc/shortcodes.php:555
 msgid "No has elegido el idioma."
 msgstr ""
 
-#: ../inc/shortcodes.php:507
+#: ../inc/shortcodes.php:558
 msgid "Has especificado tus intereses."
 msgstr ""
 
-#: ../inc/shortcodes.php:508
+#: ../inc/shortcodes.php:559
 msgid "No has especificado tus intereses."
 msgstr ""
 
-#: ../inc/shortcodes.php:511
+#: ../inc/shortcodes.php:562
 msgid "Has detallado tu perfil de empresa."
 msgstr ""
 
-#: ../inc/shortcodes.php:512
+#: ../inc/shortcodes.php:563
 msgid "No has detallado tu perfil de empresa."
 msgstr ""
 
-#: ../inc/shortcodes.php:515
+#: ../inc/shortcodes.php:566
 msgid "Estás suscrito a nuestras newsletters."
 msgstr ""
 
-#: ../inc/shortcodes.php:516
+#: ../inc/shortcodes.php:567
 msgid "No estás suscrito a ninguna de nuestras newsletters."
 msgstr ""
 
-#: ../inc/shortcodes.php:519
+#: ../inc/shortcodes.php:570
 msgid "Estás suscrito a nuestras notificaciones especiales."
 msgstr ""
 
-#: ../inc/shortcodes.php:520
+#: ../inc/shortcodes.php:571
 msgid "No estás suscrito a ninguna notificación especial."
 msgstr ""
 
-#: ../inc/shortcodes.php:522
+#: ../inc/shortcodes.php:573
 msgid "Calidad de tu perfil"
 msgstr ""
 
-#: ../inc/shortcodes.php:552
+#: ../inc/shortcodes.php:609
 #, php-format
 msgid "> Rellenado al %s&#37;"
 msgstr ""
 
-#: ../inc/shortcodes.php:556
+#: ../inc/shortcodes.php:613
 msgid "<span>¡Bien hecho!</span> Has completado tu perfil."
 msgstr ""
 
-#: ../inc/shortcodes.php:557 ../inc/shortcodes.php:558
+#: ../inc/shortcodes.php:614 ../inc/shortcodes.php:615
 msgid ""
 "<span>El perfil es bueno.</span> Trata de mejorarlo para recibir los "
 "contenidos que mejor se ajustan a tus preferencias."
 msgstr ""
 
-#: ../inc/shortcodes.php:559
+#: ../inc/shortcodes.php:616
 msgid ""
 "<span>Dedícale un poco de tiempo a tu perfil/span> y veras como nuestras "
 "comunicaciones contigo mejoran."
 msgstr ""
 
-#: ../inc/shortcodes.php:560
+#: ../inc/shortcodes.php:617
 msgid ""
 "<span>Tu perfil necesita dedicación por tu parte.</span> Si le dedicas "
 "tiempo, nosotros nos comprometemos a mejorar nuestras comunicaciones contigo "
 "para ofrecerte los temas que realmente te interesan."
 msgstr ""
 
-#~ msgid "Castellano "
-#~ msgstr "Gaztelania"
+#~ msgid "Tratamiento"
+#~ msgstr "Tratamendua"
+
+#~ msgid "Sr."
+#~ msgstr "jn."
+
+#~ msgid "Sra."
+#~ msgstr "and."
+
+#~ msgid "DNI/CIF/Pasaporte"
+#~ msgstr "NAN / IFK / pasaportea"
+
+#~ msgid "CIF"
+#~ msgstr "IFK"
+
+#~ msgid "Perfíl de Linkedin"
+#~ msgstr "Linkedin-eko profila"
 
 #~ msgid "Indícanos tu <b>email</b> para verificar que realmente eres tú."
 #~ msgstr ""

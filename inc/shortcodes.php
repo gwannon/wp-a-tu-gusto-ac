@@ -238,11 +238,15 @@ function wpatg_zone_edit_profile() {
     //Boletines
     foreach ($formNewsletters as $tag) {
       if(isset($_REQUEST['my-data']['tags'][$tag['id']]) && $_REQUEST['my-data']['tags'][$tag['id']] == 'add' ) {
-        if(!$contact->hasTag($tag['id'])) $contact->setTag($tag['id']);
-        $contact->executeAutomation ($tag['automup']);
+        if(!$contact->hasTag($tag['id'])) {
+          $contact->setTag($tag['id']);
+          if(isset($tag['automup'])) $contact->executeAutomation ($tag['automup']);
+        }
       } else {
-        if($contact->hasTag($tag['id'])) $contact->deleteTag($tag['id']);
-        $contact->executeAutomation ($tag['automdown']);
+        if($contact->hasTag($tag['id'])) {
+          $contact->deleteTag($tag['id']);
+          if(isset($tag['automdown'])) $contact->executeAutomation ($tag['automdown']);
+        }
       }
     }
 
