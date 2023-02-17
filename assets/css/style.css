@@ -1,5 +1,5 @@
 #wpatg {
-  background: #000000 url('/wp-content/plugins/wp-a-tu-gusto-ac/assets/images/atg-bg.jpg') center center;
+  background: #000000 url('[URL]assets/images/atg-bg.jpg') center center;
   background-size: cover;
 }
 
@@ -413,6 +413,7 @@
   font-size: 25px;
   line-height: 100%;
 }
+
 @media (min-width: 650px) {
   #wpatg #notifications > div > div {
     display: flex;
