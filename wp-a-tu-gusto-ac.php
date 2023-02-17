@@ -15,7 +15,6 @@
  * WordPress 6.1.1
  */
 
-
 ini_set("display_errors", 1);
 
 //Cargamos el multi-idioma
@@ -32,7 +31,9 @@ add_action('wp_enqueue_scripts', 'wpatg_load_scripts');
 /* ----------- Includes ------------ */
 include_once(plugin_dir_path(__FILE__).'inc/admin.php');
 include_once(plugin_dir_path(__FILE__).'inc/shortcodes.php');
+include_once(plugin_dir_path(__FILE__).'inc/ajax.php');
 include_once(plugin_dir_path(__FILE__).'inc/fields.php');
+include_once(plugin_dir_path(__FILE__).'inc/archive.php');
 include_once(plugin_dir_path(__FILE__).'/classes/curl.php');
 include_once(plugin_dir_path(__FILE__).'/classes/user.php');
 include_once(plugin_dir_path(__FILE__).'/classes/functions.php');
@@ -49,19 +50,3 @@ define('WPATG_COOKIE_TIME', (60 * 60 * 24));
 define('WPATG_ARCHIVE_CACHE_FILE', plugin_dir_path(__FILE__).'archive.json');
 define('WPATG_ARCHIVE_CACHE_TIME', (60 * 60 * 24));
 if(!defined('ICL_LANGUAGE_CODE'))  define('ICL_LANGUAGE_CODE', "es");
-
-/* -------------------- Cookies ------------------ */
-function wpatg_manage_cookie(){
-  if(isset($_REQUEST['wpatg_logout']) && $_REQUEST['wpatg_logout'] == 'yes') {
-    setcookie("wpatg", "");  //Borramos la cookie
-    wp_redirect(get_the_permalink());
-  }	else if(isset($_REQUEST['wpatg_hash']) && $_REQUEST['wpatg_hash'] != '' && isset($_REQUEST['wpatg_contact_id']) && $_REQUEST['wpatg_contact_id'] != '') {
-    $value = [
-      "wpatg_hash" => $_REQUEST['wpatg_hash'],
-      "wpatg_contact_id" => $_REQUEST['wpatg_contact_id']
-    ];
-		setcookie("wpatg", json_encode($value), time() + WPATG_COOKIE_TIME);  /* expire in 1 hour */
-    wp_redirect(get_the_permalink().(isset($_REQUEST['wpatg_tab']) &&  $_REQUEST['wpatg_tab'] != '' ? "?wpatg_tab=".$_REQUEST['wpatg_tab'] : ""));
-	}
-}
-add_action( "template_redirect", "wpatg_manage_cookie");
