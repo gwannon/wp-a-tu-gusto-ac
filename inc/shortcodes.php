@@ -6,23 +6,18 @@
 /* wpatg_login */
 function wpatg_login($params = array(), $content = null) {
   if(isset($_COOKIE['wpatg'])) return; //Si existe la cookie ni seguimos.
-  $menu = [
+  /*$menu = [
     "register" => __("Suscríbete", "wp-a-tu-gusto"),
     "login" => __("Iniciar sesión", "wp-a-tu-gusto"),
-  ];
+  ];*/
   ob_start();?>
   <div id="wpatg">
-    <div class="menu-wpatg wpatg-registerlogin">
-      <ul>
-        <?php foreach($menu as $tab => $label) { ?>
-          <li class="<?=$tab;?>"><a href="<?php echo get_the_permalink()."?wpatg_tab=".$tab; ?>"><?=$label;?></a></li>
-        <?php } ?>
-      </ul>
-    </div>
+    <?php if(isset($menu)) wpatg_menu($menu); ?>
     <?php if(isset($_REQUEST['wpatg_tab']) && $_REQUEST['wpatg_tab'] == 'register') { ?>
-      <form id="wpatg-form-login" class="wpatg-form-register" method="post">
-        <h2><?php _e("Lorem ipsum sid amet", "wp-a-tu-gusto"); ?></h2>
-        <p><?php _e("Mira nuestros boletines anteriores, querrás suscribirte. <a target='_blank' href='https://spri.eus/es/boletin/archivo/'>Click aquí</a>", "wp-a-tu-gusto"); ?></p>
+      <form id="wpatg-form-register" method="post">
+        <h2><?php _e("Suscripción a comunicaciones de Grupo SPRI", "wp-a-tu-gusto"); ?></h2>
+        <p><?php _e("Te vamos a contar el día a día de la empresa vasca, hacia donde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, inspirarte con ideas de la competencia o aprender de los éxitos y fracasos…, porque eso, también te lo contamos. Indícanos tu email para verificar que realmente eres tú."); ?></h2>
+        <p><?php _e("Si quieres puedes echar un vistazo a <a href='#'>nuestras comunicaciones anteriores</a>.", "wp-a-tu-gusto"); ?></p>
         <?php if (isset($_REQUEST['wpatg-email']) && is_email($_REQUEST['wpatg-email'])) {
           remove_all_filters('wp_mail', 10);
           //Comprobar si no existe
@@ -54,21 +49,21 @@ function wpatg_login($params = array(), $content = null) {
             } else $error = __('Email incorrecto. El email suministrado ya está en nuestra base de datos.', 'wp-a-tu-gusto');
           }
         } else if (isset($_REQUEST['wpatg-email'])) $error = __('Email incorrecto. El email suministrado no tiene el formato adecuado.', 'wp-a-tu-gusto'); ?>
-        <?php if(isset($ok)) echo "<p style='padding: 10px; color: #000; background-color: #21f3f3;'><b>".$ok."</b></p>"; ?>
-        <?php if(isset($error)) echo "<p><b style='color: red;'>".$error."</b></p>"; ?>
-        <input type="email" name="wpatg-email" value="" placeholder="<?php _e('Email', 'wp-a-tu-gusto'); ?>" required /></br>
+        <?php if(isset($ok)) echo "<p style=' background-color: #21f3f3; color: #000; padding: 10px; text-align: center;'><b>".$ok."</b></p>"; ?>
+        <?php if(isset($error)) echo "<p style='background-color: red; color: #fff; padding: 10px; text-align: center;'><b>".$error."</b></p>"; ?>
+        <input type="email" name="wpatg-email" value="" placeholder="<?php _e('Email', 'wp-a-tu-gusto'); ?>" required />
         <select name="lang">
           <option value="" selected="selected" class="gf_placeholder"><?php _e('Idioma', 'wp-a-tu-gusto'); ?></option>
           <option value="newsletter-es" selected="selected"><?php _e('Castellano', 'wp-a-tu-gusto'); ?></option>
           <option value="newsletter-eu"><?php _e('Euskera', 'wp-a-tu-gusto'); ?></option>
-        </select></br>
-        <p class="legal"><?php _e('SPRI-Agencia Vasca de Desarrollo Empresarial, como responsable del tratamiento de los datos, recoge sus datos personales para la prestación de los servicios relacionados con nuestros programas y servicios. Tiene derecho a retirar su consentimiento en cualquier momento, oponerse al tratamiento, acceder, rectificar y suprimir los datos, así como otros derechos, mediante correo electrónico dirigido a la dirección <a href="mailto:lopd@spri.eus">lopd@spri.eus</a>. Así mismo, puede consultar la información adicional y detallada sobre Protección de Datos en el Apartado <a href="/es/politica-de-privacidad/">Política de privacidad</a>. Al pulsar "Enviar" consentirá el tratamiento de sus datos en los términos indicados.', 'wp-a-tu-gusto'); ?></p>
+        </select>
         <button type="submit" name="wpatg-send"><?php _e('¡Suscríbete!', 'wp-a-tu-gusto'); ?></button>
+        <p class="legal"><?php _e('SPRI-Agencia Vasca de Desarrollo Empresarial, como responsable del tratamiento de los datos, recoge sus datos personales para la prestación de los servicios relacionados con nuestros programas y servicios. Tiene derecho a retirar su consentimiento en cualquier momento, oponerse al tratamiento, acceder, rectificar y suprimir los datos, así como otros derechos, mediante correo electrónico dirigido a la dirección <a href="mailto:lopd@spri.eus">lopd@spri.eus</a>. Así mismo, puede consultar la información adicional y detallada sobre Protección de Datos en el Apartado <a href="/es/politica-de-privacidad/">Política de privacidad</a>. Al pulsar "Enviar" consentirá el tratamiento de sus datos en los términos indicados.', 'wp-a-tu-gusto'); ?></p>
       </form>
     <?php } else if((isset($_REQUEST['wpatg_tab']) && $_REQUEST['wpatg_tab'] == 'login') ) { ?>
       <form id="wpatg-form-login" method="post">
-        <h2><?php _e("Inicia tu perfil y personaliza tus comunicaciones a tu gusto", "wp-a-tu-gusto"); ?></h2>
-        <p><?php _e("Elige lo que te interesa y recibe en tu email las comunicaciones según tus preferencias. <b>Indícanos tu email para verificar que realmente eres tú.</b>", "wp-a-tu-gusto"); ?></p>
+        <h2><?php _e("Accede a las preferencias de tus suscripciones y personalizalas a tu gusto", "wp-a-tu-gusto"); ?></h2>
+        <p><?php _e("Te vamos a contar el día a día de la empresa vasca, hacia donde va tu sector, los eventos a los que no puedes faltar, las ayudas de las que te puedes beneficiar, inspirarte con ideas de la competencia o aprender de los éxitos y fracasos…, porque eso, también te lo contamos. Indícanos tu email para verificar que realmente eres tú.", "wp-a-tu-gusto"); ?></p>
         <?php if (isset($_REQUEST['wpatg-email']) && is_email($_REQUEST['wpatg-email'])) {
           remove_all_filters('wp_mail', 10);
           if(existsUserAC($_REQUEST['wpatg-email'])) {
@@ -78,13 +73,14 @@ function wpatg_login($params = array(), $content = null) {
             $ok = __('Para actualizar tus preferencias de suscripción, comprueba tu correo electrónico porque te hemos enviado un mensaje con los pasos para poder hacerlo.', 'wp-a-tu-gusto');
           } else $error = __('Email incorrecto. El email suministrado no está en nuestra base de datos.', 'wp-a-tu-gusto');
         } else if (isset($_REQUEST['wpatg-email'])) $error = __('Email incorrecto. El email suministrado no tiene el formato adecuado.', 'wp-a-tu-gusto');?>
-        <?php if(isset($ok)) echo "<p style='padding: 10px; color: #000; background-color: #21f3f3;'><b>".$ok."</b></p>"; ?>
-        <?php if(isset($error)) echo "<p><b style='color: red;'>".$error."</b></p>"; ?>
-        <input type="email" name="wpatg-email" value="" placeholder="<?php _e('Email', 'wp-a-tu-gusto'); ?>" required />
+        <?php if(isset($ok)) echo "<p style=' background-color: #21f3f3; color: #000; padding: 10px; text-align: center;'><b>".$ok."</b></p>"; ?>
+        <?php if(isset($error)) echo "<p style='background-color: red; color: #fff; padding: 10px; text-align: center;'><b>".$error."</b></p>"; ?>
+        <p><?php _e('Email', 'wp-a-tu-gusto'); ?></p>
+        <input type="email" name="wpatg-email" value="" placeholder="<?php _e('tunombre@email.com', 'wp-a-tu-gusto'); ?>" required />
         <button type="submit" name="wpatg-send"><?php _e('Enviar', 'wp-a-tu-gusto'); ?></button>
       </form>
     <?php } else { ?>
-      <div class="content-wpatg">
+      <div id="wpatg-form-home">
         <h2><?php _e("Personaliza tu perfil para recibir ", "wp-a-tu-gusto"); ?></h2>
         <h3><?php _e("sólo lo que te interesa", "wp-a-tu-gusto"); ?></h3>
         <div class="cols">
@@ -113,38 +109,24 @@ function wpatg_zone($params = array(), $content = null) {
   ob_start(); 
   $menu = [
     "editar-perfil" => __("Editar perfil", "wp-a-tu-gusto"),
-    //"mis-noticias" => __("Mis noticias", "wp-a-tu-gusto"),
     "archivo-boletines" => __("Archivo de boletines", "wp-a-tu-gusto"),
+    "logout" => __("Salir", "wp-a-tu-gusto"),
   ]; ?>
-  <div id="wpatg">
-    <div class="menu-wpatg">
-      <ul>
-        <?php /* <li class="home"><a href="<?php echo get_the_permalink(); ?>"><?php _e("Inicio", "wp-a-tu-gusto"); ?></a></li> */ ?>
-        <?php foreach($menu as $tab => $label) { ?>
-          <li class="<?=$tab;?>"><a href="<?php echo get_the_permalink()."?wpatg_tab=".$tab; ?>"><?=$label;?></a></li>
-        <?php } ?>
-        <li class="logout"><a href="<?php echo get_the_permalink()."?wpatg_logout=yes"; ?>"><?php _e("Salir", "wp-a-tu-gusto"); ?></a></li>
-      </ul>
-    </div>
-    <div class="content-wpatg">
+  <div id="wpatg" class="logged">
+    <?php if(isset($menu)) wpatg_menu($menu); ?>
+    <div id="wpatg-form-profile">
       <?php if(isset($_REQUEST['wpatg_tab'])) { 
-        if($_REQUEST['wpatg_tab'] == 'editar-perfil' ) {
-          wpatg_zone_edit_profile();
-        } else if($_REQUEST['wpatg_tab'] == 'mis-noticias') { ?>
-          <h2><?php _e("Mis noticias", "wp-a-tu-gusto"); ?></h2>
-          <p>Fase 3</p>
-        <?php } else if($_REQUEST['wpatg_tab'] == 'archivo-boletines') wpatg_zone_archive();
-      } else { ?>
-        <?php wpatg_zone_edit_profile(); ?>
-      <?php } ?>
+        if($_REQUEST['wpatg_tab'] == 'editar-perfil' ) wpatg_zone_edit_profile();
+        else if($_REQUEST['wpatg_tab'] == 'archivo-boletines') wpatg_zone_archive();
+      } else wpatg_zone_edit_profile(); ?>
     </div>
     <?php echo do_shortcode("[wpatg_banner]"); ?>
   </div>
   <?php echo wpatg_zone_show_css(); ?>
-  <?php 
-
-  $file = WPATG_ARCHIVE_CACHE_FILE;
-  if (isset($_REQUEST['wpatg_tab']) && $_REQUEST['wpatg_tab'] != 'archivo-boletines' && (!file_exists($file) || time()-filemtime($file) >= WPATG_ARCHIVE_CACHE_TIME)) { //Si el cacheo de newsletters es viejo lo recargamos via ajax sin que el usuario se de cuenta. ?>
+  <?php $file = WPATG_ARCHIVE_CACHE_FILE;
+  if (isset($_REQUEST['wpatg_tab']) && 
+    $_REQUEST['wpatg_tab'] != 'archivo-boletines' && 
+    (!file_exists($file) || time()-filemtime($file) >= WPATG_ARCHIVE_CACHE_TIME)) { //Si el cacheo de newsletters es viejo lo recargamos via ajax sin que el usuario se de cuenta. ?>
     <script>
       jQuery.ajax( "<?=admin_url('admin-ajax.php'); ?>?action=archive_cache" )
       .done(function() {
@@ -163,7 +145,6 @@ function wpatg_zone_show_css() { ?>
   <style>
     <?php echo file_get_contents(dirname(__FILE__)."/../assets/css/style.css"); ?>
   </style>
-  
 <?php }
 
 function wpatg_zone_edit_profile() {
@@ -463,74 +444,6 @@ function wptag_zone_my_data_draw_field($field, $contact) { ?>
   </label>
 <?php }
 
-function wpatg_zone_archive() { 
-  $file = WPATG_ARCHIVE_CACHE_FILE;
-  if (file_exists($file) && time()-filemtime($file) < WPATG_ARCHIVE_CACHE_TIME) { //Si es menos de 1 día usamos el cacheo
-    $campaigns = json_decode(file_get_contents($file), true);
-  } else {
-    $campaigns = wptag_zone_archive_generate_json($file);
-  } 
-  if(isset($_GET['wpatg_offset'])) $offset = $_GET['wpatg_offset'];
-  else $offset = 0; ?>
-  <h2><?php _e("Archivo de boletines", "wp-a-tu-gusto"); ?></h2>
-  <h3><?php _e("Consulta boletines antiguos", "wp-a-tu-gusto"); ?></h3>
-  <div id="archive">
-    <?php $sliced_campaigns = array_slice($campaigns, $offset, WPATG_ARCHIVE_MAX_ITEMS); foreach ($sliced_campaigns as $campaign) {
-      echo "<a href='".(parse_url(get_the_permalink(), PHP_URL_QUERY) ? '&' : '?') . "wpatg_preview_newsletter=". md5($campaign['name']). "'>".$campaign['subject']."<div>".date(__("d/m/Y", "wp-atu-gusto"), $campaign['date'])."</div><span style='background-image: url(".$campaign['screenshot'].");'></span></a>";
-    } ?>
-  </div>
-  <div class="paginator">
-    <?php $counter = 0; for ($i = 0; $i < count($campaigns); $i = $i + WPATG_ARCHIVE_MAX_ITEMS) { $counter++; ?>
-      <?php if($i != $offset) { ?>
-        <a href="<?php echo get_the_permalink()."?wpatg_tab=archivo-boletines&wpatg_offset=".$i; ?>#archive"><?php echo $counter; ?></a>
-      <?php } else { ?>
-        <b><?php echo $counter; ?></b>
-      <?php } ?>
-    <?php } ?>
-  </div>
-<?php }
-
-function wptag_zone_archive_generate_json($file) {
-  $campaigns = array();
-  $offset = 0;
-  $max = 100;
-  file_put_contents($file, "");
-  while (count($campaigns) < 50) {
-    $json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=".$offset."&limit=".$max);
-    $codes = explode(",", WPATG_NEWLETTERS_FILTER);
-    $counter = 0;
-    foreach($json->campaigns as $campaign) {
-      foreach ($codes as $key => $code) {
-        if(preg_match("/".$code."/", $campaign->name) && $campaign->mail_send == 1) {
-          $message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage));
-          $campaigns[] = [
-            "name" => $campaign->name,
-            "subject" => $message->campaignMessage->subject,
-            "screenshot" => $message->campaignMessage->screenshot,
-            "date" => strtotime($campaign->sdate),
-          ];
-        }
-      }
-    }
-    $offset = $offset + $max;
-  }
-  if (count($campaigns) > 0) { //Guardamos el nuevo cache
-    file_put_contents($file, json_encode($campaigns));
-  }
-  return $campaigns;
-}
-
-function wptag_zone_archive_cache_ajax() {
-  $file = WPATG_ARCHIVE_CACHE_FILE;
-  if (file_exists($file) && time()-filemtime($file) < WPATG_ARCHIVE_CACHE_TIME) { //Si es menos de 1 día usamos el cacheo
-    $campaigns = json_decode(file_get_contents($file), true);
-  } else {
-    $campaigns = wptag_zone_archive_generate_json($file);
-  }
-}
-add_action('wp_ajax_archive_cache', 'wptag_zone_archive_cache_ajax');
-add_action('wp_ajax_nopriv_archive_cache', 'wptag_zone_archive_cache_ajax');
-
 function wpatg_gamification($current_contact = '', $mini = false) { 
   if (is_object($current_contact)) $contact = $current_contact;
   else $contact = getLoggedUser(); 
@@ -642,9 +555,17 @@ function wpatg_gamification($current_contact = '', $mini = false) {
   <?php } ?>
 <?php }
 
+function wpatg_menu($menu) { ?>
+  <div class="menu-wpatg">
+    <ul>
+      <?php foreach($menu as $tab => $label) { ?>
+        <li class="<?=$tab;?>"><a href="<?php echo get_the_permalink()."?wpatg_tab=".$tab; ?>"><?=$label;?></a></li>
+      <?php } ?>
+    </ul>
+  </div>
+<?php }
 
-
-/* wpatg_login */
+/* wpatg_zone */
 function wpatg_banner($params = array(), $content = null) {
   ob_start(); ?>
   <div id="wpatg_banner" style="background-image: url(<?php echo get_option("_wpatg_banner_image"); ?>);">
@@ -661,54 +582,3 @@ function wpatg_banner($params = array(), $content = null) {
   <?php return ob_get_clean();
 }
 add_shortcode('wpatg_banner', 'wpatg_banner');
-
-
-function wpatg_preview_newsletter(){
-	if(isset($_REQUEST['wpatg_preview_newsletter'])) {
-		
-		$max = 50;
-		$json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=0&limit=".$max);
-		foreach($json->campaigns as $campaign) {
-			if(md5($campaign->name) == $_REQUEST['wpatg_preview_newsletter']) {
-				$message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage,));
-				$htmlcode = curlCallGet(str_replace(WPAT_AC_API_URL, "", $message->campaignMessage->links->message));
-				echo $htmlcode->message->html;
-				break;
-			}
-		}
-		die;
-	}
-}
-add_action( "template_redirect", "wpatg_preview_newsletter" );
-
-/*
-function wptag_zone_archive_generate_json($file) {
-  $campaigns = array();
-  $offset = 0;
-  $max = 100;
-  file_put_contents($file, "");
-  while (count($campaigns) < 50) {
-    $json = curlCallGet("/campaigns?orders[sdate]=DESC&offset=".$offset."&limit=".$max);
-    $codes = explode(",", WPATG_NEWLETTERS_FILTER);
-    $counter = 0;
-    foreach($json->campaigns as $campaign) {
-      foreach ($codes as $key => $code) {
-        if(preg_match("/".$code."/", $campaign->name) && $campaign->mail_send == 1) {
-          $message = curlCallGet(str_replace(WPAT_AC_API_URL, "", $campaign->links->campaignMessage));
-          $campaigns[] = [
-            "name" => $campaign->name,
-            "subject" => $message->campaignMessage->subject,
-            "screenshot" => $message->campaignMessage->screenshot,
-            "date" => strtotime($campaign->sdate),
-          ];
-        }
-      }
-    }
-    $offset = $offset + $max;
-  }
-  if (count($campaigns) > 0) { //Guardamos el nuevo cache
-    file_put_contents($file, json_encode($campaigns));
-  }
-  return $campaigns;
-}
-*/
