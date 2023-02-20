@@ -141,11 +141,9 @@ function wpatg_zone($params = array(), $content = null) {
 }
 add_shortcode('wpatg_zone', 'wpatg_zone');
 
-function wpatg_zone_show_css() { ?>
-  <style>
-    <?php echo str_replace("[URL]", plugin_dir_path(__FILE__)."/../", file_get_contents(dirname(__FILE__)."/../assets/css/style.css")); ?>
-  </style>
-<?php }
+function wpatg_zone_show_css() { ?><style>
+  <?php echo str_replace("[URL]", plugin_dir_url(__FILE__)."../", file_get_contents(dirname(__FILE__)."/../assets/css/style.css")); ?>
+</style><?php }
 
 function wpatg_zone_edit_profile() {
   $contact = getLoggedUser(); ?>
