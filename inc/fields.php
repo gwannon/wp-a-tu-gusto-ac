@@ -8,12 +8,30 @@ function getFields($label = '') {
   );
 
   if ($label == 'newsletters') return array( 
-    array("id" => 19, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 17, "automdown" => 215, "text" => __('Mi boletín semanal de Grupo SPRI', 'wp-a-tu-gusto'), "description" => __("Lo mejor de la semana: entrevistas, noticias, ayudas, agenda, formación y tendencias sobre ciberseguridad, digitalización, nuevos modelos de gestión avanzada, internacionalización, emprendimiento, infraestructuras.", 'wp-a-tu-gusto')),
-    array("id" => 323, "image" => "https://dummyimage.com/580x300/000000/fff", /*"automup" => 17, "automdown" => 215,*/ "text" => __('Mi boletín semanal de Grupo SPRI Empresas', 'wp-a-tu-gusto'), "description" => __("Lorem ipsum sid amet.", 'wp-a-tu-gusto')),
-    array("id" => 283, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 224, "automdown" => 223, "text" => __('Mi boletín semanal de Empresa Digitala', 'wp-a-tu-gusto'), "description" => __("Lorem ipsum sid amet.", 'wp-a-tu-gusto')),
-    array("id" => 21, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 18, "automdown" => 216, "text" => __('Mi boletín semanal de Adi! Agenda', 'wp-a-tu-gusto'), "description" => __("Si formas parte de la Nueva red de Statups de Euskadi, quieres invertir o arrancas ahora tu proyecto innovador, aquí te contamos toda lo que se mueve sobre emprendimiento.", 'wp-a-tu-gusto')),
-    array("id" => 20, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 19, "automdown" => 217, "text" => __('Mi boletín mensual UP! Euskadi', 'wp-a-tu-gusto'), "description" => __("Una vez al mes la información sobre la red de Startups vascas y sus últimas innovaciones.", 'wp-a-tu-gusto')),
-    array("id" => 80, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 46, "automdown" => 214, "text" => __('Mi boletín semanal Oferta y demanda tecnológica.', 'wp-a-tu-gusto'), "description" => __("Cada semana las oportunidades del mercado en materia de transferencia tecnológica internacional.", 'wp-a-tu-gusto')),
+    array("id" => 19, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 17, "automdown" => 215, 
+      "text" => __('Mi boletín semanal de Grupo SPRI', 'wp-a-tu-gusto'), 
+      "description" => __("Te informamos de las ayudas y los servicios con sus plazos de apertura y sus ventajas, así como de las principales iniciativas y tendencias sobre tecnología, internacionalización, emprendimiento, innovación, digitalización, ciberseguridad, etc.", 'wp-a-tu-gusto')),
+
+    array("id" => 323, "image" => "https://dummyimage.com/580x300/000000/fff", /*"automup" => 17, "automdown" => 215,*/ 
+      "text" => __('Mi boletín semanal sobre la Empresa Vasca', 'wp-a-tu-gusto'), 
+      "description" => __("Las personas de las empresas y startup vascas disponen de un boletín semanal para exponer en noticias y entrevistas sus iniciativas, proyectos y todo aquello que nos sirve para compartir experiencias.", 'wp-a-tu-gusto')),
+
+    array("id" => 21, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 18, "automdown" => 216, 
+      "text" => __('Mi boletín semanal - Adi!', 'wp-a-tu-gusto'), 
+      "description" => __("Boletín semanal con programas de ayudas, asesoramiento experto, formación, jornadas y eventos del Grupo SPRI. Mantente informado, aprende e inspírate de la mano de los mejores profesionales y la agenda empresarial vasca.", 'wp-a-tu-gusto')),
+
+    array("id" => 20, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 19, "automdown" => 217, 
+      "text" => __('Mi boletín mensual UP! Euskadi', 'wp-a-tu-gusto'), 
+      "description" => __("Una vez al mes la información sobre la Red de Startups vascas y sus últimas innovaciones. Si formas parte de la Nueva red de Statups de Euskadi, quieres invertir o arrancas ahora tu proyecto innovador, te contamos todo lo que se mueve sobre emprendimiento.", 'wp-a-tu-gusto')),
+
+    array("id" => 283, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 224, 
+      "automdown" => 223, "text" => __('Mi boletín semanal agenda y asesoramiento - Mikroenpresa Digitala', 'wp-a-tu-gusto'), 
+      "description" => __("Boletín semanal con la agenda formativa y asesoramiento gratuito para que autónomos y microenpresas digitalicen sus negocios; ganen productividad, eliminen tareas repetitivas, entiendan mejor a sus clientes, eviten ciberataques…", 'wp-a-tu-gusto')),
+
+
+    array("id" => 80, "image" => "https://dummyimage.com/580x300/000000/fff", "automup" => 46, "automdown" => 214, 
+      "text" => __('Mi boletín semanal Oferta y demanda tecnológica.', 'wp-a-tu-gusto'), 
+      "description" => __("Cada semana las oportunidades del mercado en materia de transferencia tecnológica internacional.", 'wp-a-tu-gusto')),
   ); 
 
   //Intereses
