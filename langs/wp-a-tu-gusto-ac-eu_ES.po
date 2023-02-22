@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: ac-update-forms\n"
-"POT-Creation-Date: 2023-02-22 12:00+0100\n"
-"PO-Revision-Date: 2023-02-22 12:01+0100\n"
+"Project-Id-Version: wp-a-tu-gusto\n"
+"POT-Creation-Date: 2023-02-22 12:01+0100\n"
+"PO-Revision-Date: 2023-02-22 12:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: jorge@enutt.net\n"
 "Language: eu_ES\n"
@@ -116,8 +116,8 @@ msgstr ""
 msgid "d/m/Y"
 msgstr "Y/m/d"
 
-#: ../inc/fields.php:6
-msgid "Castellano "
+#: ../inc/fields.php:6 ../inc/shortcodes.php:57
+msgid "Castellano"
 msgstr "Gaztelania"
 
 #: ../inc/fields.php:7 ../inc/shortcodes.php:58
@@ -480,10 +480,6 @@ msgstr "Posta elektronikoa"
 msgid "Idioma"
 msgstr ""
 
-#: ../inc/shortcodes.php:57
-msgid "Castellano"
-msgstr "Gaztelania"
-
 #: ../inc/shortcodes.php:60
 msgid "¡Suscríbete!"
 msgstr ""
@@ -746,6 +742,9 @@ msgid ""
 "tiempo, nosotros nos comprometemos a mejorar nuestras comunicaciones contigo "
 "para ofrecerte los temas que realmente te interesan."
 msgstr ""
+
+#~ msgid "Castellano "
+#~ msgstr "Gaztelania"
 
 #~ msgid ""
 #~ "Lo mejor de la semana: entrevistas, noticias, ayudas, agenda, formación y "
