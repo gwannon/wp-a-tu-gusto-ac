@@ -1,6 +1,6 @@
 <?php
 
-if($_GET['wpatg_preview_newsletter']){
+if(isset($_ET['wpatg_preview_newsletter']) && $_GET['wpatg_preview_newsletter'] != ''){
 	add_filter( 'do_rocket_lazyload', '__return_false' );
 }
 
