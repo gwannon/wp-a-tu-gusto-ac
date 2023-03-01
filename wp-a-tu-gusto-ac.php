@@ -15,13 +15,13 @@
  * WordPress 6.1.1
  */
 
-ini_set("display_errors", 1);
+ini_set("display_errors", 0);
 
 //Cargamos el multi-idioma
-function ac_plugins_loaded() {
+function wpatg_plugins_loaded() {
   load_plugin_textdomain('wp-a-tu-gusto', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
 }
-add_action('plugins_loaded', 'ac_plugins_loaded', 0 );
+add_action('plugins_loaded', 'wpatg_plugins_loaded', 0 );
 
 function wpatg_load_scripts(){
   wp_enqueue_script('jquery');

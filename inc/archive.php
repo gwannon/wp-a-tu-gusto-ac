@@ -1,5 +1,10 @@
 <?php
 
+if($_GET['wpatg_preview_newsletter']){
+	add_filter( 'do_rocket_lazyload', '__return_false' );
+}
+
+
 function wpatg_zone_archive() { 
   $file = WPATG_ARCHIVE_CACHE_FILE;
   if (file_exists($file) && time()-filemtime($file) < WPATG_ARCHIVE_CACHE_TIME) { //Si es menos de 1 día usamos el cacheo
